@@ -1,0 +1,9 @@
+^CODE_OF_CONDUCT\.md$
+^README\.Rmd$
+^LICENSE\.md$
+^.*\.Rproj$
+^\.Rproj\.user$
+^data-raw$
+dev_history.R
+^dev$
+$run_dev.*

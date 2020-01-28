@@ -1,0 +1,75 @@
+---
+output: md_document
+always_allow_html: yes
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+```{r, include=FALSE}
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+```
+
+# tidymodules <img src="man/figures/logo.svg" align="right" height="139" />
+
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
+The tidymodules R package is built on top of shiny modules using R6 to provide a new object-oriented programming (OOP) approach for module development, new module interface using input/output ports and a set of tidy operators for handling cross-module communication. 
+
+The main features of tidymodules and its comparison with conventional Shiny modules are presented in the table below.
+
+| Features |              | tidymodules                                                                                                               | Conventional modules                                                                  |
+|----|----------------------|---------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| [<i style="color:#285fa4;" class="fas fa-laptop-code fa-2x"></i>](articles/intro.html) | Programming style    | - R6 OOP * <br/> - Semantic reference                                                                                       | Functional                                                                            |
+| [<i style="color:#285fa4;" class="fas fa-th-large fa-2x"></i>](articles/namespace.html) | Namespace management | - automatic/generated <br/> - ID based lookup <br/> - Grouping                                                                             | - manual management <br /> - must match between ui and server                         |
+| [<i style="color:#285fa4;" class="fas fa-directions fa-2x"></i>](articles/communication.html) | Module communication | - new module input/output port structure <br/> - module ports linked via tidy operators <br/> - automatic network diagram | - parameter passing via module server() <br/> - challenging to manage for complex app |
+| [<i style="color:#285fa4;" class="fas fa-sitemap fa-2x"></i>](articles/inheritance.html) | Inheritance          | - class inheritance <br/> - port inheritance for nested modules                                                           | NA                                                                                    |
+| [<i style="color:#285fa4;" class="fas fa-users fa-2x"></i>](articles/session.html) | Session management   | - flexible user session management <br/> - Caching of modules coming soon                                                             | NA                                                                                    |
+
+\* OPP = Object Oriented Programming
+
+## Installation
+
+You can install the most recent version of *tidymodules* from [GitHub](https://github.com/Novartis/tidymodules) with:
+
+``` r
+library(devtools)
+install_github("Novartis/tidymodules")
+```
+
+## Examples
+
+You can quickly launch an example after installing the R package by running the following.
+``` r
+tidymodules::showExamples(4)
+```
+Some examples have been deployed on shinyapp.io, such as: 
+
+- Example 1: Simple addition [<i class="fas fa-rocket"></i>](https://tidymodules.shinyapps.io/1_simple_addition/)
+- Example 2: Linked scatter [<i class="fas fa-rocket"></i>](https://tidymodules.shinyapps.io/2_linked_scatter/)
+- Example 2: Nested module [<i class="fas fa-rocket"></i>](https://tidymodules.shinyapps.io/3_nested_modules/)
+- Example 4: Module communication [<i class="fas fa-rocket"></i>](https://tidymodules.shinyapps.io/4_communication/)
+
+## Learning More
+
+Please review the [Get Started](articles/tidymodules.html) page for a high level introduction to tidymodules and its usage in developing Shiny apps.
+
+If you are interested to develop modules using tidymodules, we recommend reading the vignettes under "Articles".
+
+## Code of Conduct
+
+Please note that the *tidymodules* package is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+
+## Acknowledgment
+
+- The SCC team members @ NVS for their valuable feedbacks
+- 2019 Summer interns (Marzi, Stephen and Renan) for contributing to testing the framework and implementing the demo example 4 listed above.
+- Eric Nantz for accepting to present tidymodules in his e-poster @ RStudio-Conf 2020

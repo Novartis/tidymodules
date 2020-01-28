@@ -1,0 +1,70 @@
+
+url: https://opensource.nibr.com/tidymodules/
+home:
+  links:
+  - text: Github 
+    href: https://github.com/Novartis/tidymodules.git
+  - text: Site
+    href: https://opensource.nibr.com/tidymodules/
+
+toc:
+  depth: 2
+  
+navbar:
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: 'Writing R6 classes and tidymodules'
+        href: articles/intro.html
+      - text: 'Namespace management'
+        href: articles/namespace.html
+      - text: 'Cross module communication'
+        href: articles/communication.html
+      - text: 'Inheritance'
+        href: articles/inheritance.html
+      - text: 'Session management'
+        href: articles/session.html
+        
+reference:
+- title: R6 Modules
+  desc: List of R6 Classes provided by tidymodules
+  contents:
+  - '`ModStore`'
+  - '`Store`'
+  - '`TidyModule`'
+- title: Utility functions
+  desc: List of utility functions
+  contents:
+  - '`showExamples`'
+  - '`getSessionId`'
+  - '`callModules`'
+  - '`check_and_load`'
+  - '`getMod`'
+  - '`mod`'
+  - '`port`'
+  - '`oport`'
+  - '`iport`'
+- title: Configuration
+  desc: List of available configurations
+  contents:
+  - '`global_options`'
+  - '`session_type`'
+  - '`getCacheOption`'
+- title: Port functions and operators
+  desc: List of functions and pipe operators used to manage modules communication
+  contents:
+  - '`map_ports`'
+  - '`combine_ports`'
+  - '`race_ports`'
+  - '`%>y%`'
+  - '`%>>y%`'
+  - '`%->%`'
+  - '`%x>y%`'
+  - '`%x>>y%`'
+  - '`%x<y%`'
+  - '`%x<<y%`'
+  - '`%:>:%`'
+  - '`%:>>:%`'
+  - '`%:i:%`'
+

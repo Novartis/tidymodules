@@ -1,0 +1,234 @@
+---
+title: "Getting started with writing tidymodules <div style='float:right;'><i style='color:#285fa4;' class='fas fa-laptop-code fa-4x'></i></div>"
+author: "Xiao Ni, Mustapha Larbaoui"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  eval = TRUE,
+  comment = "#>"
+)
+```
+
+## A quick introduction to R6 and Object Oriented Programming (OOP)
+
+Tidymodules is based R6 ([https://r6.r-lib.org/](https://r6.r-lib.org/)), which is an implementation of encapsulated object-oriented programming for R. Therefore knowledge of R6 is a prerequisite for using tidymodules to develop Shiny modules.
+
+R6 provides a framework for OOP in R. Unlike the functional programming style, R6 encapsulate methods and fields in classes that instantiate into objects. R6 classes are similar to R's reference classes, but are more efficient and do not depend on S4 classes and the methods package. 
+
+This vignette provides a brief overview of R6 for developers new to R6. For more information, developers are recommended to review the R6 packagedown site  ([https://r6.r-lib.org/](https://r6.r-lib.org/)), as well as Chapter 14 of the Advanced R book ([https://adv-r.hadley.nz/r6.html](https://adv-r.hadley.nz/r6.html))
+
+### R6 classes and methods
+
+Tidymodules depends on the R6 package which you can install from CRAN and load: 
+```{r , eval=FALSE}
+library(R6)
+```
+
+R6 classes are created using the [`R6::R6Class()` function](https://r6.r-lib.org/reference/R6Class.html), which is the only function from the R6 package that is typically used. The following is a simple example of defining an R6 class:
+```{r, eval=TRUE}
+Calculator <- R6::R6Class(
+  classname = "Calculator", 
+  public = list(
+    value = NA,
+    initialize = function(value) {
+      self$value <- value
+    },
+    add = function(x = 1) {
+      self$value <- self$value + x 
+      invisible(self)
+    })
+)
+```
+The first argument `classname` by convention uses `UpperCamelCase`. The second argument `public` encapsulates a list of methods (functions) and fields (objects) that make up the public interface of the object. By convention methods and fields use `snake_case`. Methods can access the methods and fields of the current object using `self$`. One should always assign the result of `R6Class()` into a variable with the same names as the `classname` because `R6Class()` returns an R6 object that defines the class. 
+   
+
+You can print the class definition:
+```{r}
+Calculator
+```
+
+
+To create a new instance of `Calculator`, use the `$new()` method. The `$initialize()` is an important method, which overrides the default behavior of `$new()`. In the above example, the `$initialize()` method initializes the `calculator1` object with `value = 0`. 
+```{r}
+calculator1 <- Calculator$new(0)
+calculator1
+```
+
+
+You can then call the methods and access fields using `$`:
+```{r}
+calculator1$add(10)
+calculator1$value
+```
+
+You can also add methods after class creation as illustrated below for the existing `Calculator` R6 class, although new methods and fields are only available to new objects.
+```{r}
+Calculator$set("public", "subtract", function(x=1) {
+  self$value <- self$value - x
+  invisible(self)
+})
+Calculator
+```
+
+
+Below are some key features of R6.
+
+- **Reference semantics**: objects are not copied when modified. R6 provides a `$clone()` method for making copy of an object. For more details, refer to https://r6.r-lib.org/reference/R6Class.html#cloning-objects. 
+- **Public vs. private members**: `R6Class()` has a `private` argument for you to define private methods and fileds that can only be accessed from within the class, not from the outside.
+- **Inheritance**: as in classical OOP, one R6 class can inherit from another R6 class. Superclass methods can be accessed with `super$`.
+
+## `tidymodules::TidyModule` class
+
+The `tidymodules::TidyModule` class inherits from `R6Class` and is the parent of all tidymodules modules. 
+
+Below is partial code of the `TidyModule` class for illustration purpose. `TidyModule` includes public methods such as `ui()`, `server()`, `callModules()`, and `definePorts()` etc. 
+
+Unlike conventional Shiny modules in funtional programming style, tidymodules encapsulates functions such as ui() and server() as methods in a TidyModule class object. Module namespace ID is seamlessly managed within the module class for the ui and server. For complete technical documentation include other methods and fields, see `?TidyModule`.
+```{r, eval=FALSE}
+TidyModule <- R6::R6Class(
+  "TidyModule",
+  public = list(
+    id = NULL,
+    module_ns = NULL,
+    parent_ns = NULL,
+    parent_mod = NULL,
+    parent_ports = NULL,
+    group = NULL,
+    created = NULL,
+    o = NULL,
+    i = NULL,
+    initialize = function(id = NULL, inherit = TRUE, group = NULL) {
+      # details omitted
+    },
+    # Other methods such
+    ui = function(){
+      return(shiny::tagList())
+    },
+    server = function(input, 
+                      output, 
+                      session){
+      # Need to isolate this block to avoid unecessary triggers
+      shiny::isolate({
+        private$shiny_session <- session
+        private$shiny_input <- input
+        private$shiny_output <- output
+      })
+    },
+    definePort = function(x){
+      shiny::isolate(x)
+    },
+    assignPort = function(x){
+      shiny::observe({
+        shiny::isolate(x)
+      })
+    },
+    # Other public methods omitted 
+  ),
+  private = list(  
+    # Details omitted
+  )
+)
+      
+
+```
+
+
+
+## Writing your first tidymodules Shiny module
+
+ You can develop new tidymodules Shiny modules by inheriting and extending the `tidymodules::TidyModule` class. 
+
+Below is a minimal example, `RandomNumberGenerator`, with one input port and one output port. The input port is a random number seed that feeds into a random number generator, whose result serves as the module output.
+
+```{r}
+# Module definition
+RandomNumMod <- R6::R6Class(
+  "RandomNumGenerator",
+  inherit = tidymodules::TidyModule,
+  public = list(
+    initialize = function(id = NULL){
+      super$initialize(id)
+     
+      self$definePort({
+        self$addInputPort(
+          name = "seed",
+          description = "random number seed",
+          sample = 123)
+       
+        self$addOutputPort(
+          name = "number",
+          description = "Random number",
+          sample = 123)
+      })
+    },
+    ui = function(){
+      tagList(
+        verbatimTextOutput(self$ns("text"))
+      )
+    },
+    server = function(input, output, session){
+     
+      super$server(input,output,session)
+     
+      result <- reactive({
+        s <- self$getInput("seed")
+        set.seed(s())
+        floor(runif(1)*1e5)
+      })
+     
+      output$text <- renderPrint({
+        s <- self$getInput("seed")
+        print(paste0("seed = ", s()))
+        print(paste0("number = ", result()))
+      })
+     
+      self$assignPort({
+        self$updateOutputPort(
+          id = "number",
+          output = result)
+      })
+      return(result)
+    }
+  )
+)
+```
+
+Cross-communication between two tidymodules modules is established using several flavours of the pipe `%>%` operator, as illustrated in the following code. The first module's output is fed as the random number seed for the second module.
+```{r, eval=FALSE}
+## Calling app
+randomNumMod1 <- RandomNumMod$new()
+randomNumMod2 <- RandomNumMod$new()
+ 
+ui <- tagList(
+  fluidPage(
+    randomNumMod1$ui(),
+    randomNumMod2$ui()
+  )
+)
+server <- function(input, output, session) {
+ 
+  randomNumMod1$callModule()
+  randomNumMod2$callModule()
+ 
+  seed_1 <- reactive(123)
+ 
+  observe({
+    seed_1 %>1% randomNumMod1 %1>1% randomNumMod2
+  })
+}
+ 
+shinyApp(ui = ui, server = server)
+```
+
+## Next steps
+
+To learn more about writing tidymodules modules, read the examples.
+

@@ -1,0 +1,36 @@
+Package: tidymodules
+Title: A robust framework for developing shiny modules
+Version: 0.1.0
+Authors@R: c(
+  person('Mustapha', 'Larbaoui', email = 'mustapha.larbaoui@novartis.com', role = c('cre', 'aut')),
+  person('Douglas', 'Robinson', email = 'douglas.robinson@novartis.com', role = c('ctb')),
+  person('Xiao', 'Ni', email = 'xiao.ni@novartis.com', role = c('ctb')),
+  person('David', 'Granjon', email = 'david.granjon@novartis.com', role = c('ctb')),
+  person('Stephen', 'Eng', email = 'stefaneng13@gmail.com', role = c('ctb')),
+  person('Marzieh', 'Eslami Rasekh', email = 'marzie.rasekh@gmail.com', role = c('ctb')),
+  person('Renan', 'Sauteraud', email = 'rxs575@psu.edu', role = c('ctb')))
+Description: tidymodules offers a robust framework for developing shiny modules based on R6 classes which should facilitates inter-modules communication.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    shiny,
+    stringi,
+    digest,
+    R6,
+    visNetwork
+RoxygenNote: 7.0.0
+Roxygen: list(markdown = TRUE)
+URL: https://github.com/Novartis/tidymodules
+BugReports: https://github.com/Novartis/tidymodules/issues
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown,
+    ggplot2,
+    dplyr,
+    shinycssloaders,
+    RColorBrewer,
+    shinyWidgets,
+    plotly
+VignetteBuilder: knitr
