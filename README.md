@@ -115,5 +115,6 @@ Acknowledgment
 -   2019 Summer interns (Marzi, Stephen and Renan) for contributing to
     testing the framework and implementing the demo example 4 listed
     above.
--   Eric Nantz for accepting to present tidymodules in his e-poster @
-    RStudio-Conf 2020
+-   Eric Nantz for accepting to present tidymodules in his
+    [e-poster](https://rpodcast.shinyapps.io/highlights.shiny) @
+    rstudio::conf 2020
