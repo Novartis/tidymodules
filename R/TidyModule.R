@@ -14,6 +14,8 @@ TidyModule <- R6::R6Class(
   public = list(
     #' @field id ID of the module.
     id = NULL,
+    #' @field name Name of the module as generated or provided by the user.
+    name = NULL,
     #' @field module_ns Module namespace, unique identifier for the module.
     module_ns = NULL,
     #' @field parent_ns Parent module namespace in case of nested modules.
@@ -26,6 +28,8 @@ TidyModule <- R6::R6Class(
     group = NULL,
     #' @field created Initialization time of the module.
     created = NULL,
+    #' @field order Initialization order.
+    order = NULL,
     # o = NULL,
     # i = NULL,
     #' @description
@@ -43,26 +47,30 @@ TidyModule <- R6::R6Class(
       self$parent_ports <- inherit
       
       ses <- self$getSession()
-      shiny::isolate({ses$count <- ses$count+1})
+      shiny::isolate({
+        ses$count <- ses$count+1
+        self$order <- ses$count
+      })
       shiny::onStop(function(){ 
         # reset session module count and edge table when app stop 
         ses$count <- 0
         ses$edges <- data.frame()
       })
       
-      self$id <- ifelse(
+      self$name <- ifelse(
         is.null(id),
         paste0(class(self)[[1]],"-",shiny::isolate({ses$count }))
         ,id)
       
       if(!is.null(group)){
-        self$id <- paste0(group,"-",self$id)
+        self$id <- paste0(group,"-",self$name)
         self$group <- group
+      }else{
+        self$id <- self$name
       }
       
       ################# Handle nested module here ################
       ############### Find and set the parent module #############
-      
       # case 1 : nested module directly initialized in attribute definition of parent
       # This type of initialization should trigger an error
       # Because the parent module need to be initialized first
@@ -72,17 +80,14 @@ TidyModule <- R6::R6Class(
       #   stop(paste0("Error in definition of module ",sys.frame(9)$classname,
       #              "! Nested module ",self$id," should be defined either in initialize() or server() of parent!"))
       
-      # case 2a : nested module initialized in initialze() or server() functions of parent
-      if(is.null(self$parent_mod))
-        self$parent_mod<-parent.env(parent.frame(3))$self
-      
-      # case 2b : same as 2a but support nested functions or module inheritance
-      for(n in 4:10)
-        if(is.null(self$parent_mod) || !is(self$parent_mod,"TidyModule")){
-          self$parent_mod<-parent.env(parent.frame(n))$self
+      # case 2 : 
+      # for n = 2:3  => nested module initialized in initialze() or server() functions of parent
+      # for n = 4:10 => same as before but support nested functions or module inheritance
+      for(n in 2:10){
+        self$parent_mod<-parent.env(parent.frame(n))$self
+        if(!is.null(self$parent_mod) && is(self$parent_mod,"TidyModule"))
           break
-        }
-      
+      }
       # case 3 : Dynamically created module in an observe function of server()
       if(is.null(self$parent_mod) || !is(self$parent_mod,"TidyModule"))
         self$parent_mod<-parent.env(parent.env(parent.frame(3)))$self
@@ -450,6 +455,8 @@ TidyModule <- R6::R6Class(
     print = function(){
       shiny::isolate({
         cat(paste0("Module Namespace ",self$module_ns,"\n"))
+        if(!is.null(self$group))
+          cat(paste0("Module Group ",self$group,"\n"))
         cat(paste0("Module Session ",self$getSessionId(),"\n"))
         cat(paste0("- Class ",paste0(class(self),collapse = " << "),"\n"))
         cat(paste0("- Input [",self$countInputPort(),"]\n"))

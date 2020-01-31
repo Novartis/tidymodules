@@ -9,6 +9,6 @@ List of global options used to adjust tidymodules configuration.
 \itemize{
 \item{\strong{tm_session_type}}{ : Define the type of the session, See available session types in \code{\link{session_type}} }
 \item{\strong{tm_session_custom}}{ : Used to set a custom function for generating the session Id. Used in concordance with the \code{CUSTOM} session type.}
-\item{\strong{tm_disable_cache}}{ : Disable caching of modules. This option is set to TRUE by default but is only relevant when user's session is managed properly. See also \code{\link{getCacheOption}}}
+\item{\strong{tm_disable_cache}}{ : Disable caching of modules. This option is set to FALSE by default but is only relevant when user's session is managed properly. See also \code{\link{getCacheOption}}}
 }
 }

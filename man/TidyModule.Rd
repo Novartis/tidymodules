@@ -22,6 +22,8 @@ m
 \describe{
 \item{\code{id}}{ID of the module.}
 
+\item{\code{name}}{Name of the module as generated or provided by the user.}
+
 \item{\code{module_ns}}{Module namespace, unique identifier for the module.}
 
 \item{\code{parent_ns}}{Parent module namespace in case of nested modules.}
@@ -33,6 +35,8 @@ m
 \item{\code{group}}{Group name of the module.}
 
 \item{\code{created}}{Initialization time of the module.}
+
+\item{\code{order}}{Initialization order.}
 }
 \if{html}{\out{</div>}}
 }

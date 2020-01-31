@@ -183,6 +183,7 @@ using module namespace/id and/or group</p>
 #&gt; - Class MyModule &lt;&lt; TidyModule &lt;&lt; R6
 #&gt; - Input [0]
 #&gt; - Output [0]</div><div class='input'><span class='no'>MyModule</span>$<span class='fu'>new</span>(<span class='st'>"MyThird"</span>,<span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"B"</span>)</div><div class='output co'>#&gt; Module Namespace B-MyThird
+#&gt; Module Group B
 #&gt; Module Session global_session
 #&gt; - Class MyModule &lt;&lt; TidyModule &lt;&lt; R6
 #&gt; - Input [0]
@@ -209,10 +210,12 @@ using module namespace/id and/or group</p>
 #&gt; - Class MyModule &lt;&lt; TidyModule &lt;&lt; R6
 #&gt; - Input [0]
 #&gt; - Output [0]</div><div class='input'><span class='fu'>getMod</span>(<span class='st'>"B-MyThird"</span>)</div><div class='output co'>#&gt; Module Namespace B-MyThird
+#&gt; Module Group B
 #&gt; Module Session global_session
 #&gt; - Class MyModule &lt;&lt; TidyModule &lt;&lt; R6
 #&gt; - Input [0]
 #&gt; - Output [0]</div><div class='input'><span class='fu'>getMod</span>(<span class='fl'>1</span>,<span class='kw'>group</span><span class='kw'>=</span><span class='st'>"B"</span>)</div><div class='output co'>#&gt; Module Namespace B-MyThird
+#&gt; Module Group B
 #&gt; Module Session global_session
 #&gt; - Class MyModule &lt;&lt; TidyModule &lt;&lt; R6
 #&gt; - Input [0]

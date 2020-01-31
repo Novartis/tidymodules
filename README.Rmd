@@ -53,14 +53,14 @@ tidymodules::showExamples(4)
 ```
 Some examples have been deployed on shinyapp.io, such as: 
 
-- Example 1: Simple addition [<i class="fas fa-rocket"></i>](https://tidymodules.shinyapps.io/1_simple_addition/)
-- Example 2: Linked scatter [<i class="fas fa-rocket"></i>](https://tidymodules.shinyapps.io/2_linked_scatter/)
-- Example 2: Nested module [<i class="fas fa-rocket"></i>](https://tidymodules.shinyapps.io/3_nested_modules/)
-- Example 4: Module communication [<i class="fas fa-rocket"></i>](https://tidymodules.shinyapps.io/4_communication/)
+- Example 1: [Simple addition <i class="fas fa-rocket"></i>](https://tidymodules.shinyapps.io/1_simple_addition/)
+- Example 2: [Linked scatter <i class="fas fa-rocket"></i>](https://tidymodules.shinyapps.io/2_linked_scatter/)
+- Example 2: [Nested module <i class="fas fa-rocket"></i>](https://tidymodules.shinyapps.io/3_nested_modules/)
+- Example 4: [Module communication <i class="fas fa-rocket"></i>](https://tidymodules.shinyapps.io/4_communication/)
 
 ## Learning More
 
-Please review the [Get Started](articles/tidymodules.html) page for a high level introduction to tidymodules and its usage in developing Shiny apps.
+Please review the [Get Started](https://opensource.nibr.com/tidymodules/articles/tidymodules.html) page for a high level introduction to tidymodules and its usage in developing Shiny apps.
 
 If you are interested to develop modules using tidymodules, we recommend reading the vignettes under "Articles".
 

@@ -58,8 +58,8 @@ getMod <- function(id = 1, group = NULL){
 #' @param group Group name
 #' 
 #' @export
-mod <- function(id = 1, g = NULL){
-  getMod(id,g)
+mod <- function(id = 1, group = NULL){
+  getMod(id,group)
 }
 
 #' 
@@ -166,7 +166,7 @@ callModules <- function(){
 #' @title Retrieve cache option from the environment
 #'
 #' @description The cache option `tm_disable_cache` is a global options that enable or disable the use of existing modules from the current session.
-#' This option should be used in concordance with the `tm_session_type` global option. See \code{\link{session_type}} for a list of possible session type.
+#' This option is `FALSE` by default and should be used in concordance with the `tm_session_type` global option. See \code{\link{session_type}} for a list of possible session type.
 #' 
 #' @export
 getCacheOption <- function(){
@@ -221,7 +221,7 @@ session_type <- list(
 #' \itemize{
 #' \item{**tm_session_type**}{ : Define the type of the session, See available session types in \code{\link{session_type}} }
 #' \item{**tm_session_custom**}{ : Used to set a custom function for generating the session Id. Used in concordance with the `CUSTOM` session type.}
-#' \item{**tm_disable_cache**}{ : Disable caching of modules. This option is set to TRUE by default but is only relevant when user's session is managed properly. See also \code{\link{getCacheOption}}}
+#' \item{**tm_disable_cache**}{ : Disable caching of modules. This option is set to FALSE by default but is only relevant when user's session is managed properly. See also \code{\link{getCacheOption}}}
 #' }
 #' 
 #' @rdname  global_options

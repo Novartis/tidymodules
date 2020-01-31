@@ -8,5 +8,5 @@ getCacheOption()
 }
 \description{
 The cache option \code{tm_disable_cache} is a global options that enable or disable the use of existing modules from the current session.
-This option should be used in concordance with the \code{tm_session_type} global option. See \code{\link{session_type}} for a list of possible session type.
+This option is \code{FALSE} by default and should be used in concordance with the \code{tm_session_type} global option. See \code{\link{session_type}} for a list of possible session type.
 }

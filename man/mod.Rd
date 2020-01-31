@@ -4,7 +4,7 @@
 \alias{mod}
 \title{Alias to getMod}
 \usage{
-mod(id = 1, g = NULL)
+mod(id = 1, group = NULL)
 }
 \arguments{
 \item{id}{Name or Id of the module}
