@@ -34,7 +34,7 @@ The main features of tidymodules and its comparison with conventional Shiny modu
 | [<i style="color:#285fa4;" class="fas fa-sitemap fa-2x"></i>](articles/inheritance.html) | Inheritance          | - class inheritance <br/> - port inheritance for nested modules                                                           | NA                                                                                    |
 | [<i style="color:#285fa4;" class="fas fa-users fa-2x"></i>](articles/session.html) | Session management   | - flexible user session management <br/> - Caching of modules coming soon                                                             | NA                                                                                    |
 
-\* OPP = Object Oriented Programming
+\* OOP = Object Oriented Programming
 
 ## Installation
 
