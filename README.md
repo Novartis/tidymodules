@@ -1,4 +1,5 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 tidymodules <img src="man/figures/logo.svg" align="right" height="139" />
 =========================================================================
 
@@ -61,7 +62,7 @@ Shiny modules are presented in the table below.
 </tbody>
 </table>
 
-\* OPP = Object Oriented Programming
+\* OOP = Object Oriented Programming
 
 Installation
 ------------
