@@ -6,6 +6,11 @@
 \usage{
 lp \%->\% rp
 }
+\arguments{
+\item{lp}{left port}
+
+\item{rp}{right port}
+}
 \value{
 The module of the right port
 }

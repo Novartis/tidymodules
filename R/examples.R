@@ -4,6 +4,7 @@
 #' 
 #' @param id Example ID. If null display list of examples with ID.
 #' @param server boolean. Is this a server call?
+#' @param options list of options to be passed to shinyApps or shinyDir
 #' 
 #' @export
 #'

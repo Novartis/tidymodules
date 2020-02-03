@@ -10,6 +10,8 @@ showExamples(id = NULL, server = F, options = NULL)
 \item{id}{Example ID. If null display list of examples with ID.}
 
 \item{server}{boolean. Is this a server call?}
+
+\item{options}{list of options to be passed to shinyApps or shinyDir}
 }
 \description{
 Helper function to launch the tidymodules examples.

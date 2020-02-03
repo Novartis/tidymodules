@@ -6,6 +6,11 @@
 \usage{
 l \%:i:\% r
 }
+\arguments{
+\item{l}{left module}
+
+\item{r}{right module}
+}
 \value{
 The right module
 }
