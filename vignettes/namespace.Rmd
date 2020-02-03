@@ -1,6 +1,7 @@
 ---
 pagetitle: "Namespace management"
-title: "Namespace management <div style='float:right;'><i style='color:#285fa4;' class='fas fa-th-large fa-4x'></i></div>"
+title: "Namespace management"
+subtitle: "<div style='float:right;'><i style='color:#285fa4;' class='fas fa-th-large fa-4x'></i></div>"
 author: "Mustapha Larbaoui"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
