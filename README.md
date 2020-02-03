@@ -61,7 +61,7 @@ Shiny modules are presented in the table below.
 </tbody>
 </table>
 
-\* OPP = Object Oriented Programming
+\* OOP = Object Oriented Programming
 
 Installation
 ------------
@@ -94,7 +94,8 @@ Some examples have been deployed on shinyapp.io, such as:
 Learning More
 -------------
 
-Please review the [Get Started](https://opensource.nibr.com/tidymodules/articles/tidymodules.html)
+Please review the [Get
+Started](https://opensource.nibr.com/tidymodules/articles/tidymodules.html)
 page for a high level introduction to tidymodules and its usage in
 developing Shiny apps.
 
