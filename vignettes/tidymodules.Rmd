@@ -1,4 +1,5 @@
 ---
+pagetitle: "Introduction to tidymodules"
 title: "Introduction to tidymodules"
 author: "Xiao Ni, Mustapha Larbaoui"
 date: "`r Sys.Date()`"

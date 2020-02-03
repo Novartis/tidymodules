@@ -1,4 +1,5 @@
 ---
+pagetitle: "Getting started with writing tidymodules"
 title: "Inheritance <div style='float:right;'><i style='color:#285fa4;' class='fas fa-sitemap fa-4x'></i></div>"
 author: "Mustapha Larbaoui"
 date: "`r Sys.Date()`"

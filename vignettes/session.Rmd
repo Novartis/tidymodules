@@ -1,4 +1,5 @@
 ---
+pagetitle: "Session management"
 title: "Session management <div style='float:right;'><i style='color:#285fa4;' class='fas fa-users fa-4x'></i></div>"
 author: "Mustapha Larbaoui"
 date: "`r Sys.Date()`"
