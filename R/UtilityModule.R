@@ -8,8 +8,10 @@
 #' This utility module is a special TidyModule class that doesn't get registered in the ModStore.
 #' It is used to retrieve ModStore objects, like sessions and modules.
 #' @examples
+#' \dontrun{
 #' # Print current session Id
 #' UtilityModule$new()$getSessionId()
+#' }
 UtilityModule <- R6::R6Class(
   "UtilityModule",
   inherit = TidyModule,

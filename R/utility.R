@@ -142,13 +142,13 @@ callModules <- function(){
         o <- i <- s <- NULL
         if(!is.null(serverEnv)){
           if(!is.null(serverEnv$input) &&
-             is(serverEnv$input, "reactivevalues"))
+             methods::is(serverEnv$input, "reactivevalues"))
             i <- serverEnv$input
           if(!is.null(serverEnv$output) &&
-             is(serverEnv$output, "shinyoutput"))
+             methods::is(serverEnv$output, "shinyoutput"))
             o <- serverEnv$output
           if(!is.null(serverEnv$session) &&
-             is(serverEnv$session, "ShinySession"))
+             methods::is(serverEnv$session, "ShinySession"))
             s <- serverEnv$session
         }
         cloned <- mod$deepClone(o,i,s)

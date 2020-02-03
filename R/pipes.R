@@ -1,4 +1,4 @@
-
+#' 
 #' mkDoublePipe: Pipe function generator
 #' 
 #' Create a pipe function for mapping module output to module input
@@ -11,9 +11,9 @@ mkDoublePipe <- function(l,r, f = TRUE , rev = FALSE){
   reverse   <- rev
   return(
     function(l_mod,r_mod){
-      if(!is(l_mod,"TidyModule"))
+      if(!methods::is(l_mod,"TidyModule"))
         stop(paste0(deparse(substitute(l_mod))," is not a Module"))
-      if(!is(r_mod,"TidyModule"))
+      if(!methods::is(r_mod,"TidyModule"))
         stop(paste0(deparse(substitute(r_mod))," is not a Module"))
       
       # Make sure we don't use mods from the global session
@@ -67,7 +67,7 @@ mkSinglePipe <- function(p = NULL, f = TRUE , rev = FALSE){
       if(!shiny::is.reactivevalues(from) &&
          !shiny::is.reactive(from) )
         stop(paste0(deparse(substitute(from))," is not reactive"))
-      if(!is(to$mod,"TidyModule"))
+      if(!methods::is(to$mod,"TidyModule"))
         stop(paste0(deparse(substitute(to$mod))," is not a Module"))
       
       # getMod function below enforce the use of modules from the user session
@@ -100,9 +100,9 @@ mkSinglePipe <- function(p = NULL, f = TRUE , rev = FALSE){
 #' 
 #' @keywords internal
 multiPipeFunc <- function(l_mod,r_mod,rev = FALSE, t = NULL){
-  if(!is(l_mod,"TidyModule"))
+  if(!methods::is(l_mod,"TidyModule"))
     stop(paste0(deparse(substitute(l_mod))," is not a Module"))
-  if(!is(r_mod,"TidyModule"))
+  if(!methods::is(r_mod,"TidyModule"))
     stop(paste0(deparse(substitute(r_mod))," is not a Module"))
   
   # Make sure we don't use mods from the global session
@@ -219,6 +219,9 @@ for (rp in 1:pipes$maxPort) {
 #' @description This pipe works at the port level where left and right object are ports not modules.
 #' Take the left port and maps it to the right port.
 #' 
+#' @param lp left port
+#' @param rp right port
+#' 
 #' @return The module of the right port
 #' 
 #' @export
@@ -241,6 +244,9 @@ for (rp in 1:pipes$maxPort) {
 #' 
 #' @description This pipe maps all the left output ports to the right input ports.
 #' 
+#' @param l left module
+#' @param r right module
+#' 
 #' @return The right module
 #' 
 #' @export
@@ -251,6 +257,9 @@ for (rp in 1:pipes$maxPort) {
 #' @title Multi-port mapping function
 #' 
 #' @description This pipe maps all the left input ports to the right input ports.
+#' 
+#' @param l left module
+#' @param r right module
 #' 
 #' @return The right module
 #' 
@@ -268,6 +277,9 @@ for (rp in 1:pipes$maxPort) {
 #' 
 #' @description This pipe maps all the left output ports to the right input ports.
 #' 
+#' @param l left module
+#' @param r right module
+#' 
 #' @return The left module
 #' 
 #' @export
@@ -275,6 +287,8 @@ for (rp in 1:pipes$maxPort) {
 
 #' 
 #' @title Single-port mapping function
+#' 
+#' 
 #' 
 #' @name %x>y%
 #'

@@ -1,10 +1,12 @@
 ---
-title: "Cross-module communication <div style='float:right;'><i style='color:#285fa4;' class='fas fa-directions fa-4x'></i></div>"
+pagetitle: "Cross-module communication"
+title: "Cross-module communication"
+subtitle: "<div style='float:right;'><i style='color:#285fa4;' class='fas fa-directions fa-4x'></i></div>"
 author: "Mustapha Larbaoui"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Cross-module communication}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
