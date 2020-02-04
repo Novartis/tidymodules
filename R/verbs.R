@@ -1,5 +1,3 @@
-
-
 #' connect ports from two different modules
 #' 
 #' 
@@ -59,9 +57,9 @@ combine_ports <- function(...){
   if(length(args)){
     if(is.null(names(args)))
       names(args) <- 1:length(args)
-    r <- do.call(shiny::reactiveValues,args)
+    r <- do.call(reactiveValues,args)
   }else{
-    r <- shiny::reactiveValues()
+    r <- reactiveValues()
   }
   
   # Make this reactive aware of its tidymoduleness
@@ -112,12 +110,12 @@ race_ports <- function(...){
     reac <- racers[[r]]
     observeEvent({
       if(is.reactivevalues(reac))
-        shiny::reactiveValuesToList(reac)
+        reactiveValuesToList(reac)
       else
         reac()
     },{
       if(!is.reactivevalues(reac))
-        shiny::req(reac())
+        req(reac())
       r(reac)
     },priority = p)
     p <- p - 1
@@ -129,7 +127,7 @@ race_ports <- function(...){
       isolate({
         o <- r()
         if(is.reactivevalues(o))
-          shiny::reactiveValuesToList(o)
+          reactiveValuesToList(o)
         else
           o()
       })
