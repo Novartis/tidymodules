@@ -16,9 +16,9 @@ mkDoublePipe <- function(l,r, f = TRUE , rev = FALSE){
   reverse   <- rev
   return(
     function(l_mod,r_mod){
-      if(!methods::is(l_mod,"TidyModule"))
+      if(!is(l_mod,"TidyModule"))
         stop(paste0(deparse(substitute(l_mod))," is not a Module"))
-      if(!methods::is(r_mod,"TidyModule"))
+      if(!is(r_mod,"TidyModule"))
         stop(paste0(deparse(substitute(r_mod))," is not a Module"))
       
       # Make sure we don't use mods from the global session
@@ -71,10 +71,10 @@ mkSinglePipe <- function(p = NULL, f = TRUE , rev = FALSE){
       }
       
       
-      if(!shiny::is.reactivevalues(from) &&
-         !shiny::is.reactive(from) )
+      if(!is.reactivevalues(from) &&
+         !is.reactive(from) )
         stop(paste0(deparse(substitute(from))," is not reactive"))
-      if(!methods::is(to$mod,"TidyModule"))
+      if(!is(to$mod,"TidyModule"))
         stop(paste0(deparse(substitute(to$mod))," is not a Module"))
       
       # getMod function below enforce the use of modules from the user session
@@ -111,9 +111,9 @@ mkSinglePipe <- function(p = NULL, f = TRUE , rev = FALSE){
 #' 
 #' @keywords internal
 multiPipeFunc <- function(l_mod,r_mod,rev = FALSE, t = NULL){
-  if(!methods::is(l_mod,"TidyModule"))
+  if(!is(l_mod,"TidyModule"))
     stop(paste0(deparse(substitute(l_mod))," is not a Module"))
-  if(!methods::is(r_mod,"TidyModule"))
+  if(!is(r_mod,"TidyModule"))
     stop(paste0(deparse(substitute(r_mod))," is not a Module"))
   
   # Make sure we don't use mods from the global session
@@ -217,14 +217,6 @@ for (rp in 1:pipes$maxPort) {
 
 
 
-# paste0(pipes$forward$normal$simple,collapse = " ")
-# paste0(pipes$forward$fast$simple,collapse = " ")
-# 
-# paste0(pipes$forward$normal$double,collapse = " ")
-# paste0(pipes$forward$fast$double,collapse = " ")
-# paste0(pipes$reverse$normal$double,collapse = " ")
-# paste0(pipes$reverse$fast$double,collapse = " ")
-
 #' 
 #' @title Port mapping function (port level)
 #' 
@@ -238,11 +230,11 @@ for (rp in 1:pipes$maxPort) {
 #' 
 #' @export
 "%->%" <- function(lp,rp) {
-  shiny::isolate({
+  isolate({
     # Make sure rp is a tidymodules input port
     if(!attr(rp,"tidymodules") || attr(rp,"tidymodules_port_type") != "input")
       stop(paste0(deparse(substitute(rp))," is not a tidymodules input port" ))
-    mod <- shiny::isolate(getMod(attr(rp,"tidymodules_module_ns")))
+    mod <- isolate(getMod(attr(rp,"tidymodules_module_ns")))
     port_id <- attr(rp,"tidymodules_port_id")
   })
   
