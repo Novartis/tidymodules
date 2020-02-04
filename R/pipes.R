@@ -239,7 +239,7 @@ for (rp in 1:pipes$maxPort) {
 #' @export
 "%->%" <- function(lp,rp) {
   shiny::isolate({
-  # Make sure rp is a tidymodules input port
+    # Make sure rp is a tidymodules input port
     if(!attr(rp,"tidymodules") || attr(rp,"tidymodules_port_type") != "input")
       stop(paste0(deparse(substitute(rp))," is not a tidymodules input port" ))
     mod <- shiny::isolate(getMod(attr(rp,"tidymodules_module_ns")))
@@ -298,68 +298,82 @@ for (rp in 1:pipes$maxPort) {
 "%:>>:%" <- function(l,r) { return(multiPipeFunc(l,r,rev = TRUE)); }
 
 
-#' @rawNamespace exportPattern("%[0-9]{1,4}>[0-9]{1,4}%")
-#' @rawNamespace exportPattern("%[0-9]{1,4}>>[0-9]{1,4}%")
-#' @rawNamespace exportPattern("%[0-9]{1,4}<[0-9]{1,4}%")
-#' @rawNamespace exportPattern("%[0-9]{1,4}<<[0-9]{1,4}%")
-#' @rawNamespace exportPattern("%<[0-9]{1,4}%")
-#' @rawNamespace exportPattern("%>[0-9]{1,4}%")
+ns_export <- function(pnames){
+  paste0(sprintf("export(\"%s\")",pnames),collapse = "\n")
+}
 
+rd_gen <- function(pnames, pipesFamily){
+  
+  description <- switch(pipesFamily,
+    "%x>y%" = "This pipe works at the module level. 
+    It maps the left module's output port defined by the left 
+    number (x) of the pipe operator to the right module's 
+    input port defined by the right number (y).",
+    
+    "%x>>y%" = "This pipe works at the module level.
+    It maps the left module's output port defined by the left number (x) 
+    of the pipe operator to the right module's input port defined by the 
+    right number (y).",
+    
+    "%x<y%" = "This pipe works at the module level.
+    It maps the right module's output port defined by the right number (y) 
+    of the pipe operator to the left module's input port defined by the 
+    left number (x).",
+    
+    "%x<<y%" = "This pipe works at the module level.
+    It maps the right module's output port defined by the 
+    right number (y) of the pipe operator to the left module's 
+    input port defined by the left number (x).",
+    
+    "%>y%" = "This pipe maps the left object (must be a reactive function 
+    or a reactivevalues object) to the right module's input port 
+    defined by the number in the operator (y).",
+    
+    "%>>y%" = "This pipe maps the left object (must be a reactive function 
+    or a reactivevalues object) to the right module's input port defined by 
+    the number in the operator (y)."
+  )
+  
+  title <- switch(pipesFamily,
+    "%x>y%" = "Single-port mapping function",
+    "%x>>y%" = "Single-port mapping function",
+    "%x<y%" = "Single-port mapping function (Reverse version)",
+    "%x<<y%" = "Single-port mapping function (Reverse version)",
+    "%>y%" = "Input port mapping function",
+    "%>>y%" = "Input port mapping function",
+  )
+  
+  rd <- c(
+    sprintf("@title %s", title),
+    sprintf("@aliases %s", paste(pnames)),
+    sprintf("@description %s", description),
+    sprintf("@name %s", pipesFamily)
+  )
+  
+  rd
+}
 
-
-#' @title Single-port mapping function
-#'
-#' @description This pipe works at the module level.
-#' It maps the left module's output port defined by the left number (x) 
-#' of the pipe operator to the right module's input port defined by 
-#' the right number (y).
-#' @name %x>y%
+#' @eval rd_gen(pipes$forward$normal$double, "%x>y%")
+#' @evalNamespace  ns_export(pipes$forward$normal$double)
 NULL
 
-
-
-#' @title Single-port mapping function
-#' 
-#' @description This pipe works at the module level.
-#' It maps the left module's output port defined by the left number (x) 
-#' of the pipe operator to the right module's input port defined by the 
-#' right number (y).
-#' @name %x>>y%
+#' @eval rd_gen(pipes$forward$fast$double, "%x>>y%")
+#' @evalNamespace  ns_export(pipes$forward$fast$double)
 NULL
 
-
-#' @title Single-port mapping function (Reverse version)
-#'
-#' @description This pipe works at the module level.
-#' It maps the right module's output port defined by the right number (y) 
-#' of the pipe operator to the left module's input port defined by the 
-#' left number (x).
-#' @name %x<y%
+#' @eval rd_gen(pipes$forward$fast$simple, "%>>y%")
+#' @evalNamespace  ns_export(pipes$forward$fast$simple)
 NULL
 
-
-#' @title Single-port mapping function (Reverse version)
-#'
-#' @description This pipe works at the module level.
-#' It maps the right module's output port defined by the 
-#' right number (y) of the pipe operator to the left module's input port defined by the left number (x).
-#' @name %x<<y%
+#' @eval rd_gen(pipes$forward$normal$simple, "%>y%")
+#' @evalNamespace  ns_export(pipes$normal$fast$simple)
 NULL
 
-
-#' @title Input port mapping function
-#'
-#' @description This pipe maps the left object (must be a reactive function 
-#' or a reactivevalues object) to the right module's input port 
-#' defined by the number in the operator (y).
-#' @name %>y%
+#' @eval rd_gen(pipes$reverse$fast$double, "%x<<y%")
+#' @evalNamespace  ns_export(pipes$reverse$fast$double)
 NULL
 
-
-#' @title Input port mapping function
-#'
-#' @description This pipe maps the left object (must be a reactive function or a reactivevalues object) 
-#' to the right module's input port defined by the number in the operator (y).
-#' @name %>>y%
+#' @eval rd_gen(pipes$reverse$normal$double, "%x<y%")
+#' @evalNamespace  ns_export(pipes$reverse$normal$double)
 NULL
 

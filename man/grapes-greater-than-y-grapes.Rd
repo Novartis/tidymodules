@@ -2,6 +2,16 @@
 % Please edit documentation in R/pipes.R
 \name{\%>y\%}
 \alias{\%>y\%}
+\alias{\%>1\%}
+\alias{\%>2\%}
+\alias{\%>3\%}
+\alias{\%>4\%}
+\alias{\%>5\%}
+\alias{\%>6\%}
+\alias{\%>7\%}
+\alias{\%>8\%}
+\alias{\%>9\%}
+\alias{\%>10\%}
 \title{Input port mapping function}
 \description{
 This pipe maps the left object (must be a reactive function
