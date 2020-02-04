@@ -3,10 +3,8 @@
 \name{\%>y\%}
 \alias{\%>y\%}
 \title{Input port mapping function}
-\value{
-The right module
-}
 \description{
-This pipe maps the left object (must be a reactive function or a reactivevalues object)
-to the right module's input port defined by the number in the operator (y).
+This pipe maps the left object (must be a reactive function
+or a reactivevalues object) to the right module's input port
+defined by the number in the operator (y).
 }

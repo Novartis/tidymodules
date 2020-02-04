@@ -3,10 +3,9 @@
 \name{\%x>y\%}
 \alias{\%x>y\%}
 \title{Single-port mapping function}
-\value{
-The right module
-}
 \description{
 This pipe works at the module level.
-It maps the left module's output port defined by the left number (x) of the pipe operator to the right module's input port defined by the right number (y).
+It maps the left module's output port defined by the left number (x)
+of the pipe operator to the right module's input port defined by
+the right number (y).
 }

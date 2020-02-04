@@ -3,6 +3,11 @@
 #' 
 #' Create a pipe function for mapping module output to module input
 #' 
+#' @param l Left hand side expression.
+#' @param r Right hand side.
+#' @param f Forward operartion. Boolean.
+#' @param rev Reverse operation. Boolean.
+#' 
 #' @keywords internal
 mkDoublePipe <- function(l,r, f = TRUE , rev = FALSE){
   left_id   <- l
@@ -47,6 +52,8 @@ mkDoublePipe <- function(l,r, f = TRUE , rev = FALSE){
 #' mkSinglePipe: Pipe function generator
 #' 
 #' Create a pipe function for mapping a reactive expression/value to a module input
+#' 
+#' @inheritParams mkDoublePipe
 #' 
 #' @keywords internal
 mkSinglePipe <- function(p = NULL, f = TRUE , rev = FALSE){
@@ -97,6 +104,10 @@ mkSinglePipe <- function(p = NULL, f = TRUE , rev = FALSE){
 #' Pipe function for sequentially mapping left module outputs to 
 #' right module inputs
 #' 
+#' @param l_mod Left module.
+#' @param r_mod Right module.
+#' @param rev Reverse operation. Boolean.
+#' @param t TO DO.
 #' 
 #' @keywords internal
 multiPipeFunc <- function(l_mod,r_mod,rev = FALSE, t = NULL){
@@ -147,6 +158,7 @@ multiPipeFunc <- function(l_mod,r_mod,rev = FALSE, t = NULL){
   else
     r_mod
 }
+
 
 pipes <- list(
   maxPort = 10, # "maxPort" as maximum number of port
@@ -219,8 +231,8 @@ for (rp in 1:pipes$maxPort) {
 #' @description This pipe works at the port level where left and right object are ports not modules.
 #' Take the left port and maps it to the right port.
 #' 
-#' @param lp left port
-#' @param rp right port
+#' @param lp Left port.
+#' @param rp Right port.
 #' 
 #' @return The module of the right port
 #' 
@@ -244,8 +256,8 @@ for (rp in 1:pipes$maxPort) {
 #' 
 #' @description This pipe maps all the left output ports to the right input ports.
 #' 
-#' @param l left module
-#' @param r right module
+#' @param l left module.
+#' @param r right module.
 #' 
 #' @return The right module
 #' 
@@ -258,10 +270,10 @@ for (rp in 1:pipes$maxPort) {
 #' 
 #' @description This pipe maps all the left input ports to the right input ports.
 #' 
-#' @param l left module
-#' @param r right module
+#' @param l left module.
+#' @param r right module.
 #' 
-#' @return The right module
+#' @return The right module.
 #' 
 #' @export
 "%:i:%" <- function(l,r) { return(multiPipeFunc(l,r,t="input")); }
@@ -277,91 +289,77 @@ for (rp in 1:pipes$maxPort) {
 #' 
 #' @description This pipe maps all the left output ports to the right input ports.
 #' 
-#' @param l left module
-#' @param r right module
+#' @param l left module.
+#' @param r right module.
 #' 
-#' @return The left module
+#' @return The left module.
 #' 
 #' @export
 "%:>>:%" <- function(l,r) { return(multiPipeFunc(l,r,rev = TRUE)); }
 
-#' 
+
+#' @rawNamespace exportPattern("%[0-9]{1,4}>[0-9]{1,4}%")
+#' @rawNamespace exportPattern("%[0-9]{1,4}>>[0-9]{1,4}%")
+#' @rawNamespace exportPattern("%[0-9]{1,4}<[0-9]{1,4}%")
+#' @rawNamespace exportPattern("%[0-9]{1,4}<<[0-9]{1,4}%")
+#' @rawNamespace exportPattern("%<[0-9]{1,4}%")
+#' @rawNamespace exportPattern("%>[0-9]{1,4}%")
+
+
+
 #' @title Single-port mapping function
-#' 
-#' 
-#' 
+#'
+#' @description This pipe works at the module level.
+#' It maps the left module's output port defined by the left number (x) 
+#' of the pipe operator to the right module's input port defined by 
+#' the right number (y).
 #' @name %x>y%
-#'
-#' @description This pipe works at the module level.
-#' It maps the left module's output port defined by the left number (x) of the pipe operator to the right module's input port defined by the right number (y).
-#' 
-#' @return The right module
-#' 
-#' @export %1>1% %1>2% %1>3% %1>4% %1>5% %1>6% %1>7% %1>8% %1>9% %1>10% %2>1% %2>2% %2>3% %2>4% %2>5% %2>6% %2>7% %2>8% %2>9% %2>10% %3>1% %3>2% %3>3% %3>4% %3>5% %3>6% %3>7% %3>8% %3>9% %3>10% %4>1% %4>2% %4>3% %4>4% %4>5% %4>6% %4>7% %4>8% %4>9% %4>10% %5>1% %5>2% %5>3% %5>4% %5>5% %5>6% %5>7% %5>8% %5>9% %5>10% %6>1% %6>2% %6>3% %6>4% %6>5% %6>6% %6>7% %6>8% %6>9% %6>10% %7>1% %7>2% %7>3% %7>4% %7>5% %7>6% %7>7% %7>8% %7>9% %7>10% %8>1% %8>2% %8>3% %8>4% %8>5% %8>6% %8>7% %8>8% %8>9% %8>10% %9>1% %9>2% %9>3% %9>4% %9>5% %9>6% %9>7% %9>8% %9>9% %9>10% %10>1% %10>2% %10>3% %10>4% %10>5% %10>6% %10>7% %10>8% %10>9% %10>10%
 NULL
 
-#' 
+
+
 #' @title Single-port mapping function
 #' 
+#' @description This pipe works at the module level.
+#' It maps the left module's output port defined by the left number (x) 
+#' of the pipe operator to the right module's input port defined by the 
+#' right number (y).
 #' @name %x>>y%
-#'
-#' @description This pipe works at the module level.
-#' It maps the left module's output port defined by the left number (x) of the pipe operator to the right module's input port defined by the right number (y).
-#' 
-#' @return The left module
-#' 
-#' @export %1>>1% %2>>1% %3>>1% %4>>1% %5>>1% %6>>1% %7>>1% %8>>1% %9>>1% %10>>1% %1>>2% %2>>2% %3>>2% %4>>2% %5>>2% %6>>2% %7>>2% %8>>2% %9>>2% %10>>2% %1>>3% %2>>3% %3>>3% %4>>3% %5>>3% %6>>3% %7>>3% %8>>3% %9>>3% %10>>3% %1>>4% %2>>4% %3>>4% %4>>4% %5>>4% %6>>4% %7>>4% %8>>4% %9>>4% %10>>4% %1>>5% %2>>5% %3>>5% %4>>5% %5>>5% %6>>5% %7>>5% %8>>5% %9>>5% %10>>5% %1>>6% %2>>6% %3>>6% %4>>6% %5>>6% %6>>6% %7>>6% %8>>6% %9>>6% %10>>6% %1>>7% %2>>7% %3>>7% %4>>7% %5>>7% %6>>7% %7>>7% %8>>7% %9>>7% %10>>7% %1>>8% %2>>8% %3>>8% %4>>8% %5>>8% %6>>8% %7>>8% %8>>8% %9>>8% %10>>8% %1>>9% %2>>9% %3>>9% %4>>9% %5>>9% %6>>9% %7>>9% %8>>9% %9>>9% %10>>9% %1>>10% %2>>10% %3>>10% %4>>10% %5>>10% %6>>10% %7>>10% %8>>10% %9>>10% %10>>10%
 NULL
 
-#' 
+
 #' @title Single-port mapping function (Reverse version)
-#' 
+#'
+#' @description This pipe works at the module level.
+#' It maps the right module's output port defined by the right number (y) 
+#' of the pipe operator to the left module's input port defined by the 
+#' left number (x).
 #' @name %x<y%
-#'
-#' @description This pipe works at the module level.
-#' It maps the right module's output port defined by the right number (y) of the pipe operator to the left module's input port defined by the left number (x).
-#' 
-#' @return The left module
-#' 
-#' @export %1<1% %1<2% %1<3% %1<4% %1<5% %1<6% %1<7% %1<8% %1<9% %1<10% %2<1% %2<2% %2<3% %2<4% %2<5% %2<6% %2<7% %2<8% %2<9% %2<10% %3<1% %3<2% %3<3% %3<4% %3<5% %3<6% %3<7% %3<8% %3<9% %3<10% %4<1% %4<2% %4<3% %4<4% %4<5% %4<6% %4<7% %4<8% %4<9% %4<10% %5<1% %5<2% %5<3% %5<4% %5<5% %5<6% %5<7% %5<8% %5<9% %5<10% %6<1% %6<2% %6<3% %6<4% %6<5% %6<6% %6<7% %6<8% %6<9% %6<10% %7<1% %7<2% %7<3% %7<4% %7<5% %7<6% %7<7% %7<8% %7<9% %7<10% %8<1% %8<2% %8<3% %8<4% %8<5% %8<6% %8<7% %8<8% %8<9% %8<10% %9<1% %9<2% %9<3% %9<4% %9<5% %9<6% %9<7% %9<8% %9<9% %9<10% %10<1% %10<2% %10<3% %10<4% %10<5% %10<6% %10<7% %10<8% %10<9% %10<10%
 NULL
 
-#' 
+
 #' @title Single-port mapping function (Reverse version)
-#' 
-#' @name %x<<y%
 #'
 #' @description This pipe works at the module level.
-#' It maps the right module's output port defined by the right number (y) of the pipe operator to the left module's input port defined by the left number (x).
-#' 
-#' @return The right module
-#' 
-#' @export %1<<1% %2<<1% %3<<1% %4<<1% %5<<1% %6<<1% %7<<1% %8<<1% %9<<1% %10<<1% %1<<2% %2<<2% %3<<2% %4<<2% %5<<2% %6<<2% %7<<2% %8<<2% %9<<2% %10<<2% %1<<3% %2<<3% %3<<3% %4<<3% %5<<3% %6<<3% %7<<3% %8<<3% %9<<3% %10<<3% %1<<4% %2<<4% %3<<4% %4<<4% %5<<4% %6<<4% %7<<4% %8<<4% %9<<4% %10<<4% %1<<5% %2<<5% %3<<5% %4<<5% %5<<5% %6<<5% %7<<5% %8<<5% %9<<5% %10<<5% %1<<6% %2<<6% %3<<6% %4<<6% %5<<6% %6<<6% %7<<6% %8<<6% %9<<6% %10<<6% %1<<7% %2<<7% %3<<7% %4<<7% %5<<7% %6<<7% %7<<7% %8<<7% %9<<7% %10<<7% %1<<8% %2<<8% %3<<8% %4<<8% %5<<8% %6<<8% %7<<8% %8<<8% %9<<8% %10<<8% %1<<9% %2<<9% %3<<9% %4<<9% %5<<9% %6<<9% %7<<9% %8<<9% %9<<9% %10<<9% %1<<10% %2<<10% %3<<10% %4<<10% %5<<10% %6<<10% %7<<10% %8<<10% %9<<10% %10<<10%
+#' It maps the right module's output port defined by the 
+#' right number (y) of the pipe operator to the left module's input port defined by the left number (x).
+#' @name %x<<y%
 NULL
 
-#' 
+
 #' @title Input port mapping function
-#' 
+#'
+#' @description This pipe maps the left object (must be a reactive function 
+#' or a reactivevalues object) to the right module's input port 
+#' defined by the number in the operator (y).
 #' @name %>y%
-#'
-#' @description This pipe maps the left object (must be a reactive function or a reactivevalues object) 
-#' to the right module's input port defined by the number in the operator (y).
-#' 
-#' @return The right module
-#' 
-#' @export %>1% %>2% %>3% %>4% %>5% %>6% %>7% %>8% %>9% %>10%
 NULL
 
-#' 
+
 #' @title Input port mapping function
-#' 
-#' @name %>>y%
 #'
 #' @description This pipe maps the left object (must be a reactive function or a reactivevalues object) 
 #' to the right module's input port defined by the number in the operator (y).
-#' 
-#' @return The left object
-#' 
-#' @export %>>1% %>>2% %>>3% %>>4% %>>5% %>>6% %>>7% %>>8% %>>9% %>>10%
+#' @name %>>y%
 NULL
 

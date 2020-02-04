@@ -7,12 +7,12 @@
 l \%:>>:\% r
 }
 \arguments{
-\item{l}{left module}
+\item{l}{left module.}
 
-\item{r}{right module}
+\item{r}{right module.}
 }
 \value{
-The left module
+The left module.
 }
 \description{
 This pipe maps all the left output ports to the right input ports.

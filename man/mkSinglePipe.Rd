@@ -6,6 +6,11 @@
 \usage{
 mkSinglePipe(p = NULL, f = TRUE, rev = FALSE)
 }
+\arguments{
+\item{f}{Forward operartion. Boolean.}
+
+\item{rev}{Reverse operation. Boolean.}
+}
 \description{
 Create a pipe function for mapping a reactive expression/value to a module input
 }

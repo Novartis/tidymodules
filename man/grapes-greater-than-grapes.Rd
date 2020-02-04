@@ -7,9 +7,9 @@
 lp \%->\% rp
 }
 \arguments{
-\item{lp}{left port}
+\item{lp}{Left port.}
 
-\item{rp}{right port}
+\item{rp}{Right port.}
 }
 \value{
 The module of the right port
