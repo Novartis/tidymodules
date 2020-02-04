@@ -8,4 +8,6 @@ dev_history.R
 ^dev$
 $run_dev.*
 .travis.yml
-pkgdown
+^_pkgdown\.yml$
+^pkgdown$
+^docs$ 
