@@ -332,7 +332,7 @@ rd_gen <- function(pnames, pipesFamily){
     "%x<y%" = "Single-port mapping function (Reverse version)",
     "%x<<y%" = "Single-port mapping function (Reverse version)",
     "%>y%" = "Input port mapping function",
-    "%>>y%" = "Input port mapping function",
+    "%>>y%" = "Input port mapping function"
   )
   
   rd <- c(
@@ -358,7 +358,7 @@ NULL
 NULL
 
 #' @eval rd_gen(pipes$forward$normal$simple, "%>y%")
-#' @evalNamespace  ns_export(pipes$normal$fast$simple)
+#' @evalNamespace  ns_export(pipes$forward$normal$simple)
 NULL
 
 #' @eval rd_gen(pipes$reverse$fast$double, "%x<<y%")
