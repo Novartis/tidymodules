@@ -31,11 +31,11 @@ showExamples <- function(id = NULL, server = F,  options = NULL) {
     if(server){
       setwd(examples[id])
       if(!is.null(options))
-        shiny::shinyAppDir(examples[id], options = options)
+        shinyAppDir(examples[id], options = options)
       else
-        shiny::shinyAppDir(examples[id])
+        shinyAppDir(examples[id])
     }else{
-      shiny::runApp(examples[id])
+      runApp(examples[id])
     }
   }
 }

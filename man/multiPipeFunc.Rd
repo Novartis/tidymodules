@@ -6,6 +6,15 @@
 \usage{
 multiPipeFunc(l_mod, r_mod, rev = FALSE, t = NULL)
 }
+\arguments{
+\item{l_mod}{Left module.}
+
+\item{r_mod}{Right module.}
+
+\item{rev}{Reverse operation. Boolean.}
+
+\item{t}{TO DO.}
+}
 \description{
 Pipe function for sequentially mapping left module outputs to
 right module inputs

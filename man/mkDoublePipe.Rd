@@ -6,6 +6,15 @@
 \usage{
 mkDoublePipe(l, r, f = TRUE, rev = FALSE)
 }
+\arguments{
+\item{l}{Left hand side expression.}
+
+\item{r}{Right hand side.}
+
+\item{f}{Forward operartion. Boolean.}
+
+\item{rev}{Reverse operation. Boolean.}
+}
 \description{
 Create a pipe function for mapping module output to module input
 }

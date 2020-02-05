@@ -47,11 +47,11 @@ TidyModule <- R6::R6Class(
       self$parent_ports <- inherit
       
       ses <- self$getSession()
-      shiny::isolate({
+      isolate({
         ses$count <- ses$count+1
         self$order <- ses$count
       })
-      shiny::onStop(function(){ 
+      onStop(function(){ 
         # reset session module count and edge table when app stop 
         ses$count <- 0
         ses$edges <- data.frame()
@@ -59,7 +59,7 @@ TidyModule <- R6::R6Class(
       
       self$name <- ifelse(
         is.null(id),
-        paste0(class(self)[[1]],"-",shiny::isolate({ses$count }))
+        paste0(class(self)[[1]],"-",isolate({ses$count }))
         ,id)
       
       if(!is.null(group)){
@@ -144,7 +144,7 @@ TidyModule <- R6::R6Class(
     #' @param id Id of HTML element / shiny input.
     #' @return A unique string Id.
     ns = function(id){
-      shiny::NS(self$module_ns, id)
+      NS(self$module_ns, id)
     },
     #' @description
     #' Get module session Id. This function rely on a shiny output object to find the right session Id.
@@ -165,7 +165,7 @@ TidyModule <- R6::R6Class(
     #' @param ... arguments passed to ui
     #' @return Empty tagList()
     ui = function(...){
-      return(shiny::tagList())
+      return(tagList())
     },
     #' @description
     #' server function to be overwritten and called by child module.
@@ -176,7 +176,7 @@ TidyModule <- R6::R6Class(
                       output, 
                       session){
       # Need to isolate this block to avoid unecessary triggers
-      shiny::isolate({
+      isolate({
         private$shiny_session <- session
         private$shiny_input <- input
         private$shiny_output <- output
@@ -186,14 +186,14 @@ TidyModule <- R6::R6Class(
     #' Function wrapper for port definition expression.
     #' @param x expression
     definePort = function(x){
-      shiny::isolate(x)
+      isolate(x)
     },
     #' @description
     #' Function wrapper for port assignement expression.
     #' @param x expression
     assignPort = function(x){
-      shiny::observe({
-        shiny::isolate(x)
+      observe({
+        isolate(x)
       })
     },
     #' @description
@@ -363,7 +363,7 @@ TidyModule <- R6::R6Class(
       }else{
         mod <- self$deepClone(output,input,session)
         
-        shiny::isolate({
+        isolate({
           currentSession <- mod$getSession()
           globalSession <- self$getGlobalSession()
           currentSession$edges <- data.frame()
@@ -426,7 +426,7 @@ TidyModule <- R6::R6Class(
     #' Function interfacing with shiny's callModule.
     #' @param ... arguments passed to the `server` function of the module.
     doServer = function(...){
-      shiny::callModule(self$server,self$id,...)
+      callModule(self$server,self$id,...)
     },
     #' @description
     #' Utility function to retrieve a port definition in the form of a list.
@@ -439,9 +439,9 @@ TidyModule <- R6::R6Class(
       if(is.null(type) || !type %in% c("input","output"))
         stop("type must be one of input/output")
       
-      shiny::isolate({
+      isolate({
         port <- private$getPort(id,type)
-        shiny::reactiveValuesToList(port)
+        reactiveValuesToList(port)
       })
       
     },
@@ -453,7 +453,7 @@ TidyModule <- R6::R6Class(
     #' m <- MyModule$new()
     #' m
     print = function(){
-      shiny::isolate({
+      isolate({
         cat(paste0("Module Namespace ",self$module_ns,"\n"))
         if(!is.null(self$group))
           cat(paste0("Module Group ",self$group,"\n"))
@@ -474,7 +474,7 @@ TidyModule <- R6::R6Class(
     #' @param s Optional shiny input
     #' @return A cloned module. 
     deepClone = function(o = NULL, i = NULL, s = NULL){
-      shiny::isolate({
+      isolate({
         copy <- self$clone()
         copy$reset(o,i,s)
         
@@ -558,9 +558,9 @@ TidyModule <- R6::R6Class(
     output_port = NULL,
     port_names = NULL,
     initFields = function(){
-      private$input_port <- shiny::reactiveValues()
-      private$output_port <- shiny::reactiveValues()
-      private$port_names <- shiny::reactiveValues()
+      private$input_port <- reactiveValues()
+      private$output_port <- reactiveValues()
+      private$port_names <- reactiveValues()
     },
     countPort = function(type = "input"){
       key = paste0(type,"_port")
@@ -574,7 +574,7 @@ TidyModule <- R6::R6Class(
       port = FALSE,
       is_parent = FALSE){
       stopifnot(!is.null(name) && !is.null(sample))
-      rv <- shiny::reactiveValues(
+      rv <- reactiveValues(
         name = name,
         description = description,
         sample = sample,
@@ -600,8 +600,8 @@ TidyModule <- R6::R6Class(
       stopifnot((!is.null(id)))
       
       if(!is.null(port)){
-        if(!shiny::is.reactivevalues(port) &&
-           !shiny::is.reactive(port) )
+        if(!is.reactivevalues(port) &&
+           !is.reactive(port) )
           stop(paste0(deparse(substitute(port))," is not reactive"))
         
         key = paste0(type,"_port")
@@ -619,7 +619,7 @@ TidyModule <- R6::R6Class(
           
         # Attach module information to the port
         # This will facilitate storage of module edges
-        shiny::isolate({
+        isolate({
           attrs <- attributes(private[[key]][[id]][["port"]])
           for(a in names(attrs))
             if(grepl("tidymodules",a))
@@ -631,12 +631,12 @@ TidyModule <- R6::R6Class(
     },
     updatePorts = function(ports = NULL, type = "input"){
       stopifnot(!is.null(ports))
-      if(!shiny::is.reactivevalues(ports))
+      if(!is.reactivevalues(ports))
         stop(paste0(deparse(substitute(ports))," is not a reactive expression"))
       
       key = paste0(type,"_port")
       
-      shiny::isolate({
+      isolate({
         for(p in names(ports)){
           if(p %in%  private$port_names[[type]]){
             stop(paste0("Adding port name ",p," failed, it already exist in ",type," port definition."))
@@ -650,8 +650,8 @@ TidyModule <- R6::R6Class(
     get = function(id = 1,type = "input"){
       data.port <- private$getPort(id, type)
       
-      shiny::req(data.port)
-      # shiny::req(data.port[[type]])
+      req(data.port)
+      # req(data.port[[type]])
 
       return(data.port[["port"]])
     },

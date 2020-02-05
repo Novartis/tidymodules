@@ -7,9 +7,9 @@
 l \%:>:\% r
 }
 \arguments{
-\item{l}{left module}
+\item{l}{left module.}
 
-\item{r}{right module}
+\item{r}{right module.}
 }
 \value{
 The right module
