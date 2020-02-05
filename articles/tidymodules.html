@@ -107,7 +107,7 @@
       <h1>Introduction to tidymodules</h1>
                         <h4 class="author">Xiao Ni, Mustapha Larbaoui</h4>
             
-            <h4 class="date">2020-02-03</h4>
+            <h4 class="date">2020-02-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Novartis/tidymodules/blob/master/vignettes/tidymodules.Rmd"><code>vignettes/tidymodules.Rmd</code></a></small>
       <div class="hidden name"><code>tidymodules.Rmd</code></div>
@@ -143,7 +143,7 @@
 <p>It can be challenging to keep track of the arbitrary number of input and output reactives for complex apps with many interacting modules.</p>
 <p>To address this challenge, we introduced input/output ports as fields of the TidyModule class object in tidymodules. The concept is illustrated in the following diagram. In this example, Module1 and Module2 each have input and output ports that hold reactives. The ports defined in each modules provides a data structure that allow TidyModule to establish a communication between them.</p>
 <p><img src="figures/ports_intro.png"></p>
-<p>The two modules are connected via a tidymodules pipe operator <code><a href="../reference/grapes-x-greater-than-y-grapes.html">%x&gt;y%</a></code> where x and y could be any numbers from 1 to 10. For example,<code>%1&gt;1%</code> means the left module’s first output port (x = 1) is mapped to the first input port (y = 1) of the right module. Multiple connected tidymodules modules with such directed edges form a directed graph network, which will be further discussed later in this article.</p>
+<p>The two modules are connected via a tidymodules pipe operator <code><a href="../reference/grapes-x-greater-than-y-grapes.html">%x&gt;y%</a></code> where x and y could be any numbers from 1 to 10. For example,<code><a href="../reference/grapes-x-greater-than-y-grapes.html">%1&gt;1%</a></code> means the left module’s first output port (x = 1) is mapped to the first input port (y = 1) of the right module. Multiple connected tidymodules modules with such directed edges form a directed graph network, which will be further discussed later in this article.</p>
 </div>
 <div id="finding-out-ports-of-a-tidymodules-module" class="section level3">
 <h3 class="hasAnchor">
