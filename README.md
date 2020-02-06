@@ -3,6 +3,8 @@
 tidymodules <img src="man/figures/logo.svg" align="right" height="139" />
 =========================================================================
 
+[![Travis-CI build
+status](https://travis-ci.org/Novartis/tidymodules.svg?branch=master)](https://travis-ci.org/Novartis/tidymodules)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
 The tidymodules R package is built on top of shiny modules using R6 to
