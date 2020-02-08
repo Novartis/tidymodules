@@ -60,11 +60,12 @@ TidyModule <- R6::R6Class(
       self$name <- ifelse(
         is.null(id),
         paste0(class(self)[[1]],"-",isolate({ses$count }))
-        ,private$sanitizeID(id))
+        ,private$sanitizeID(id,"Id"))
       
       if(!is.null(group)){
-        self$id <- paste0(group,"-",self$name)
-        self$group <- group
+        g <- private$sanitizeID(group,"Group")
+        self$id <- paste0(g,"-",self$name)
+        self$group <- g
       }else{
         self$id <- self$name
       }
@@ -111,8 +112,10 @@ TidyModule <- R6::R6Class(
       self$created <- Sys.time()
       
       # check that the module namespace is unique in the current session
-      if(self$isStored() && mod(self$module_ns)$created == self$created)
-        stop(paste0("Module namespace collision for ",self$module_ns,", is it already used?"))
+      if(self$isStored() && 
+         as.character(mod(self$module_ns)$created) == as.character(self$created))
+        stop(paste0("Module namespace collision!\n",
+                    "Make sure that the namespace Id ",self$module_ns," is only used once."))
       
       private$shared$store$addMod(self)
       private$initFields()
@@ -549,12 +552,14 @@ TidyModule <- R6::R6Class(
       private$output_port <- reactiveValues()
       private$port_names <- reactiveValues()
     },
-    sanitizeId = function(id){
-      
-      
+    sanitizeID = function(id,type){
+      if(!grepl("[a-z][\\w-]*",id,ignore.case = TRUE,perl = TRUE) ||
+         grepl('[>~!@\\$%\\^&\\*\\(\\)\\+=,./\';:"\\?><\\[\\]\\\\{}\\|`#]',id,ignore.case = TRUE,perl = TRUE))
+        stop(paste(paste0("The provided ",type," must begin with a letter `[A-Za-z]` and may be followed by any number of letters, digits `[0-9]`, hyphens `-`, underscores `_`."),
+        "You should not use the following characters as they have a special meaning on the UI ( CSS / jQuery ).",
+        "> ~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #",sep = "\n"))
       
       return(id)
-      
     },
     countPort = function(type = "input"){
       key = paste0(type,"_port")
