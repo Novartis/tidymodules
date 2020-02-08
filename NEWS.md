@@ -1,3 +1,9 @@
+# tidymodules 0.1.0.9001
+
+Sanitize namespace and group ID when provided
+Switch to shiny getDefaultReactiveDomain to retrieve ShinySession
+Update namespace vignette
+
 # tidymodules 0.1.0.9000
 
 Add travis-CI for building pkgdsown site
