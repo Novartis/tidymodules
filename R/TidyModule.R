@@ -60,7 +60,7 @@ TidyModule <- R6::R6Class(
       self$name <- ifelse(
         is.null(id),
         paste0(class(self)[[1]],"-",isolate({ses$count }))
-        ,id)
+        ,private$sanitizeID(id))
       
       if(!is.null(group)){
         self$id <- paste0(group,"-",self$name)
@@ -96,9 +96,6 @@ TidyModule <- R6::R6Class(
       if(!is.null(self$parent_mod) && 
          is(self$parent_mod,"TidyModule")){
         self$parent_ns <- self$parent_mod$module_ns
-        private$shiny_input   <- self$parent_mod$getShinyInput()
-        private$shiny_output  <- self$parent_mod$getShinyOutput()
-        private$shiny_session <- self$parent_mod$getShinySession()
       }else{
         self$parent_mod <- NULL
       }
@@ -108,26 +105,15 @@ TidyModule <- R6::R6Class(
         self$id,
         paste0(self$parent_ns,"-",self$id))
       
-      #### Try to capture server function arguments if not set #######
-      for(i in 1:10){
-        serverEnv <- parent.env(parent.frame(i))
-        if(!is.null(serverEnv)){
-          if(!is.null(serverEnv$input) &&
-             is(serverEnv$output, "shinyoutput")){
-            private$shiny_input <- serverEnv$input
-            private$shiny_output <- serverEnv$output
-            private$shiny_session <- serverEnv$session
-            
-            break
-          }
-        }
-      }
-      
-      # check that the module namespace is unique
-      # if(self$isStored())
-      #   stop(paste0("Module namespace collision with ",self$module_ns,", is it already used?"))
+      ####   Capture ShinySession    #######
+      private$shiny_session <- getDefaultReactiveDomain()
       
       self$created <- Sys.time()
+      
+      # check that the module namespace is unique in the current session
+      if(self$isStored() && mod(self$module_ns)$created == self$created)
+        stop(paste0("Module namespace collision for ",self$module_ns,", is it already used?"))
+      
       private$shared$store$addMod(self)
       private$initFields()
       
@@ -150,7 +136,7 @@ TidyModule <- R6::R6Class(
     #' Get module session Id. This function rely on a shiny output object to find the right session Id.
     #' @return The Session Id of the module.
     getSessionId = function(){
-      return(getSessionId(private$shiny_output))
+      return(getSessionId(private$shiny_session))
     },
     #' @description
     #' Alias to the `ui` function.
@@ -358,23 +344,23 @@ TidyModule <- R6::R6Class(
       session <- parent.frame()$session
       disable_cache <- getCacheOption()
       
-      if(!is.null(private$shiny_output)){
+      if(!self$isGlobal()){
         self$doServer(...)
       }else{
-        mod <- self$deepClone(output,input,session)
-        
         isolate({
-          currentSession <- mod$getSession()
-          globalSession <- self$getGlobalSession()
+          currentSession <- UtilityModule$new()$getSession()
+          globalSession <- UtilityModule$new()$getGlobalSession()
+          # currentSession <- mod$getSession()
+          # globalSession <- self$getGlobalSession()
           currentSession$edges <- data.frame()
           currentSession$count <- globalSession$count
+          cloneMod <- is.null(currentSession$collection[[self$module_ns]])
         })
         
-        if(!mod$isStored() || disable_cache){
-          self$getStore()$addMod(mod)
+        if(cloneMod || disable_cache){
+          mod <- self$deepClone(output,input,session)
           mod$doServer(...)
         }else{
-          remove(mod)
           getMod(self$module_ns)$doServer(...)
         }
       }
@@ -493,6 +479,9 @@ TidyModule <- R6::R6Class(
             }
         }
         
+        copy$created <- Sys.time()
+        self$getStore()$addMod(copy)
+        
         # Now deep clone the module attributes that are TidyModules, i.e. nested modules
         # TODO : Add code to check list as well
         for(at in names(self)){
@@ -502,14 +491,12 @@ TidyModule <- R6::R6Class(
              at != "parent_mod"){
             copy[[at]] <- self[[at]]$deepClone(o,i,s)
             copy[[at]]$parent_mod <- copy
+            self$getStore()$addMod(copy[[at]])
             # Now add ports to child if any
             if(copy[[at]]$parent_ports)
               copy %:i:% copy[[at]]
-            self$getStore()$addMod(copy[[at]])
           }
         }
-        
-        copy$created <- Sys.time()
       })
       
       return(copy)
@@ -561,6 +548,13 @@ TidyModule <- R6::R6Class(
       private$input_port <- reactiveValues()
       private$output_port <- reactiveValues()
       private$port_names <- reactiveValues()
+    },
+    sanitizeId = function(id){
+      
+      
+      
+      return(id)
+      
     },
     countPort = function(type = "input"){
       key = paste0(type,"_port")

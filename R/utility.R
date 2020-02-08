@@ -152,7 +152,6 @@ callModules <- function(){
             s <- serverEnv$session
         }
         cloned <- mod$deepClone(o,i,s)
-        cloned$getStore()$addMod(cloned)
       }
       # Don't invoke nested modules as they will be invoked by parents
       # TODO : Change function to allow callModules within Module server (inject nested modules)
@@ -233,15 +232,15 @@ NULL
 #'
 #' @description tidymodules offers the ability to manage application sessions.
 #' This function is the main function used by tidymodules to find the current session Id.
-#' It takes an optional shiny out as argument. If null, default to the global_session.
+#' It takes an optional ShinySession object as argument. If null, default to the global_session.
 #' 
 #' @param out A shiny output as provide by the shiny server function.
 #' 
 #' @return A session ID
 #' 
 #' @export
-getSessionId <- function(out = NULL){
-  if(is.null(out)){
+getSessionId <- function(session = getDefaultReactiveDomain()){
+  if(is.null(session)){
     return("global_session")
   } else {
     stype <- getOption("tm_session_type")
@@ -251,19 +250,19 @@ getSessionId <- function(out = NULL){
     switch(stype,
        # SHINY
        {
-         sid <- unlist(out)$impl$token
+         sid <- session$token
        },
        # USER
        {
-         r <- unlist(out)$impl$request
+         r <- session$request
          sid <- paste0(r$REMOTE_ADDR,"@",r$HTTP_HOST,r$PATH_INFO)
        },
        # CUSTOM
        {
          fct <- getOption("tm_session_custom")
          if(is.null(fct) || class(fct) != "function")
-           stop("Option 'tm_session_custom' should be set to a function taking a shinyoutput object as option and generating a custom session ID used by tidymodules to identify module sessions.")
-         sid <- fct(out)
+           stop("Option 'tm_session_custom' should be set to a function taking a ShinySession object as option and generating a custom session ID used by tidymodules to identify module sessions.")
+         sid <- fct(session)
        }
     )
     return(sid)
