@@ -1,10 +1,12 @@
 ---
-title: "Session management <div style='float:right;'><i style='color:#285fa4;' class='fas fa-users fa-4x'></i></div>"
+pagetitle: "Session management"
+title: "Session management"
+subtitle: "<div style='float:right;'><i style='color:#285fa4;' class='fas fa-users fa-4x'></i></div>"
 author: "Mustapha Larbaoui"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Session management}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

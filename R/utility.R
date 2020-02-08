@@ -32,8 +32,8 @@
 getMod <- function(id = 1, group = NULL){
   m <- UtilityModule$new()
   mod <- NULL
-  c <- shiny::isolate(m$getSession()$collection)
-  gc <- shiny::isolate(m$getSession()$g_collection)
+  c <- isolate(m$getSession()$collection)
+  gc <- isolate(m$getSession()$g_collection)
   
   if(!is.null(group) && !is.numeric(id))
     id <- paste0(id,"-G-",group)
@@ -130,7 +130,7 @@ callModules <- function(){
   
   calls <- c()
   
-  shiny::isolate({
+  isolate({
     # re-initialize current session
     currentSession$edges <- data.frame()
     currentSession$count <- globalSession$count

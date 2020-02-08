@@ -1,10 +1,11 @@
 ---
+pagetitle: "Introduction to tidymodules"
 title: "Introduction to tidymodules"
 author: "Xiao Ni, Mustapha Larbaoui"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Introduction to tidymodules}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

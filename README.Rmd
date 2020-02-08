@@ -20,6 +20,7 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 
 # tidymodules <img src="man/figures/logo.svg" align="right" height="139" />
 
+[![Travis-CI build status](https://travis-ci.org/Novartis/tidymodules.svg?branch=master)](https://travis-ci.org/Novartis/tidymodules)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
 The tidymodules R package is built on top of shiny modules using R6 to provide a new object-oriented programming (OOP) approach for module development, new module interface using input/output ports and a set of tidy operators for handling cross-module communication. 
@@ -34,7 +35,7 @@ The main features of tidymodules and its comparison with conventional Shiny modu
 | [<i style="color:#285fa4;" class="fas fa-sitemap fa-2x"></i>](articles/inheritance.html) | Inheritance          | - class inheritance <br/> - port inheritance for nested modules                                                           | NA                                                                                    |
 | [<i style="color:#285fa4;" class="fas fa-users fa-2x"></i>](articles/session.html) | Session management   | - flexible user session management <br/> - Caching of modules coming soon                                                             | NA                                                                                    |
 
-\* OPP = Object Oriented Programming
+\* OOP = Object Oriented Programming
 
 ## Installation
 

@@ -31,7 +31,7 @@ ModStore <- R6::R6Class(
     #' s$isStored(m)
     isStored = function(m){
       s <- self$getSession(m)
-      mod <- shiny::isolate(s$collection[[m$module_ns]])
+      mod <- isolate(s$collection[[m$module_ns]])
       if(is.null(mod))
         return(FALSE)
       else
@@ -49,7 +49,7 @@ ModStore <- R6::R6Class(
     #' This could be the global session or a user session.
     #' @param m TidyModule object.
     getSession = function(m){
-      shiny::isolate({
+      isolate({
         return(private$getS(m))
       })
     },
@@ -90,7 +90,7 @@ ModStore <- R6::R6Class(
       toId   <- tname <- tport <- ttype <- tclass <- NA
       s <- e <- d <- NULL
       
-      shiny::isolate({
+      isolate({
         
         if(is(to$m,"TidyModule")){
           s <- to$m$getSession()
@@ -121,7 +121,7 @@ ModStore <- R6::R6Class(
           mod <- attr(from$m,"tidymodules_operation")
           if(!is.null(mod) && mod == "combine"){
             mode <- mod
-            combinedPorts <- shiny::reactiveValuesToList(from$m)
+            combinedPorts <- reactiveValuesToList(from$m)
             for(key in names(combinedPorts)){
               f <- combinedPorts[[key]]
               comment <- key
@@ -159,10 +159,10 @@ ModStore <- R6::R6Class(
             fclass  <- "TidyModule"
           }
           
-        }else if(shiny::is.reactivevalues(from$m)){
+        }else if(is.reactivevalues(from$m)){
           fromId <- unlist(from$m)$imp$.label
           fclass <- "reactivevalues"
-        }else if(shiny::is.reactive(from$m)){
+        }else if(is.reactive(from$m)){
           fromId <- attr(from$m,"observable")$.reactId
           comment <- attr(from$m,"observable")$.label
           # support for previous shiny version that don't have reactId (don't work with shiny 1.0.5)
@@ -205,7 +205,7 @@ ModStore <- R6::R6Class(
     #' Add module into the ModStore.
     #' @param m TidyModule object.
     addMod = function(m){
-      shiny::isolate({
+      isolate({
         s <- private$getS(m)
         ns <- as.character(m$module_ns)
         
@@ -240,13 +240,13 @@ ModStore <- R6::R6Class(
     #' Print the ModStore object.
     print = function(){
       aid <- private$getAID()
-      shiny::isolate({
+      isolate({
         str(private$sessions[[aid]]$global_session$collection)
       })
     }
   ),
   private = list(
-    sessions = shiny::reactiveValues(),
+    sessions = reactiveValues(),
     sessionExist = function(sid){
       aid <- private$getAID()
       return(
@@ -257,11 +257,11 @@ ModStore <- R6::R6Class(
     addSession = function(sid){
       aid <- private$getAID()
       if(is.null(private$sessions[[aid]])){
-        private$sessions[[aid]] <- shiny::reactiveValues()
+        private$sessions[[aid]] <- reactiveValues()
       }
       
       if(is.null(private$sessions[[aid]][[sid]])){
-        private$sessions[[aid]][[sid]] <- shiny::reactiveValues(
+        private$sessions[[aid]][[sid]] <- reactiveValues(
           aid = aid,
           path = getwd(),
           sid = sid,

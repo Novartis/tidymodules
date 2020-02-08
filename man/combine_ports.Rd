@@ -26,7 +26,7 @@ observe({
   combine_ports(
   input_1 = mod(1)$getOutput(1),
   input_2 = mod(2)$getOutput(1)
-  ) %>1% mod(3)
+  ) \%>1\% mod(3)
 })
 }
 

@@ -26,7 +26,7 @@ observe({
   race_ports(
     mod(1)$getOutput(1),
     mod(2)$getOutput(1)
-  ) %>1% mod(3)
+  ) \%>1\% mod(3)
 })
 }
 

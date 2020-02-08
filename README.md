@@ -1,7 +1,10 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 tidymodules <img src="man/figures/logo.svg" align="right" height="139" />
 =========================================================================
 
+[![Travis-CI build
+status](https://travis-ci.org/Novartis/tidymodules.svg?branch=master)](https://travis-ci.org/Novartis/tidymodules)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
 The tidymodules R package is built on top of shiny modules using R6 to
@@ -61,7 +64,7 @@ Shiny modules are presented in the table below.
 </tbody>
 </table>
 
-\* OPP = Object Oriented Programming
+\* OOP = Object Oriented Programming
 
 Installation
 ------------
@@ -94,7 +97,8 @@ Some examples have been deployed on shinyapp.io, such as:
 Learning More
 -------------
 
-Please review the [Get Started](https://opensource.nibr.com/tidymodules/articles/tidymodules.html)
+Please review the [Get
+Started](https://opensource.nibr.com/tidymodules/articles/tidymodules.html)
 page for a high level introduction to tidymodules and its usage in
 developing Shiny apps.
 
