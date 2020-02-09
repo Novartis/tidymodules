@@ -485,19 +485,29 @@ TidyModule <- R6::R6Class(
         copy$created <- Sys.time()
         self$getStore()$addMod(copy)
         
-        # Now deep clone the module attributes that are TidyModules, i.e. nested modules
-        # TODO : Add code to check list as well
+        # Now deep clone the module attributes (also check list) that are TidyModules, i.e. nested modules
         for(at in names(self)){
-          classes <- class(self[[at]])
-          if(length(classes) > 1 && 
-             rev(classes)[[2]] == "TidyModule" &&
-             at != "parent_mod"){
+          if(is(self[[at]],"TidyModule") &&
+             at != "parent_mod"){ # When module attribute is a nested module
             copy[[at]] <- self[[at]]$deepClone(o,i,s)
             copy[[at]]$parent_mod <- copy
             self$getStore()$addMod(copy[[at]])
             # Now add ports to child if any
             if(copy[[at]]$parent_ports)
               copy %:i:% copy[[at]]
+          } else if(is.list(self[[at]])){ # Check list for modules
+            l <- self[[at]]
+            for(k in names(l)){
+              if(is(l[[k]],"TidyModule")){
+                l[[k]] <- l[[k]]$deepClone(o,i,s)
+                l[[k]]$parent_mod <- copy
+                self$getStore()$addMod(l[[k]])
+                # Now add ports to child if any
+                if(l[[k]]$parent_ports)
+                  copy %:i:% l[[k]]
+              }
+            }
+            copy[[at]] <- l
           }
         }
       })

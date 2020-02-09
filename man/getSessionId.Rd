@@ -4,7 +4,7 @@
 \alias{getSessionId}
 \title{Function that generates session Id}
 \usage{
-getSessionId(out = NULL)
+getSessionId(session = getDefaultReactiveDomain())
 }
 \arguments{
 \item{out}{A shiny output as provide by the shiny server function.}
@@ -15,5 +15,5 @@ A session ID
 \description{
 tidymodules offers the ability to manage application sessions.
 This function is the main function used by tidymodules to find the current session Id.
-It takes an optional shiny out as argument. If null, default to the global_session.
+It takes an optional ShinySession object as argument. If null, default to the global_session.
 }

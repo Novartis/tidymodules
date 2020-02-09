@@ -3,9 +3,12 @@ Kmeans <- R6::R6Class(
   "Kmeans", 
   inherit = tidymodules::TidyModule,
   public = list(
+    # Example with nested module in list
+    # nested_mods = list(CP = NULL),
     nested_mod = NULL,
     initialize = function(...){
       super$initialize(...)
+      # self$nested_mods$CP <- ColorPicker$new("CP")
       self$nested_mod <- ColorPicker$new("CP")
       
       km_sample = kmeans(matrix(rnorm(100),ncol = 2),3)
@@ -19,6 +22,7 @@ Kmeans <- R6::R6Class(
       
     },
     ui = function(label) {
+      # col <- self$nested_mods$CP$ui("Color scheme")
       col <- self$nested_mod$ui("Color scheme")
       tags <- tagList(
         selectInput(self$ns('xcol'), 'X Variable', names(iris)),
@@ -34,6 +38,7 @@ Kmeans <- R6::R6Class(
       
       super$server(input,output,session)
       
+      # self$nested_mods$CP$callModule()
       self$nested_mod$callModule()
       
       # Combine the selected variables into a new data frame
@@ -47,6 +52,7 @@ Kmeans <- R6::R6Class(
       
       output$plot1 <- renderPlot({
         # Get ColorPicker output, default to first output port
+        # cp <- self$nested_mods$CP$getOutput()
         cp <- self$nested_mod$getOutput()
         cols <- brewer.pal(input$clusters, cp$scheme)
         cols <- adjustcolor(cols, alpha.f = cp$transparency)
