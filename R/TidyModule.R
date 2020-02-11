@@ -638,7 +638,7 @@ TidyModule <- R6::R6Class(
         })
       }
     },
-    updatePorts = function(ports = NULL, type = "input"){
+     updatePorts = function(ports = NULL, type = "input"){
       stopifnot(!is.null(ports))
       if(!is.reactivevalues(ports))
         stop(paste0(deparse(substitute(ports))," is not a reactive expression"))
@@ -651,7 +651,13 @@ TidyModule <- R6::R6Class(
             stop(paste0("Adding port name ",p," failed, it already exist in ",type," port definition."))
           }else{
             port <- ports[[p]]
-            private$addPort(type,port$name,port$description,port$sample,port$port,is_parent = TRUE)
+            
+            private[[paste0(type,"_port")]][[p]] <- port
+            nv <- private$port_names[[type]]
+            private$port_names[[type]] <- c(nv,p)
+            
+            
+            # private$addPort(type,port$name,port$description,port$sample,port$port,is_parent = TRUE)
           }
         }
       })
