@@ -60,11 +60,12 @@ TidyModule <- R6::R6Class(
       self$name <- ifelse(
         is.null(id),
         paste0(class(self)[[1]],"-",isolate({ses$count }))
-        ,id)
+        ,private$sanitizeID(id,"Id"))
       
       if(!is.null(group)){
-        self$id <- paste0(group,"-",self$name)
-        self$group <- group
+        g <- private$sanitizeID(group,"Group")
+        self$id <- paste0(g,"-",self$name)
+        self$group <- g
       }else{
         self$id <- self$name
       }
@@ -96,9 +97,6 @@ TidyModule <- R6::R6Class(
       if(!is.null(self$parent_mod) && 
          is(self$parent_mod,"TidyModule")){
         self$parent_ns <- self$parent_mod$module_ns
-        private$shiny_input   <- self$parent_mod$getShinyInput()
-        private$shiny_output  <- self$parent_mod$getShinyOutput()
-        private$shiny_session <- self$parent_mod$getShinySession()
       }else{
         self$parent_mod <- NULL
       }
@@ -108,26 +106,17 @@ TidyModule <- R6::R6Class(
         self$id,
         paste0(self$parent_ns,"-",self$id))
       
-      #### Try to capture server function arguments if not set #######
-      for(i in 1:10){
-        serverEnv <- parent.env(parent.frame(i))
-        if(!is.null(serverEnv)){
-          if(!is.null(serverEnv$input) &&
-             is(serverEnv$output, "shinyoutput")){
-            private$shiny_input <- serverEnv$input
-            private$shiny_output <- serverEnv$output
-            private$shiny_session <- serverEnv$session
-            
-            break
-          }
-        }
-      }
-      
-      # check that the module namespace is unique
-      # if(self$isStored())
-      #   stop(paste0("Module namespace collision with ",self$module_ns,", is it already used?"))
+      ####   Capture ShinySession    #######
+      private$shiny_session <- getDefaultReactiveDomain()
       
       self$created <- Sys.time()
+      
+      # check that the module namespace is unique in the current session
+      if(self$isStored() && 
+         as.character(mod(self$module_ns)$created) == as.character(self$created))
+        stop(paste0("Module namespace collision!\n",
+                    "Make sure that the namespace Id ",self$module_ns," is only used once."))
+      
       private$shared$store$addMod(self)
       private$initFields()
       
@@ -150,7 +139,7 @@ TidyModule <- R6::R6Class(
     #' Get module session Id. This function rely on a shiny output object to find the right session Id.
     #' @return The Session Id of the module.
     getSessionId = function(){
-      return(getSessionId(private$shiny_output))
+      return(getSessionId(private$shiny_session))
     },
     #' @description
     #' Alias to the `ui` function.
@@ -358,23 +347,23 @@ TidyModule <- R6::R6Class(
       session <- parent.frame()$session
       disable_cache <- getCacheOption()
       
-      if(!is.null(private$shiny_output)){
+      if(!self$isGlobal()){
         self$doServer(...)
       }else{
-        mod <- self$deepClone(output,input,session)
-        
         isolate({
-          currentSession <- mod$getSession()
-          globalSession <- self$getGlobalSession()
+          currentSession <- UtilityModule$new()$getSession()
+          globalSession <- UtilityModule$new()$getGlobalSession()
+          # currentSession <- mod$getSession()
+          # globalSession <- self$getGlobalSession()
           currentSession$edges <- data.frame()
           currentSession$count <- globalSession$count
+          cloneMod <- is.null(currentSession$collection[[self$module_ns]])
         })
         
-        if(!mod$isStored() || disable_cache){
-          self$getStore()$addMod(mod)
+        if(cloneMod || disable_cache){
+          mod <- self$deepClone(output,input,session)
           mod$doServer(...)
         }else{
-          remove(mod)
           getMod(self$module_ns)$doServer(...)
         }
       }
@@ -493,23 +482,35 @@ TidyModule <- R6::R6Class(
             }
         }
         
-        # Now deep clone the module attributes that are TidyModules, i.e. nested modules
-        # TODO : Add code to check list as well
+        copy$created <- Sys.time()
+        self$getStore()$addMod(copy)
+        
+        # Now deep clone the module attributes (also check list) that are TidyModules, i.e. nested modules
         for(at in names(self)){
-          classes <- class(self[[at]])
-          if(length(classes) > 1 && 
-             rev(classes)[[2]] == "TidyModule" &&
-             at != "parent_mod"){
+          if(is(self[[at]],"TidyModule") &&
+             at != "parent_mod"){ # When module attribute is a nested module
             copy[[at]] <- self[[at]]$deepClone(o,i,s)
             copy[[at]]$parent_mod <- copy
+            self$getStore()$addMod(copy[[at]])
             # Now add ports to child if any
             if(copy[[at]]$parent_ports)
               copy %:i:% copy[[at]]
-            self$getStore()$addMod(copy[[at]])
+          } else if(is.list(self[[at]]) &&
+                    length(copy[[at]]) > 0){ # Check list for modules
+            l <- self[[at]]
+            for(k in 1:length(l)){
+              if(is(l[[k]],"TidyModule")){
+                l[[k]] <- l[[k]]$deepClone(o,i,s)
+                l[[k]]$parent_mod <- copy
+                self$getStore()$addMod(l[[k]])
+                # Now add ports to child if any
+                if(l[[k]]$parent_ports)
+                  copy %:i:% l[[k]]
+              }
+            }
+            copy[[at]] <- l
           }
         }
-        
-        copy$created <- Sys.time()
       })
       
       return(copy)
@@ -561,6 +562,15 @@ TidyModule <- R6::R6Class(
       private$input_port <- reactiveValues()
       private$output_port <- reactiveValues()
       private$port_names <- reactiveValues()
+    },
+    sanitizeID = function(id,type){
+      if(!grepl("[a-z][\\w-]*",id,ignore.case = TRUE,perl = TRUE) ||
+         grepl('[>~!@\\$%\\^&\\*\\(\\)\\+=,./\';:"\\?><\\[\\]\\\\{}\\|`#]',id,ignore.case = TRUE,perl = TRUE))
+        stop(paste(paste0("The provided ",type," must begin with a letter `[A-Za-z]` and may be followed by any number of letters, digits `[0-9]`, hyphens `-`, underscores `_`."),
+        "You should not use the following characters as they have a special meaning on the UI ( CSS / jQuery ).",
+        "> ~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #",sep = "\n"))
+      
+      return(id)
     },
     countPort = function(type = "input"){
       key = paste0(type,"_port")
@@ -629,7 +639,7 @@ TidyModule <- R6::R6Class(
         })
       }
     },
-    updatePorts = function(ports = NULL, type = "input"){
+     updatePorts = function(ports = NULL, type = "input"){
       stopifnot(!is.null(ports))
       if(!is.reactivevalues(ports))
         stop(paste0(deparse(substitute(ports))," is not a reactive expression"))
@@ -642,7 +652,13 @@ TidyModule <- R6::R6Class(
             stop(paste0("Adding port name ",p," failed, it already exist in ",type," port definition."))
           }else{
             port <- ports[[p]]
-            private$addPort(type,port$name,port$description,port$sample,port$port,is_parent = TRUE)
+            
+            private[[paste0(type,"_port")]][[p]] <- port
+            nv <- private$port_names[[type]]
+            private$port_names[[type]] <- c(nv,p)
+            
+            
+            # private$addPort(type,port$name,port$description,port$sample,port$port,is_parent = TRUE)
           }
         }
       })
