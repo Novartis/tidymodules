@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidymodules</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9001</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
 </div></h3>
                         <h4 class="author">Mustapha Larbaoui</h4>
             
-            <h4 class="date">2020-02-06</h4>
+            <h4 class="date">2020-02-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Novartis/tidymodules/blob/master/vignettes/namespace.Rmd"><code>vignettes/namespace.Rmd</code></a></small>
       <div class="hidden name"><code>namespace.Rmd</code></div>
@@ -157,6 +157,10 @@ Printing the instance <code>m</code> to the console shows the structure of the m
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; - Input [0]</span></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; - Output [0]</span></a></code></pre></div>
 <p><code>Tom</code> end up being the namespace Id of <code>m</code>.</p>
+<p>The provided name must begin with a letter <code>[A-Za-z]</code> and may be followed by any number of letters, digits <code>[0-9]</code>, hyphens <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>, underscores <code>_</code>. You should not use the following characters as they have a special meaning on the UI ( CSS / jQuery ).</p>
+<blockquote>
+<p>~ ! @ $ % ^ &amp; * ( ) + = , . / ’ ; : " ? &gt; &lt; [ ]  { } | ` #</p>
+</blockquote>
 </div>
 <div id="namespace-and-nested-modules" class="section level2">
 <h2 class="hasAnchor">
