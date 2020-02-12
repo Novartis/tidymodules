@@ -1,5 +1,6 @@
 # tidymodules 0.1.0.9001
 
+Support for nested modules stored in parent module attribute list
 Sanitize namespace and group ID when provided
 Switch to shiny getDefaultReactiveDomain to retrieve ShinySession
 Update namespace vignette
