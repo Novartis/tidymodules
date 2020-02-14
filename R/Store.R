@@ -181,7 +181,7 @@ Store <- R6::R6Class(
             ),
             enabled = TRUE
           ) %>% 
-          visOptions(
+          visNetwork::visOptions(
             collapse = list(
               enabled = TRUE, 
               fit = TRUE, 
