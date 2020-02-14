@@ -170,7 +170,17 @@ Store <- R6::R6Class(
                    arrows =list(to = list(enabled = TRUE, scaleFactor = 2)),
                    color = list(color = "lightblue", highlight = "yellow")) %>%
           #visHierarchicalLayout(direction = "RL", levelSeparation = 500)
-          visNetwork::visLayout(randomSeed = 12)
+          visNetwork::visLayout(randomSeed = 12) %>%
+          visNetwork::visPhysics(
+            stabilization = TRUE,
+            solver = "repulsion",
+            repulsion = list(
+              nodeDistance = 300,
+              centralGravity = 0,
+              springLength = 100
+            ),
+            enabled = TRUE
+          )
       })
         
     }
