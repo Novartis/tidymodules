@@ -124,7 +124,7 @@ Store <- R6::R6Class(
       output$mods <- DT::renderDataTable({
         d <- mods_df()
       })
-        
+      
       output$portD <- visNetwork::renderVisNetwork({
         
         edges <- edges_df()
@@ -167,8 +167,8 @@ Store <- R6::R6Class(
           width =  "100%"
         ) %>% 
           visNetwork::visEdges(shadow = TRUE,
-                   arrows =list(to = list(enabled = TRUE, scaleFactor = 2)),
-                   color = list(color = "lightblue", highlight = "yellow")) %>%
+                               arrows =list(to = list(enabled = TRUE, scaleFactor = 2)),
+                               color = list(color = "lightblue", highlight = "yellow")) %>%
           #visHierarchicalLayout(direction = "RL", levelSeparation = 500)
           visNetwork::visLayout(randomSeed = 12) %>%
           visNetwork::visPhysics(
@@ -180,9 +180,17 @@ Store <- R6::R6Class(
               springLength = 100
             ),
             enabled = TRUE
+          ) %>% 
+          visOptions(
+            collapse = list(
+              enabled = TRUE, 
+              fit = TRUE, 
+              resetHighlight = TRUE, 
+              keepCoord = TRUE
+            )
           )
       })
-        
+      
     }
   )
 )
