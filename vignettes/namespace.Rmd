@@ -50,6 +50,7 @@ The namespace Id for module `m` above is `MyMod-1`. It is a unique Id generated 
 
 The user can also provide a more informative name when initialising a module.
 
+
 ```{r, eval=TRUE}
 
 m <- MyMod$new("Tom")
@@ -59,6 +60,11 @@ m
 ```
 
 `Tom` end up being the namespace Id of `m`.
+
+The provided name must begin with a letter `[A-Za-z]` and may be followed by any number of letters, digits `[0-9]`, hyphens `-`, underscores `_`.
+You should not use the following characters as they have a special meaning on the UI ( CSS / jQuery ).
+
+> ~ ! @ $ % ^ & * ( ) + = , . / ' ; : " ? > < [ ] \ { } | ` #
 
 
 ## Namespace and nested modules

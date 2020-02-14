@@ -7,14 +7,36 @@ source(system.file(package = "tidymodules","shiny/examples/3_nested_modules/Kmea
 source(system.file(package = "tidymodules","shiny/examples/3_nested_modules/ColorPicker.R"))
 
 km_module <- Kmeans$new()
+store <- Store$new()
 
 ui <- fixedPage(
   h2("tidymodules : Nested module example"),
-  km_module$ui()
+  tabsetPanel(type = "tabs",
+    tabPanel("App",
+      br(),
+      km_module$ui()),
+    tabPanel("Store",
+       br(),
+       fluidRow(
+         column(12, store$ui())
+       )
+    )
+  )
 )
 
 server <- function(input, output, session) {
-  km <- km_module$callModule()
+  store$callModule()
+  km_module$callModule()
+  
+  rand <- reactive({
+    shiny::invalidateLater(3000)
+    rnorm(1)
+  })
+  
+  observe({
+    rand %>1% km_module
+  })
+  
 }
 
 shinyApp(ui, server)
