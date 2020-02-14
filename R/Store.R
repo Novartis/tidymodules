@@ -166,9 +166,11 @@ Store <- R6::R6Class(
           height = "100%", 
           width =  "100%"
         ) %>% 
-          visNetwork::visEdges(shadow = TRUE,
-                               arrows =list(to = list(enabled = TRUE, scaleFactor = 2)),
-                               color = list(color = "lightblue", highlight = "yellow")) %>%
+          visNetwork::visEdges(
+            shadow = TRUE,
+            arrows = list(to = list(enabled = TRUE, scaleFactor = 2)),
+            color = list(color = "lightblue", highlight = "yellow")
+          ) %>%
           #visHierarchicalLayout(direction = "RL", levelSeparation = 500)
           visNetwork::visLayout(randomSeed = 12) %>%
           visNetwork::visPhysics(
