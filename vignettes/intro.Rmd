@@ -1,12 +1,12 @@
 ---
-pagetitle: "Getting started with writing tidymodules"
-title: "Getting started with writing tidymodules"
+pagetitle: "Getting started with writing `{tidymodules}`"
+title: "Getting started with writing `{tidymodules}`"
 subtitle: "<div style='float:right;'><i style='color:#285fa4;' class='fas fa-laptop-code fa-4x'></i></div>"
 author: "Xiao Ni, Mustapha Larbaoui"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting started with writing tidymodules}
+  %\VignetteIndexEntry{Getting started with writing `{tidymodules}`}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -21,15 +21,15 @@ knitr::opts_chunk$set(
 
 ## A quick introduction to R6 and Object Oriented Programming (OOP)
 
-Tidymodules is based R6 ([https://r6.r-lib.org/](https://r6.r-lib.org/)), which is an implementation of encapsulated object-oriented programming for R. Therefore knowledge of R6 is a prerequisite for using tidymodules to develop Shiny modules.
+`{tidymodules}` or `{tm}` in short, is based on R6 ([https://r6.r-lib.org/](https://r6.r-lib.org/)), which is an implementation of encapsulated object-oriented programming for R. Therefore knowledge of R6 is a prerequisite to develop `{tm}` modules.
 
-R6 provides a framework for OOP in R. Unlike the functional programming style, R6 encapsulate methods and fields in classes that instantiate into objects. R6 classes are similar to R's reference classes, but are more efficient and do not depend on S4 classes and the methods package. 
+R6 provides a framework for OOP in R. Unlike the functional programming style, R6 encapsulates methods and fields in classes that instantiate into objects. R6 classes are similar to R's reference classes, but are more efficient and do not depend on S4 classes and the methods package. 
 
 This vignette provides a brief overview of R6 for developers new to R6. For more information, developers are recommended to review the R6 packagedown site  ([https://r6.r-lib.org/](https://r6.r-lib.org/)), as well as Chapter 14 of the Advanced R book ([https://adv-r.hadley.nz/r6.html](https://adv-r.hadley.nz/r6.html))
 
 ### R6 classes and methods
 
-Tidymodules depends on the R6 package which you can install from CRAN and load: 
+`{tm}` depends on the R6 package which you can install from CRAN and load: 
 ```{r , eval=FALSE}
 library(R6)
 ```
@@ -89,11 +89,11 @@ Below are some key features of R6.
 
 ## `tidymodules::TidyModule` class
 
-The `tidymodules::TidyModule` class inherits from `R6Class` and is the parent of all tidymodules modules. 
+The `tidymodules::TidyModule` class is a R6 class and the parent of all `{tm}` modules. 
 
-Below is partial code of the `TidyModule` class for illustration purpose. `TidyModule` includes public methods such as `ui()`, `server()`, `callModules()`, and `definePorts()` etc. 
+Below is partial code of the `TidyModule` class for illustration purpose. The `TidyModule` class includes many public methods. There are utility functions such as `callModules()`, `definePorts()`, `assignPort()` as well as functions that need to be overwritten such as `ui()`, `server()`, etc.
 
-Unlike conventional Shiny modules in funtional programming style, tidymodules encapsulates functions such as ui() and server() as methods in a TidyModule class object. Module namespace ID is seamlessly managed within the module class for the ui and server. For complete technical documentation include other methods and fields, see `?TidyModule`.
+Unlike conventional Shiny modules in funtional programming style, `{tm}` encapsulates functions such as ui() and server() as methods in a TidyModule class object. Module namespace ID is seamlessly managed within the module class for the ui and server. For complete technical documentation that includes other methods and fields, see `?TidyModule`.
 ```{r, eval=FALSE}
 TidyModule <- R6::R6Class(
   "TidyModule",
@@ -144,11 +144,11 @@ TidyModule <- R6::R6Class(
 
 
 
-## Writing your first tidymodules Shiny module
+## Writing your first `{tm}` module
 
- You can develop new tidymodules Shiny modules by inheriting and extending the `tidymodules::TidyModule` class. 
+You can develop new `{tm}` modules by inheriting and extending the `tidymodules::TidyModule` class. 
 
-Below is a minimal example, `RandomNumberGenerator`, with one input port and one output port. The input port is a random number seed that feeds into a random number generator, whose result serves as the module output.
+Below is a minimal example, `RandomNumberGenerator`, defined with one input port and one output port. The input port is a random number seed that feeds into a random number generator, whose result serves as the module output.
 
 ```{r}
 # Module definition
@@ -203,7 +203,7 @@ RandomNumMod <- R6::R6Class(
 )
 ```
 
-Cross-communication between two tidymodules modules is established using several flavours of the pipe `%>%` operator, as illustrated in the following code. The first module's output is fed as the random number seed for the second module.
+Cross-communication between two `{tm}` modules is established using several flavours of the pipe `%>%` operator, as illustrated in the following code. The first module's output is fed as the random number seed for the second module.
 ```{r, eval=FALSE}
 ## Calling app
 randomNumMod1 <- RandomNumMod$new()
@@ -232,5 +232,5 @@ shinyApp(ui = ui, server = server)
 
 ## Next steps
 
-To learn more about writing tidymodules modules, read the examples.
+To learn more about writing `{tm}` modules, read the examples.
 
