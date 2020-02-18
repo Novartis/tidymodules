@@ -1,3 +1,8 @@
+# tidymodules 0.1.0.9002
+
+Adding shiny module code in example 1
+
+
 # tidymodules 0.1.0.9001
 
 Support for nested modules stored in parent module attribute list

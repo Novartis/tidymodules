@@ -1,4 +1,21 @@
-
+#' 
+#' Addition module implemented with {tidymodules}
+#'
+#' @description
+#' Take a number as input and add it to the user selection.
+#'
+#' @details
+#' Should be initialized and injected in your application.
+#' Input port:
+#'  - left
+#' Output port:
+#'  - total
+#' 
+#' @example 
+#' 
+#' a <- Addition$new()
+#' 
+#' 
 Addition <- R6::R6Class(
   "Addition", 
    inherit = tidymodules::TidyModule,
@@ -19,6 +36,9 @@ Addition <- R6::R6Class(
          sample = 6)
        })
      },
+     #' @description
+     #' Store's ui function.
+     #' @return UI elements.
      ui = function() {
        div(style="width:30%;background:lightgrey;border: solid;border-color: grey;padding: 20px;",
          "Module input : ",textOutput(self$ns("left")),
@@ -26,6 +46,11 @@ Addition <- R6::R6Class(
          " = ",textOutput(self$ns("total"))
        )
      },
+     #' @description
+     #' Store's server function.
+     #' @param input Shiny input.
+     #' @param output Shiny output
+     #' @param session Shiny session
      server = function(input, output, session){
        # Mandatory
        super$server(input, output, session)
