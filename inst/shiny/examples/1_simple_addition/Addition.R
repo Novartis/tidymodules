@@ -32,13 +32,12 @@ Addition <- R6::R6Class(
        
        sum_numbers <- reactive({
          req(input$right)
-         req(self$getInput(1))
-         as.numeric(self$getInput(1)())+as.numeric(input$right)
+         left <- self$execInput(1)
+         as.numeric(left)+as.numeric(input$right)
        })
        
        output$left <- renderText({
-         req(self$getInput(1))
-         self$getInput(1)()
+         self$execInput(1)
        })
        
        output$total <- renderText({

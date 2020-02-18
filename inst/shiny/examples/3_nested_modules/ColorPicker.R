@@ -20,7 +20,6 @@ ColorPicker <- R6::R6Class(
       super$ui(
         status = "primary",
         tagList(
-          shiny::textOutput(self$ns("rand")),
           selectInput(self$ns("scheme"), label = label, choices = c("Dark2" = "Dark2", "Set1" = "Set1", "Set2" = "Set2"), selected = "Dark2"),
           checkboxInput(self$ns("reverse"), label = "Reverse scheme"),
           sliderInput(self$ns("transparency"), label = "Transparency", min = 0, max = 1, value = 1)
@@ -36,15 +35,14 @@ ColorPicker <- R6::R6Class(
         cat(msg, "\n")
       })
       
-      output$rand <- renderPrint({ 
-        req(self$getInput())
-        self$getInput()()
+      input_values <- reactive({
+        reactiveValuesToList(input)
       })
       
       self$assignPort({
         self$updateOutputPort(
           id = "scheme",
-          output = input)
+          output = input_values)
       })
       
       return(input)

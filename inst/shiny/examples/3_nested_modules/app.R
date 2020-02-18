@@ -27,16 +27,6 @@ ui <- fixedPage(
 server <- function(input, output, session) {
   store$callModule()
   km_module$callModule()
-  
-  rand <- reactive({
-    shiny::invalidateLater(3000)
-    rnorm(1)
-  })
-  
-  observe({
-    rand %>1% km_module
-  })
-  
 }
 
 shinyApp(ui, server)

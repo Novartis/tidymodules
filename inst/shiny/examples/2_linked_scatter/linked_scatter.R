@@ -66,29 +66,25 @@ LinkedScatter <- R6::R6Class(
        })
        
        dataWithSelection <- reactive({
-         d<-self$getInput("data")
-         req(d)
-         data <- d()
+         data<-self$execInput("data")
          req(nrow(data)!=0)
          brushedPoints(data, input$brush, allRows = TRUE)
        })
        
        dataWithSelectionOnly <- reactive({
-         d<-self$getInput("data")
-         req(d)
-         data <- d()
+         data<-self$execInput("data")
          req(nrow(data)!=0)
          brushedPoints(data, input$brush, allRows = FALSE)
        })
        
        output$plot1 <- renderPlot({
-         o <- self$getInput("option")
+         o <- self$execInput("option")
          req(o)
          private$scatterPlot(dataWithSelection(), o$left)
        })
        
        output$plot2 <- renderPlot({
-         o <- self$getInput("option")
+         o <- self$execInput("option")
          req(o)
          private$scatterPlot(dataWithSelection(), o$right)
        })
