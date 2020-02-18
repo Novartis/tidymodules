@@ -110,7 +110,10 @@ Store <- R6::R6Class(
       
       edges_df <- reactive({
         s <- self$getStore()
-        s$getEdges(self)
+        e <- s$getEdges(self)
+        req(nrow(e) != 0)
+        
+        e
       })
       
       output$sessions <- DT::renderDataTable({
