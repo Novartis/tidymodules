@@ -58,8 +58,7 @@ TM_Server <- function(input, output, session) {
   })
   
   output$total_result <- renderText({
-    result <- mod(2)$getOutput(1)
-    result()
+    mod(2)$execOutput(1)
   })
 }
 
