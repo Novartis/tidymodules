@@ -113,14 +113,14 @@ PlotGenerator <- R6::R6Class(
         
         # feed a static version of the data/mapping to the module
         if(input$disconect_data)
-          reactive(current_data) %->% mod$getInput("data")
+          reactive(current_data) %->% mod$iport("data")
         else
-          reactive_table[[selected_data]] %->% mod$getInput("data")
+          reactive_table[[selected_data]] %->% mod$iport("data")
         
         if(input$disconect_mapping)
-          reactive(current_mapping) %->% mod$getInput("mapping")
+          reactive(current_mapping) %->% mod$iport("mapping")
         else
-          reactive({ reactive_mapping()[[selected_mapping]] }) %->% mod$getInput("mapping")
+          reactive({ reactive_mapping()[[selected_mapping]] }) %->% mod$iport("mapping")
         
         # now call the module 
         mod$callModule()

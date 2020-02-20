@@ -37,6 +37,12 @@ m
 \item{\code{created}}{Initialization time of the module.}
 
 \item{\code{order}}{Initialization order.}
+
+\item{\code{i}}{reactive list of input ports.}
+
+\item{\code{o}}{reactive list of output ports.}
+
+\item{\code{port_names}}{list of input and output port names.}
 }
 \if{html}{\out{</div>}}
 }
@@ -55,15 +61,19 @@ m
 \item \href{#method-updateInputPort}{\code{TidyModule$updateInputPort()}}
 \item \href{#method-updateInputPorts}{\code{TidyModule$updateInputPorts()}}
 \item \href{#method-getInputPort}{\code{TidyModule$getInputPort()}}
+\item \href{#method-iport}{\code{TidyModule$iport()}}
 \item \href{#method-getInputPorts}{\code{TidyModule$getInputPorts()}}
 \item \href{#method-getInput}{\code{TidyModule$getInput()}}
+\item \href{#method-execInput}{\code{TidyModule$execInput()}}
 \item \href{#method-updateOutputPort}{\code{TidyModule$updateOutputPort()}}
 \item \href{#method-updateOutputPorts}{\code{TidyModule$updateOutputPorts()}}
 \item \href{#method-addOutputPort}{\code{TidyModule$addOutputPort()}}
 \item \href{#method-getPortName}{\code{TidyModule$getPortName()}}
 \item \href{#method-getOutputPort}{\code{TidyModule$getOutputPort()}}
+\item \href{#method-oport}{\code{TidyModule$oport()}}
 \item \href{#method-getOutputPorts}{\code{TidyModule$getOutputPorts()}}
 \item \href{#method-getOutput}{\code{TidyModule$getOutput()}}
+\item \href{#method-execOutput}{\code{TidyModule$execOutput()}}
 \item \href{#method-getStore}{\code{TidyModule$getStore()}}
 \item \href{#method-countInputPort}{\code{TidyModule$countInputPort()}}
 \item \href{#method-countOutputPort}{\code{TidyModule$countOutputPort()}}
@@ -312,6 +322,25 @@ A module input port. A reactivevalues object with name, description, sample, is_
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-iport"></a>}}
+\subsection{Method \code{iport()}}{
+Alias to the \code{getInputPort()} function.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$iport(id = 1)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{Name or Id of the port.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A module input port. A reactivevalues object with name, description, sample, is_parent and port elements.
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getInputPorts"></a>}}
 \subsection{Method \code{getInputPorts()}}{
 Get all the input ports as a reactivevalues object.
@@ -340,6 +369,29 @@ Get a input port slot.
 }
 \subsection{Returns}{
 A reactive function or reactivevalues object.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-execInput"></a>}}
+\subsection{Method \code{execInput()}}{
+Execute an input port slot, that is, the reactive function stored in the port.
+The \code{require} argument which is \code{TRUE} by default allows you disable checking if the port is Truthy.
+See \code{shiny::req} function.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$execInput(id = 1, require = TRUE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{Name or Id of the port.}
+
+\item{\code{require}}{Check that the port is available.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Output of the reacive function execution.
 }
 }
 \if{html}{\out{<hr>}}
@@ -448,6 +500,25 @@ A module output port. A reactivevalues object with name, description, sample, is
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-oport"></a>}}
+\subsection{Method \code{oport()}}{
+Alias to the \code{getOutputPort()} function.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$oport(id = 1)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{Name or Id of the port.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A module output port. A reactivevalues object with name, description, sample, is_parent and port elements.
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getOutputPorts"></a>}}
 \subsection{Method \code{getOutputPorts()}}{
 Get all the output ports as a reactivevalues object.
@@ -476,6 +547,29 @@ Get a output port slot.
 }
 \subsection{Returns}{
 A reactive function or reactivevalues object.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-execOutput"></a>}}
+\subsection{Method \code{execOutput()}}{
+Execute an output port slot, that is, the reactive function stored in the port.
+The \code{require} argument which is \code{TRUE} by default allows you disable checking if the port is Truthy.
+See \code{shiny::req} function.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$execOutput(id = 1, require = TRUE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{Name or Id of the port.}
+
+\item{\code{require}}{Check that the port is available.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Output of the reacive function execution.
 }
 }
 \if{html}{\out{<hr>}}

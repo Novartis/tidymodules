@@ -158,10 +158,6 @@ ModStore <- R6::R6Class(
             fname <- attr(from$m,"tidymodules_port_name")
             fclass  <- "TidyModule"
           }
-          
-        }else if(is.reactivevalues(from$m)){
-          fromId <- unlist(from$m)$imp$.label
-          fclass <- "reactivevalues"
         }else if(is.reactive(from$m)){
           fromId <- attr(from$m,"observable")$.reactId
           comment <- attr(from$m,"observable")$.label
@@ -186,7 +182,8 @@ ModStore <- R6::R6Class(
             ttype = ttype,
             tname = tname,
             mode  = mode,
-            comment = comment
+            comment = comment,
+            stringsAsFactors = FALSE
           )
         
         if(is.null(s) || s$sid == "global_session")
@@ -195,10 +192,16 @@ ModStore <- R6::R6Class(
         # track update time
         s$updated = Sys.time()
         
-        if(length(s$edges)==0)
+        if(length(s$edges)==0){
           s$edges <- d
-        else
-          s$edges <- rbind(e,d)
+        }else{
+          key <- paste0(as.character(d[1,]),collapse = "|")
+          keys <- apply(e,1,paste0,collapse = "|")
+          if(key %in% keys)
+            warning(paste0("Module mapping already exist!\n",key))
+          else
+            s$edges <- rbind(e,d)
+        }
       })
     },
     #' @description

@@ -65,16 +65,20 @@ server <- function(input, output, session) {
     # dataset selector provides data to
     # column mapper and row filter modules
     # getMod("Marzie") %1>1% getMod("Renan")
-    oport("Marzie","dataset") %->% iport("Renan","data")
+    browser()
+    oport("Marzie","dataset") %->>% 
+      iport("Renan","data") %->%
+      iport("Stefan","data")
+    
     mod("Marzie") %1>1% mod("Stefan")
     # the mappings are then used by the plot generator
     mod("Renan") %1>1% mod("Doug")
     # plot generator also takes raw and filtered data as input
     # by combining the two output ports in a named reactive list 
     combine_ports(
-      raw    = mod("Marzie")$getOutput(1),   # output 1 of data selector module
-      filter = mod("Stefan")$getOutput(2) # output 2 of data filter module
-    ) %>2% mod("Doug")
+      raw    = oport("Marzie","dataset"),   # output 1 of data selector module
+      filter = oport("Stefan","filtered")    # output 2 of data filter module
+    ) %->% iport("Doug","tables")
   })
 }
 

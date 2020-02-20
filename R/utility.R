@@ -79,9 +79,9 @@ port <- function(id = 1, p = 1, t = "in", g = NULL){
     return(NULL)
   }else{
     if(t == "in")
-      return(m$getInput(p))
+      return(m$getInputPort(p))
     else
-      return(m$getOutput(p))
+      return(m$getOutputPort(p))
   }
 }
 #' 

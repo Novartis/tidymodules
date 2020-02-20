@@ -1,18 +1,18 @@
 #' 
-#' mkDoublePipe: Pipe function generator
+#' make_double_pipe: Pipe function generator
 #' 
-#' Create a pipe function for mapping module output to module input
+#' Create a pipe function for mapping a module output to a module input
 #' 
-#' @param l Left hand side expression.
-#' @param r Right hand side.
-#' @param f Forward operartion. Boolean.
-#' @param rev Reverse operation. Boolean.
+#' @param l Left module.
+#' @param r Right module.
+#' @param f fast boolean. Used with the '>>' or '<<' signs to return the item at the opposite of the arrow.
+#' @param rev Reverse operation. Boolean that indicates if this is a reverse operation, i.e. '<' or '<<'.
 #' 
 #' @keywords internal
-mkDoublePipe <- function(l,r, f = TRUE , rev = FALSE){
+make_double_pipe <- function(l,r, f = FALSE , rev = FALSE){
   left_id   <- l
   right_id  <- r
-  forward   <- f
+  fast      <- f
   reverse   <- rev
   return(
     function(l_mod,r_mod){
@@ -27,7 +27,7 @@ mkDoublePipe <- function(l,r, f = TRUE , rev = FALSE){
       
       from <- list( mod = l_mod, port = left_id)
       to <- list(mod = r_mod, port = right_id)
-      if(!f){
+      if(reverse){
         to <- list( mod = l_mod, port = left_id)
         from <- list(mod = r_mod, port = right_id)
       }
@@ -41,7 +41,7 @@ mkDoublePipe <- function(l,r, f = TRUE , rev = FALSE){
         to =   list(type = "input", m = to$mod, port = to$port)
       )
       
-      if(reverse)
+      if(fast)
         from$mod
       else
         to$mod
@@ -49,23 +49,23 @@ mkDoublePipe <- function(l,r, f = TRUE , rev = FALSE){
   )
 }
 
-#' mkSinglePipe: Pipe function generator
+#' make_single_pipe: Pipe function generator
 #' 
 #' Create a pipe function for mapping a reactive expression/value to a module input
 #' 
-#' @inheritParams mkDoublePipe
+#' @inheritParams make_double_pipe
 #' 
 #' @keywords internal
-mkSinglePipe <- function(p = NULL, f = TRUE , rev = FALSE){
+make_single_pipe <- function(p = NULL, f = FALSE , rev = FALSE){
   port_id   <- p
-  forward   <- f
+  fast   <- f
   reverse   <- rev
   return(
     function(left,right){
       
       from <- left
       to <- list(mod = right, port = port_id)
-      if(!f){
+      if(reverse){
         to <- list( mod = left, port = port_id)
         from <- right
       }
@@ -90,7 +90,7 @@ mkSinglePipe <- function(p = NULL, f = TRUE , rev = FALSE){
         to =   list(type = "input", m = to$mod, port = to$port)
       )
       
-      if(reverse)
+      if(fast)
         from
       else
         to$mod
@@ -99,18 +99,18 @@ mkSinglePipe <- function(p = NULL, f = TRUE , rev = FALSE){
 }
 
 
-#' multiPipeFunc
+#' multi_port_map
 #' 
 #' Pipe function for sequentially mapping left module outputs to 
 #' right module inputs
 #' 
 #' @param l_mod Left module.
 #' @param r_mod Right module.
-#' @param rev Reverse operation. Boolean.
-#' @param t TO DO.
+#' @param f fast boolean. Used with the '>>' or '<<' signs to return the item at the opposite of the arrow.
+#' @param t mapping type. Default to NULL. Could also be 'input' for mapping input to input.
 #' 
 #' @keywords internal
-multiPipeFunc <- function(l_mod,r_mod,rev = FALSE, t = NULL){
+multi_port_map <- function(l_mod,r_mod,f = FALSE, t = NULL){
   if(!is(l_mod,"TidyModule"))
     stop(paste0(deparse(substitute(l_mod))," is not a Module"))
   if(!is(r_mod,"TidyModule"))
@@ -153,7 +153,7 @@ multiPipeFunc <- function(l_mod,r_mod,rev = FALSE, t = NULL){
   }
   
   
-  if(rev)
+  if(f)
     l_mod
   else
     r_mod
@@ -188,33 +188,75 @@ for (rp in 1:pipes$maxPort) {
   
   p <- paste0("%>",rp,"%")
   pipes$forward$normal$simple <- c(pipes$forward$normal$simple,p)
-  assign(p,mkSinglePipe(rp))
+  assign(p,make_single_pipe(rp))
   
   p <- paste0("%>>",rp,"%")
   pipes$forward$fast$simple <- c(pipes$forward$fast$simple,p)
-  assign(p,mkSinglePipe(rp,rev = TRUE))
+  assign(p,make_single_pipe(rp,f = TRUE))
   
   for (lp in 1:pipes$maxPort) {
     
     p <- paste0("%",lp,">",rp,"%")
     pipes$forward$normal$double <- c(pipes$forward$normal$double,p);
-    assign(p,mkDoublePipe(lp,rp))
+    assign(p,make_double_pipe(lp,rp))
     
     p <- paste0("%",lp,">>",rp,"%")
     pipes$forward$fast$double <- c(pipes$forward$fast$double,p);
-    assign(p,mkDoublePipe(lp,rp,rev = TRUE))
+    assign(p,make_double_pipe(lp,rp,f = TRUE))
     
     p <- paste0("%",lp,"<",rp,"%")
     pipes$reverse$normal$double <- c(pipes$reverse$normal$double,p);
-    assign(p,mkDoublePipe(lp,rp,f = FALSE))
+    assign(p,make_double_pipe(lp,rp,rev = TRUE))
     
     p <- paste0("%",lp,"<<",rp,"%")
     pipes$reverse$fast$double <- c(pipes$reverse$fast$double,p);
-    assign(p,mkDoublePipe(lp,rp,f = FALSE,rev = TRUE))
+    assign(p,make_double_pipe(lp,rp,f = TRUE,rev = TRUE))
     
   }
 }
 
+#' port_map
+#' 
+#' port mapping function.
+#' 
+#' @param lp Left port
+#' @param rp Right port
+#' @param f Forward operartion. Boolean.
+#' 
+#' @keywords internal
+port_map <- function(lp,rp,f = FALSE){
+  isolate({
+    # ---- Checks for rp - the right port
+    
+    # Make sure rp is a tidymodules input port
+    if(is.null(attr(rp,"tidymodules")) || attr(rp,"tidymodules_port_type") != "input")
+      stop(paste0(deparse(substitute(rp))," is not a tidymodules input port" ))
+    # Make sure it is an actual port definition or port slot
+    if(!is.null(attr(rp,"tidymodules_port_slot")) && attr(rp,"tidymodules_port_slot"))
+       warning(paste0(deparse(substitute(rp))," is a port slot. You should rather use one of the port function to retrieve the right port.\nSee iport(...), m$iport(...) and m$getInputPort(...)."))
+    mod <- isolate(getMod(attr(rp,"tidymodules_module_ns")))
+    port_id <- attr(rp,"tidymodules_port_id")
+
+    # ---- Checks for lp - the left port
+    
+    # Make sure lp is a tidymodules objects (output port or derived port)  
+    if(!is.null(attr(lp,"tidymodules")) && attr(lp,"tidymodules")){
+      if(!is.null(attr(lp,"tidymodules_port_type")) && attr(lp,"tidymodules_port_type") != "output")
+        stop(paste0(deparse(substitute(lp))," is not a tidymodules output port" ))
+    # Or a reactive function
+    }else if(!is.reactive(lp)){
+      stop(paste0(deparse(substitute(lp))," is not a reactive function" ))
+    }
+  })
+  
+  fct <- make_single_pipe(port_id)
+  fct(lp,mod)
+  
+  if(f)
+    invisible(lp)
+  else
+    invisible(rp)
+}
 
 
 #' 
@@ -226,21 +268,27 @@ for (rp in 1:pipes$maxPort) {
 #' @param lp Left port.
 #' @param rp Right port.
 #' 
-#' @return The module of the right port
+#' @return The right port
 #' 
 #' @export
 "%->%" <- function(lp,rp) {
-  isolate({
-    # Make sure rp is a tidymodules input port
-    if(!attr(rp,"tidymodules") || attr(rp,"tidymodules_port_type") != "input")
-      stop(paste0(deparse(substitute(rp))," is not a tidymodules input port" ))
-    mod <- isolate(getMod(attr(rp,"tidymodules_module_ns")))
-    port_id <- attr(rp,"tidymodules_port_id")
-  })
-  
-  fct <- mkSinglePipe(port_id)
-  
-  return(fct(lp,mod)); 
+  return(port_map(lp,rp))
+}
+
+#' 
+#' @title Port mapping function (port level) - forward version
+#' 
+#' @description This pipe works at the port level where left and right object are ports not modules.
+#' Take the left port and maps it to the right port. This is a forward version, i.e. return the left item.
+#' 
+#' @param lp Left port.
+#' @param rp Right port.
+#' 
+#' @return The left port
+#' 
+#' @export
+"%->>%" <- function(lp,rp) {
+  return(port_map(lp,rp, TRUE))
 }
 
 #' 
@@ -254,27 +302,7 @@ for (rp in 1:pipes$maxPort) {
 #' @return The right module
 #' 
 #' @export
-"%:>:%" <- function(l,r) { return(multiPipeFunc(l,r)); }
-
-
-#' 
-#' @title Multi-port mapping function
-#' 
-#' @description This pipe maps all the left input ports to the right input ports.
-#' 
-#' @param l left module.
-#' @param r right module.
-#' 
-#' @return The right module.
-#' 
-#' @export
-"%:i:%" <- function(l,r) { return(multiPipeFunc(l,r,t="input")); }
-
-# #' Forward input/input multi-port pipe
-# #' 
-# #' @rdname pipes
-# #' @export %:o:%
-# "%:o:%" <- function(l,r) { return(multiPipeFunc(l,r,t="output")); }
+"%:>:%" <- function(l,r) { return(multi_port_map(l,r)); }
 
 #' 
 #' @title Multi-port mapping function
@@ -287,7 +315,26 @@ for (rp in 1:pipes$maxPort) {
 #' @return The left module.
 #' 
 #' @export
-"%:>>:%" <- function(l,r) { return(multiPipeFunc(l,r,rev = TRUE)); }
+"%:>>:%" <- function(l,r) { return(multi_port_map(l,r,f = TRUE)); }
+
+#' 
+#' @title Multi-port mapping function
+#' 
+#' @description This pipe maps all the left input ports to the right input ports.
+#' 
+#' @param l left module.
+#' @param r right module.
+#' 
+#' @return The right module.
+#' 
+#' @export
+"%:i:%" <- function(l,r) { return(multi_port_map(l,r,t = "input")); }
+
+# #' Forward input/input multi-port pipe
+# #' 
+# #' @rdname pipes
+# #' @export %:o:%
+# "%:o:%" <- function(l,r) { return(multi_port_map(l,r,t="output")); }
 
 
 ns_export <- function(pnames){

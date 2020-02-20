@@ -30,6 +30,12 @@ TidyModule <- R6::R6Class(
     created = NULL,
     #' @field order Initialization order.
     order = NULL,
+    #' @field i reactive list of input ports.
+    i = NULL,
+    #' @field o reactive list of output ports.
+    o = NULL,
+    #' @field port_names list of input and output port names.
+    port_names = NULL,
     # o = NULL,
     # i = NULL,
     #' @description
@@ -231,6 +237,13 @@ TidyModule <- R6::R6Class(
       return(private$getPort(id,"input"))
     },
     #' @description
+    #' Alias to the `getInputPort()` function.
+    #' @param id Name or Id of the port.
+    #' @return A module input port. A reactivevalues object with name, description, sample, is_parent and port elements.
+    iport = function(id = 1){
+      return(private$getPort(id,"input"))
+    },
+    #' @description
     #' Get all the input ports as a reactivevalues object.
     #' @return A reactivevalues object.
     getInputPorts = function(){
@@ -242,6 +255,19 @@ TidyModule <- R6::R6Class(
     #' @return A reactive function or reactivevalues object.
     getInput = function(id = 1){
       return(private$get(id, "input"))
+    },
+    #' @description
+    #' Execute an input port slot, that is, the reactive function stored in the port.
+    #' The `require` argument which is `TRUE` by default allows you disable checking if the port is Truthy.
+    #' See `shiny::req` function.
+    #' @param id Name or Id of the port.
+    #' @param require Check that the port is available.
+    #' @return Output of the reacive function execution.
+    execInput = function(id = 1, require = TRUE){
+      r <- self$getInput(id)
+      if(require)
+        req(r)
+      return(r())
     },
     #' @description
     #' Function for filling an output port.
@@ -298,6 +324,13 @@ TidyModule <- R6::R6Class(
       return(private$getPort(id,"output"))
     },
     #' @description
+    #' Alias to the `getOutputPort()` function.
+    #' @param id Name or Id of the port.
+    #' @return A module output port. A reactivevalues object with name, description, sample, is_parent and port elements.
+    oport = function(id = 1){
+      return(private$getPort(id,"output"))
+    },
+    #' @description
     #' Get all the output ports as a reactivevalues object.
     #' @return A reactivevalues object.
     getOutputPorts = function(){
@@ -309,6 +342,19 @@ TidyModule <- R6::R6Class(
     #' @return A reactive function or reactivevalues object.
     getOutput = function(id = 1){
       return(private$get(id, "output"))
+    },
+    #' @description
+    #' Execute an output port slot, that is, the reactive function stored in the port.
+    #' The `require` argument which is `TRUE` by default allows you disable checking if the port is Truthy.
+    #' See `shiny::req` function.
+    #' @param id Name or Id of the port.
+    #' @param require Check that the port is available.
+    #' @return Output of the reacive function execution.
+    execOutput = function(id = 1, require = TRUE){
+      r <- self$getOutput(id)
+      if(require)
+        req(r)
+      return(r())
     },
     #' @description
     #' Function for retrieving the central ModStore.
@@ -496,7 +542,8 @@ TidyModule <- R6::R6Class(
             if(copy[[at]]$parent_ports)
               copy %:i:% copy[[at]]
           } else if(is.list(self[[at]]) &&
-                    length(copy[[at]]) > 0){ # Check list for modules
+                    length(copy[[at]]) > 0 && 
+                    !at %in% c("port_names","i","o")){ # Check list for modules
             l <- self[[at]]
             for(k in 1:length(l)){
               if(is(l[[k]],"TidyModule")){
@@ -521,9 +568,7 @@ TidyModule <- R6::R6Class(
     #' @param i Optional shiny input
     #' @param s Optional shiny input
     reset = function(o = NULL, i = NULL, s = NULL){
-      private$input_port <- reactiveValues()
-      private$output_port <- reactiveValues()
-      private$port_names <- reactiveValues()
+      private$initFields()
       if(!is.null(o))
         private$shiny_output <- o
       if(!is.null(i))
@@ -555,13 +600,10 @@ TidyModule <- R6::R6Class(
     shiny_input = NULL,
     shiny_output = NULL,
     shiny_session = NULL,
-    input_port = NULL,
-    output_port = NULL,
-    port_names = NULL,
     initFields = function(){
-      private$input_port <- reactiveValues()
-      private$output_port <- reactiveValues()
-      private$port_names <- reactiveValues()
+      self$i <- reactiveValues()
+      self$o <- reactiveValues()
+      self$port_names <- reactiveValues()
     },
     sanitizeID = function(id,type){
       if(!grepl("[a-z][\\w-]*",id,ignore.case = TRUE,perl = TRUE) ||
@@ -573,8 +615,8 @@ TidyModule <- R6::R6Class(
       return(id)
     },
     countPort = function(type = "input"){
-      key = paste0(type,"_port")
-      return(length(names(private[[key]])))
+      key = ifelse(type == "input", "i" , "o")
+      return(length(names(self[[key]])))
     },
     addPort = function(
       type = "input",
@@ -592,7 +634,19 @@ TidyModule <- R6::R6Class(
       )
       
       p = port
+      
+      attr(rv,"tidymodules")  <- TRUE
+      attr(rv,"tidymodules_port_def")         <- TRUE
+      attr(rv,"tidymodules_port_type")        <- type
+      attr(rv,"tidymodules_port_id")          <- private$countPort(type)+1
+      attr(rv,"tidymodules_port_name")        <- name
+      attr(rv,"tidymodules_port_description") <- description
+      attr(rv,"tidymodules_port_sample")      <- sample
+      attr(rv,"tidymodules_is_parent")        <- is_parent
+      attr(rv,"tidymodules_module_ns")        <- self$module_ns
+      
       attr(p,"tidymodules")  <- TRUE
+      attr(p,"tidymodules_port_slot")        <- TRUE
       attr(p,"tidymodules_port_type")        <- type
       attr(p,"tidymodules_port_id")          <- private$countPort(type)+1
       attr(p,"tidymodules_port_name")        <- name
@@ -602,77 +656,89 @@ TidyModule <- R6::R6Class(
       attr(p,"tidymodules_module_ns")        <- self$module_ns
       
       rv[["port"]] <- p
-      private[[paste0(type,"_port")]][[name]] <- rv
-      nv <- private$port_names[[type]]
-      private$port_names[[type]] <- c(nv,name)
+      key = ifelse(type == "input", "i" , "o")
+      self[[key]][[name]] <- rv
+      nv <- self$port_names[[type]]
+      self$port_names[[type]] <- c(nv,name)
     },
-    updatePort = function(id = NULL, port = NULL, type = "input"){
+     updatePort = function(id = NULL, port = NULL, type = "input"){
       stopifnot((!is.null(id)))
       
       if(!is.null(port)){
-        if(!is.reactivevalues(port) &&
-           !is.reactive(port) )
+        if(is.reactivevalues(port)){
+          if(!is.null(attr(port,"tidymodules_operation")) &&
+             attr(port,"tidymodules_operation") == "combine"){
+            # We need to modify the combined reactive list here to remove the port sctructure
+            isolate({
+              p <- reactiveValues()
+              for (k in names(port)) {
+                p[[k]] <- port[[k]]$port
+              }
+              port <- p
+            })
+          } else if(!is.null(attr(port,"tidymodules_port_def")) &&
+                    attr(port,"tidymodules_port_def")){
+            port <- port$port
+          }else{
+            stop(paste0(deparse(substitute(port))," is reactive list (reactiveValues). Provide a reactive function instead."))            
+          }
+        }else if(!is.reactive(port)){
           stop(paste0(deparse(substitute(port))," is not reactive"))
+        }
         
-        key = paste0(type,"_port")
+        key = ifelse(type == "input", "i" , "o")
         if(is.numeric(id)){
           if(!id %in% seq(1,private$countPort(type))){
             stop(paste0("Port Update Failure: Numeric ",type," port [",id,"] not found in Module definition"))
           }else{
-            id<-private$port_names[[type]][id]
+            id<-self$port_names[[type]][id]
           }
         }
-        if(is.character(id) && !id %in% names(private[[key]])){
+        if(is.character(id) && !id %in% names(self[[key]])){
           stop(paste0("Port Update Failure: Character ",type," port [",id,"] not found in Module definition"))
         }
         
-          
-        # Attach module information to the port
+        # Attach module information to the output port
         # This will facilitate storage of module edges
         isolate({
-          attrs <- attributes(private[[key]][[id]][["port"]])
-          for(a in names(attrs))
-            if(grepl("tidymodules",a))
-              attr(port,a) <- attrs[[a]]
-            
-            private[[key]][[id]][["port"]] <- port
+          attrs <- attributes(self[[key]][[id]][["port"]])
+          if(type == "output")
+            for(a in names(attrs))
+              if(grepl("tidymodules",a))
+                attr(port,a) <- attrs[[a]]
+        
+          self[[key]][[id]][["port"]] <- port
         })
       }
     },
      updatePorts = function(ports = NULL, type = "input"){
       stopifnot(!is.null(ports))
       if(!is.reactivevalues(ports))
-        stop(paste0(deparse(substitute(ports))," is not a reactive expression"))
+        stop(paste0(deparse(substitute(ports))," is not a reactive list"))
       
-      key = paste0(type,"_port")
+      key = ifelse(type == "input", "i" , "o")
       
       isolate({
         for(p in names(ports)){
-          if(p %in%  private$port_names[[type]]){
+          if(p %in%  self$port_names[[type]]){
             stop(paste0("Adding port name ",p," failed, it already exist in ",type," port definition."))
           }else{
             port <- ports[[p]]
-            
-            private[[paste0(type,"_port")]][[p]] <- port
-            nv <- private$port_names[[type]]
-            private$port_names[[type]] <- c(nv,p)
-            
-            
-            # private$addPort(type,port$name,port$description,port$sample,port$port,is_parent = TRUE)
+            self[[key]][[p]] <- port
+            nv <- self$port_names[[type]]
+            self$port_names[[type]] <- c(nv,p)
           }
         }
       })
     },
     get = function(id = 1,type = "input"){
       data.port <- private$getPort(id, type)
-      
       req(data.port)
-      # req(data.port[[type]])
 
       return(data.port[["port"]])
     },
     getPort = function(id = 1,type = "input"){
-      key = paste0(type,"_port")
+      key = ifelse(type == "input", "i" , "o")
       if(private$countPort(type) == 0){
         warning(paste0("Module ",self$module_ns," has no ",type," ports"))
         return(NULL)
@@ -682,28 +748,27 @@ TidyModule <- R6::R6Class(
           warning(paste0("Numeric ",type," port [",id,"] not found in Module definition"))
           return(NULL)
         }else{
-          id<-private$port_names[[type]][id]
+          id<-self$port_names[[type]][id]
         }
       }
-      if(is.character(id) && !id %in% names(private[[key]])){
+      if(is.character(id) && !id %in% names(self[[key]])){
         warning(paste0("Character ",type," port [",id,"] not found in Module definition"))
         return(NULL)
       }
-      return(private[[key]][[id]])
+      return(self[[key]][[id]])
     },
     getPorts = function(type = "input"){
-      key = paste0(type,"_port")
+      key = ifelse(type == "input", "i" , "o")
       if(private$countPort(type) == 0)
         return(NULL)
 
-      return(private[[key]])
+      return(self[[key]])
     },
     printPorts = function(type = "input"){
       if(private$countPort(type)>0)
         for (p in 1:private$countPort(type)) {
           port = private$getPort(p,type)
           cat(paste0("(",p,") ",port$name," => ",ifelse(
-            is.reactivevalues(port[["port"]]) ||
             is.reactive(port[["port"]]) || 
             port[["port"]],"OK","Empty"),"\n"))
         }

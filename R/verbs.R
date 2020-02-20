@@ -109,28 +109,25 @@ race_ports <- function(...){
   lapply(1:length(racers),function(r){
     reac <- racers[[r]]
     observeEvent({
-      if(is.reactivevalues(reac))
-        reactiveValuesToList(reac)
-      else
-        reac()
+      reac()
     },{
-      if(!is.reactivevalues(reac))
-        req(reac())
+      req(reac())
       r(reac)
     },priority = p)
     p <- p - 1
   })
   
-  return(reactive(
-    {
-      r()
-      isolate({
-        o <- r()
-        if(is.reactivevalues(o))
-          reactiveValuesToList(o)
-        else
-          o()
-      })
-    }
-  ))
+  reactive_racer <- reactive({
+    r()
+    isolate({
+      o <- r()
+      o()
+    })
+  })
+  
+  # Make this reactive aware of its tidymoduleness
+  attr(reactive_racer,"tidymodules") <- TRUE
+  attr(reactive_racer,"tidymodules_operation") <- "race"
+  
+  return(reactive_racer)
 }
