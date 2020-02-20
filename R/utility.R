@@ -162,6 +162,21 @@ callModules <- function(){
   lapply(calls,function(m) m$callModule()) 
 }
 #' 
+#' @title Function wrapper for ports connection expression.
+#'
+#' @description Used in server functions to define how modules are connected to each other.
+#' 
+#' @param x expression
+#' 
+#' @export
+defineEdges  <- function(x){
+  observe({
+    isolate(x)
+  })
+}
+
+
+#' 
 #' @title Retrieve cache option from the environment
 #'
 #' @description The cache option `tm_disable_cache` is a global options that enable or disable the use of existing modules from the current session.

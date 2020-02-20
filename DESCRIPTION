@@ -19,7 +19,8 @@ Imports:
     digest,
     R6,
     visNetwork,
-    methods
+    methods,
+    snippr
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/Novartis/tidymodules
@@ -34,4 +35,6 @@ Suggests:
     RColorBrewer,
     shinyWidgets,
     plotly
+Remotes: 
+    dgrtwo/snippr@29c1813
 VignetteBuilder: knitr

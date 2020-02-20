@@ -1,0 +1,70 @@
+snippet tm.mod.new
+	#'
+	#' ${1:MyModule} title here.
+	#'
+	#' @description
+	#' ${1:MyModule} long description here.
+	#'
+	#' @details
+	#' More details here.
+	#'
+	#' @export
+	${1:MyModule} <- R6::R6Class(
+	  classname = "${1:MyModule}",
+	  inherit = ${2:TidyModule},
+	  public = list(
+	    #' @description
+	    #' Module's initialization function.
+	    #' @return An instance of ${1:MyModule}
+	    initialize = function(...){
+	      # DON'T REMOVE the line below, it's mandatory!
+	      super\$initialize(...)
+	      # Ports definition starts here...
+	      ${0}
+	    },
+	    #' @description
+	    #' Module's ui function.
+	    #' @return HTML tags list.
+	    ui = function(){
+	      # Module's representation starts here ...
+	      tagList()
+	    },
+	    #' @description
+	    #' Module's server function.
+	    #' @param input Shiny input.
+	    #' @param output Shiny output
+	    #' @param session Shiny session
+	    server = function(input, output, session){
+	      # DON'T REMOVE the line below, it's mandatory!
+	      super\$server(input,output,session)
+	      # Module server logic starts here ...
+	
+	
+	    }
+	  )
+	)
+snippet tm.port.define
+	self\$definePort({
+		${0}
+	})
+snippet tm.port.in
+	self\$addInputPort(
+		name = "${1:port_name}",
+		description = "A clear description for this input port${0}",
+		sample = data.frame(x = rnorm(10), y = rnorm(10))
+	)
+snippet tm.port.out
+	self\$addOutputPort(
+		name = "${1:port_name}",
+		description = "A clear description for this output port${0}",
+		sample = data.frame(x = rnorm(10), y = rnorm(10))
+	)
+snippet tm.port.assign
+	self\$assignPort({
+		${0}
+	})
+snippet tm.port.edges
+	defineEdges({
+		${0}
+	})
+	

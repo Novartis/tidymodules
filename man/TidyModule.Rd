@@ -214,7 +214,7 @@ Function wrapper for port definition expression.
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-assignPort"></a>}}
 \subsection{Method \code{assignPort()}}{
-Function wrapper for port assignement expression.
+Function wrapper for port assignment expression.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TidyModule$assignPort(x)}\if{html}{\out{</div>}}
 }
