@@ -20,7 +20,11 @@ Imports:
     R6,
     visNetwork,
     methods,
-    snippr
+    snippr,
+    cli,
+    dplyr,
+    fs,
+    purrr
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/Novartis/tidymodules
