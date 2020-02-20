@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Single-port mapping function (Reverse version) — %x&lt;y% • tidymodules</title>
+<title>make_double_pipe: Pipe function generator — make_double_pipe • tidymodules</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,11 +42,8 @@
 
 
 
-<meta property="og:title" content="Single-port mapping function (Reverse version) — %x&lt;y%" />
-<meta property="og:description" content="This pipe works at the module level.
-It maps the right module's output port defined by the right number (y)
-of the pipe operator to the left module's input port defined by the
-left number (x)." />
+<meta property="og:title" content="make_double_pipe: Pipe function generator — make_double_pipe" />
+<meta property="og:description" content="Create a pipe function for mapping a module output to a module input" />
 <meta property="og:image" content="https://opensource.nibr.com/tidymodules/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -146,25 +143,44 @@ left number (x)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Single-port mapping function (Reverse version)</h1>
+    <h1>make_double_pipe: Pipe function generator</h1>
     <small class="dont-index">Source: <a href='https://github.com/Novartis/tidymodules/blob/master/R/pipes.R'><code>R/pipes.R</code></a></small>
-    <div class="hidden name"><code>grapes-x-less-than-y-grapes.Rd</code></div>
+    <div class="hidden name"><code>make_double_pipe.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This pipe works at the module level.
-It maps the right module's output port defined by the right number (y)
-of the pipe operator to the left module's input port defined by the
-left number (x).</p>
+    <p>Create a pipe function for mapping a module output to a module input</p>
     </div>
 
+    <pre class="usage"><span class='fu'>make_double_pipe</span>(<span class='no'>l</span>, <span class='no'>r</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>l</th>
+      <td><p>Left module.</p></td>
+    </tr>
+    <tr>
+      <th>r</th>
+      <td><p>Right module.</p></td>
+    </tr>
+    <tr>
+      <th>f</th>
+      <td><p>fast boolean. Used with the '&gt;&gt;' or '&lt;&lt;' signs to return the item at the opposite of the arrow.</p></td>
+    </tr>
+    <tr>
+      <th>rev</th>
+      <td><p>Reverse operation. Boolean that indicates if this is a reverse operation, i.e. '&lt;' or '&lt;&lt;'.</p></td>
+    </tr>
+    </table>
 
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
     </ul>
 
   </div>

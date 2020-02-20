@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidymodules</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9003</span>
       </span>
     </div>
 
@@ -146,20 +146,48 @@
       <small>Source: <a href='https://github.com/Novartis/tidymodules/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="tidymodules-0-1-0-9003" class="section level1">
+<h1 class="page-header">
+<a href="#tidymodules-0-1-0-9003" class="anchor"></a>tidymodules 0.1.0.9003</h1>
+<ul>
+<li>Improve how the ports are moved around</li>
+<li>Restrict port assignment to reactive function only. No more reactiveValues as this can be modified by module. tidymodules derived ports are an exception.</li>
+<li>Clean-up pipe operators code</li>
+<li>New ‘%-&gt;&gt;%’ pipe</li>
+<li>Move input (i) and ouput (o) ports lists into public field to facilitate port lookup from a module reference</li>
+<li>Add oport/iport to be consistent with the corresponding utility functions</li>
+<li>Add exec<code>In/Out</code>put functions</li>
+<li>Fix for Store module when edges are empty</li>
+<li>Add check in ModStore for duplicated edges</li>
+</ul>
+</div>
     <div id="tidymodules-0-1-0-9002" class="section level1">
 <h1 class="page-header">
 <a href="#tidymodules-0-1-0-9002" class="anchor"></a>tidymodules 0.1.0.9002</h1>
-<p>Adding shiny module code in example 1</p>
+<ul>
+<li>Adding shiny module code in example 1</li>
+</ul>
 </div>
     <div id="tidymodules-0-1-0-9001" class="section level1">
 <h1 class="page-header">
 <a href="#tidymodules-0-1-0-9001" class="anchor"></a>tidymodules 0.1.0.9001</h1>
-<p>Support for nested modules stored in parent module attribute list Sanitize namespace and group ID when provided Switch to shiny getDefaultReactiveDomain to retrieve ShinySession Update namespace vignette</p>
+<ul>
+<li>Support for nested modules stored in parent module attribute list</li>
+<li>Sanitize namespace and group ID when provided</li>
+<li>Switch to shiny getDefaultReactiveDomain to retrieve ShinySession</li>
+<li>Update namespace vignette</li>
+</ul>
 </div>
     <div id="tidymodules-0-1-0-9000" class="section level1">
 <h1 class="page-header">
 <a href="#tidymodules-0-1-0-9000" class="anchor"></a>tidymodules 0.1.0.9000</h1>
-<p>Add travis-CI for building pkgdsown site Remove docs Fix &amp; complete docs/vignettes Add new TidyModule fields : name &amp; order Fix issue for creating nested module in console &amp; setting parent namespace</p>
+<ul>
+<li>Add travis-CI for building pkgdsown site</li>
+<li>Remove docs</li>
+<li>Fix &amp; complete docs/vignettes</li>
+<li>Add new TidyModule fields : name &amp; order</li>
+<li>Fix issue for creating nested module in console &amp; setting parent namespace</li>
+</ul>
 </div>
     <div id="tidymodules-0-1-0" class="section level1">
 <h1 class="page-header">
@@ -174,6 +202,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#tidymodules-0-1-0-9003">0.1.0.9003</a></li>
         <li><a href="#tidymodules-0-1-0-9002">0.1.0.9002</a></li>
         <li><a href="#tidymodules-0-1-0-9001">0.1.0.9001</a></li>
         <li><a href="#tidymodules-0-1-0-9000">0.1.0.9000</a></li>

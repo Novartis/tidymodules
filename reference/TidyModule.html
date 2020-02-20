@@ -78,7 +78,7 @@ It provides methods for defining input and output communication ports, managing 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidymodules</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9003</span>
       </span>
     </div>
 
@@ -177,6 +177,12 @@ It provides methods for defining input and output communication ports, managing 
 
 <dt><code>order</code></dt><dd><p>Initialization order.</p></dd>
 
+<dt><code>i</code></dt><dd><p>reactive list of input ports.</p></dd>
+
+<dt><code>o</code></dt><dd><p>reactive list of output ports.</p></dd>
+
+<dt><code>port_names</code></dt><dd><p>list of input and output port names.</p></dd>
+
 </dl><p></div></p>
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
@@ -196,15 +202,19 @@ It provides methods for defining input and output communication ports, managing 
 <li><p><a href='#method-updateInputPort'><code>TidyModule$updateInputPort()</code></a></p></li>
 <li><p><a href='#method-updateInputPorts'><code>TidyModule$updateInputPorts()</code></a></p></li>
 <li><p><a href='#method-getInputPort'><code>TidyModule$getInputPort()</code></a></p></li>
+<li><p><a href='#method-iport'><code>TidyModule$iport()</code></a></p></li>
 <li><p><a href='#method-getInputPorts'><code>TidyModule$getInputPorts()</code></a></p></li>
 <li><p><a href='#method-getInput'><code>TidyModule$getInput()</code></a></p></li>
+<li><p><a href='#method-execInput'><code>TidyModule$execInput()</code></a></p></li>
 <li><p><a href='#method-updateOutputPort'><code>TidyModule$updateOutputPort()</code></a></p></li>
 <li><p><a href='#method-updateOutputPorts'><code>TidyModule$updateOutputPorts()</code></a></p></li>
 <li><p><a href='#method-addOutputPort'><code>TidyModule$addOutputPort()</code></a></p></li>
 <li><p><a href='#method-getPortName'><code>TidyModule$getPortName()</code></a></p></li>
 <li><p><a href='#method-getOutputPort'><code>TidyModule$getOutputPort()</code></a></p></li>
+<li><p><a href='#method-oport'><code>TidyModule$oport()</code></a></p></li>
 <li><p><a href='#method-getOutputPorts'><code>TidyModule$getOutputPorts()</code></a></p></li>
 <li><p><a href='#method-getOutput'><code>TidyModule$getOutput()</code></a></p></li>
+<li><p><a href='#method-execOutput'><code>TidyModule$execOutput()</code></a></p></li>
 <li><p><a href='#method-getStore'><code>TidyModule$getStore()</code></a></p></li>
 <li><p><a href='#method-countInputPort'><code>TidyModule$countInputPort()</code></a></p></li>
 <li><p><a href='#method-countOutputPort'><code>TidyModule$countOutputPort()</code></a></p></li>
@@ -377,6 +387,18 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <h3>Returns</h3>
 <p>A module input port. A reactivevalues object with name, description, sample, is_parent and port elements.</p>
 <p><hr>
+<a id="method-iport"></a></p><h3>Method <code><a href='iport.html'>iport()</a></code></h3>
+<p>Alias to the <code>getInputPort()</code> function.</p><h3>Usage</h3>
+<p><div class="r"></p><pre>TidyModule$iport(id = 1)</pre><p></div></p>
+
+<h3>Arguments</h3>
+<p><div class="arguments"></p><dl class='dl-horizontal'>
+<dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
+
+</dl><p></div></p>
+<h3>Returns</h3>
+<p>A module input port. A reactivevalues object with name, description, sample, is_parent and port elements.</p>
+<p><hr>
 <a id="method-getInputPorts"></a></p><h3>Method <code>getInputPorts()</code></h3>
 <p>Get all the input ports as a reactivevalues object.</p><h3>Usage</h3>
 <p><div class="r"></p><pre>TidyModule$getInputPorts()</pre><p></div></p>
@@ -395,6 +417,22 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 </dl><p></div></p>
 <h3>Returns</h3>
 <p>A reactive function or reactivevalues object.</p>
+<p><hr>
+<a id="method-execInput"></a></p><h3>Method <code>execInput()</code></h3>
+<p>Execute an input port slot, that is, the reactive function stored in the port.
+The <code>require</code> argument which is <code>TRUE</code> by default allows you disable checking if the port is Truthy.
+See <code><a href='https://rdrr.io/pkg/shiny/man/req.html'>shiny::req</a></code> function.</p><h3>Usage</h3>
+<p><div class="r"></p><pre>TidyModule$execInput(id = 1, require = TRUE)</pre><p></div></p>
+
+<h3>Arguments</h3>
+<p><div class="arguments"></p><dl class='dl-horizontal'>
+<dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
+
+<dt><code>require</code></dt><dd><p>Check that the port is available.</p></dd>
+
+</dl><p></div></p>
+<h3>Returns</h3>
+<p>Output of the reacive function execution.</p>
 <p><hr>
 <a id="method-updateOutputPort"></a></p><h3>Method <code>updateOutputPort()</code></h3>
 <p>Function for filling an output port.
@@ -469,6 +507,18 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <h3>Returns</h3>
 <p>A module output port. A reactivevalues object with name, description, sample, is_parent and port elements.</p>
 <p><hr>
+<a id="method-oport"></a></p><h3>Method <code><a href='oport.html'>oport()</a></code></h3>
+<p>Alias to the <code>getOutputPort()</code> function.</p><h3>Usage</h3>
+<p><div class="r"></p><pre>TidyModule$oport(id = 1)</pre><p></div></p>
+
+<h3>Arguments</h3>
+<p><div class="arguments"></p><dl class='dl-horizontal'>
+<dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
+
+</dl><p></div></p>
+<h3>Returns</h3>
+<p>A module output port. A reactivevalues object with name, description, sample, is_parent and port elements.</p>
+<p><hr>
 <a id="method-getOutputPorts"></a></p><h3>Method <code>getOutputPorts()</code></h3>
 <p>Get all the output ports as a reactivevalues object.</p><h3>Usage</h3>
 <p><div class="r"></p><pre>TidyModule$getOutputPorts()</pre><p></div></p>
@@ -487,6 +537,22 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 </dl><p></div></p>
 <h3>Returns</h3>
 <p>A reactive function or reactivevalues object.</p>
+<p><hr>
+<a id="method-execOutput"></a></p><h3>Method <code>execOutput()</code></h3>
+<p>Execute an output port slot, that is, the reactive function stored in the port.
+The <code>require</code> argument which is <code>TRUE</code> by default allows you disable checking if the port is Truthy.
+See <code><a href='https://rdrr.io/pkg/shiny/man/req.html'>shiny::req</a></code> function.</p><h3>Usage</h3>
+<p><div class="r"></p><pre>TidyModule$execOutput(id = 1, require = TRUE)</pre><p></div></p>
+
+<h3>Arguments</h3>
+<p><div class="arguments"></p><dl class='dl-horizontal'>
+<dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
+
+<dt><code>require</code></dt><dd><p>Check that the port is available.</p></dd>
+
+</dl><p></div></p>
+<h3>Returns</h3>
+<p>Output of the reacive function execution.</p>
 <p><hr>
 <a id="method-getStore"></a></p><h3>Method <code>getStore()</code></h3>
 <p>Function for retrieving the central ModStore.</p><h3>Usage</h3>
