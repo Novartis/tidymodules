@@ -283,3 +283,22 @@ getSessionId <- function(session = getDefaultReactiveDomain()){
     return(sid)
   }
 }
+
+
+#' 
+#' @title Recursive function for retrieving R6ClassGenerator inheritance
+#'
+#' @description This function is used to retrieve a list of class name that a R6ClassGenerator object inherit from.
+#' 
+#' @param r6cg A R6ClassGenerator object.
+#' 
+#' @return vector of class names
+get_R6CG_list <- function(r6cg){
+  if(!is(r6cg,"R6ClassGenerator"))
+    stop("provide a R6ClassGenerator object!")
+  clist <- r6cg$classname
+  if(!is.null(r6cg$get_inherit()))
+    clist <- c(clist,get_R6CG_list(r6cg$get_inherit()))
+  
+  return(clist)
+}

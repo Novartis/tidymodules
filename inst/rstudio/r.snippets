@@ -1,9 +1,9 @@
 snippet tm.mod.new
 	#'
-	#' ${1:MyModule} title here.
+	#' ${1:MyModule} Module.
 	#'
 	#' @description
-	#' ${1:MyModule} long description here.
+	#' This ${1:MyModule} Module is a R6 class implemented with `{tidymodules}`.
 	#'
 	#' @details
 	#' More details here.
@@ -15,10 +15,12 @@ snippet tm.mod.new
 	  public = list(
 	    #' @description
 	    #' Module's initialization function.
+	    #' @param ... options
 	    #' @return An instance of ${1:MyModule}
 	    initialize = function(...){
-	      # DON'T REMOVE the line below, it's mandatory!
+	      # Don't remove the line below
 	      super\$initialize(...)
+	      
 	      # Ports definition starts here...
 	      ${0}
 	    },
@@ -31,14 +33,14 @@ snippet tm.mod.new
 	    },
 	    #' @description
 	    #' Module's server function.
-	    #' @param input Shiny input.
+	    #' @param input Shiny input
 	    #' @param output Shiny output
 	    #' @param session Shiny session
 	    server = function(input, output, session){
-	      # DON'T REMOVE the line below, it's mandatory!
+	      # Don't remove the line below
 	      super\$server(input,output,session)
+	      
 	      # Module server logic starts here ...
-	
 	
 	    }
 	  )
@@ -67,4 +69,3 @@ snippet tm.port.edges
 	defineEdges({
 		${0}
 	})
-	
