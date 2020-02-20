@@ -1,5 +1,6 @@
 # tidymodules 0.1.0.9004
 
+- add_module function
 - snippets file & function to inject them into RStudio configuration
 - new defineEdges() function for parsing module communication instructions
 
