@@ -40,10 +40,12 @@ server <- function(input, output, session) {
     mpg
   })
   
-  o <- reactiveValues(
-    left = c("cty", "hwy"),
-    right = c("drv", "hwy")
-  )
+  o <- reactive({
+    list(
+      left = c("cty", "hwy"),
+      right = c("drv", "hwy")
+    )
+  })
   
   # callModules()
   lsObj1$callModule()
@@ -53,7 +55,7 @@ server <- function(input, output, session) {
   store$callModule()
   
   observe({
-    o %>>2% lsObj1 %>>2% lsObj2 %>>2% lsObj3 %>>2%lsObj4
+    o %>>2% lsObj1 %>>2% lsObj2 %>>2% lsObj3 %>>2% lsObj4
     d %>1% lsObj1 %2>1% lsObj2 %2>1% lsObj3 %2>1% lsObj4
   })
   

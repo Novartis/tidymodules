@@ -1,5 +1,4 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
 tidymodules <img src="man/figures/logo.svg" align="right" height="139" />
 =========================================================================
 
@@ -7,8 +6,8 @@ tidymodules <img src="man/figures/logo.svg" align="right" height="139" />
 status](https://travis-ci.org/Novartis/tidymodules.svg?branch=master)](https://travis-ci.org/Novartis/tidymodules)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
-The tidymodules R package is built on top of shiny modules using R6 to
-provide a new object-oriented programming (OOP) approach for module
+The `{tidymodules}` R package is built on top of shiny module using R6
+to provide a new object-oriented programming (OOP) approach for module
 development, new module interface using input/output ports and a set of
 tidy operators for handling cross-module communication.
 
@@ -69,7 +68,7 @@ Shiny modules are presented in the table below.
 Installation
 ------------
 
-You can install the most recent version of *tidymodules* from
+You can install the most recent version of `{tidymodules}` from
 [GitHub](https://github.com/Novartis/tidymodules) with:
 
     library(devtools)
@@ -99,18 +98,18 @@ Learning More
 
 Please review the [Get
 Started](https://opensource.nibr.com/tidymodules/articles/tidymodules.html)
-page for a high level introduction to tidymodules and its usage in
+page for a high level introduction to `{tidymodules}` and its usage in
 developing Shiny apps.
 
-If you are interested to develop modules using tidymodules, we recommend
-reading the vignettes under “Articles”.
+If you are interested to develop modules using `{tidymodules}`, we
+recommend reading the vignettes under “Articles”.
 
 Code of Conduct
 ---------------
 
-Please note that the *tidymodules* package is released with a
-[Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to
-this project, you agree to abide by its terms.
+Please note that the `{tidymodules}` is released with a [Contributor
+Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project,
+you agree to abide by its terms.
 
 Acknowledgment
 --------------
