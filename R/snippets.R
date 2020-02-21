@@ -14,6 +14,12 @@
 add_tm_snippets <- function(force = FALSE){
   # R snippets file
   path <- path_home_r(".R", "snippets", path_ext_set("r","snippets"))
+  
+  if(!create_if_needed(path))
+    cat_bullet("Skip installation of snippets",
+               bullet_col = "red",
+               bullet = "bullet")
+  
   # retrieve current and new snippets
   current_all_snippets <- snippets_get(path = path)
   current_non_tm_snippets <- current_all_snippets %>% discard(grepl("^tm\\.",names(.),perl = TRUE))
