@@ -7,7 +7,8 @@
 add_module(
   name,
   inherit = "TidyModule",
-  pkg = getwd(),
+  path = getwd(),
+  prefix = "tm",
   open = TRUE,
   dir_create = TRUE,
   export = FALSE
@@ -18,7 +19,9 @@ add_module(
 
 \item{inherit}{Parent module class. Default is TidyModule.}
 
-\item{pkg}{Path to the root of the package. Default is \code{getwd()}.}
+\item{path}{Where to created the file. Default is \code{getwd()}. The function will add \code{R} to the path if the sub-folder exists.}
+
+\item{prefix}{filename prefix. Default is \code{tm}. Set to `NULL`` to disable.}
 
 \item{open}{Should the file be opened?}
 
@@ -27,7 +30,7 @@ add_module(
 \item{export}{Logical. Should the module be exported? Default is \code{FALSE}.}
 }
 \description{
-This function creates a \code{{tm}} module class inside the \verb{R/} folder.
+This function creates a \code{{tm}} module class inside the current folder.
 }
 \note{
 As a convention, this function will automatically capitalize the first character of the \code{name} argument.

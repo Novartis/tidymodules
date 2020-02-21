@@ -1,9 +1,10 @@
 #' Create a module
 #' 
-#' This function creates a `{tm}` module class inside the `R/` folder.
+#' This function creates a `{tm}` module class inside the current folder.
 #' 
 #' @param name The class name of the module. 
-#' @param pkg Path to the root of the package. Default is `getwd()`.
+#' @param path Where to created the file. Default is `getwd()`. The function will add `R` to the path if the sub-folder exists.
+#' @param prefix filename prefix. Default is `tm`. Set to `NULL`` to disable.
 #' @param inherit Parent module class. Default is TidyModule.
 #' @param open Should the file be opened?
 #' @param dir_create Creates the directory if it doesn't exist, default is `TRUE`.
@@ -19,7 +20,8 @@
 add_module <- function(
   name,
   inherit = "TidyModule",
-  pkg = getwd(), 
+  path = getwd(),
+  prefix = "tm",
   open = TRUE, 
   dir_create = TRUE, 
   export = FALSE
@@ -28,11 +30,8 @@ add_module <- function(
   # Capitalize
   name <- paste0(toupper(substring(name,1,1)),substring(name,2))
   
-  old <- setwd(path_abs(pkg))
-  on.exit(setwd(old))
-  
   dir_created <- create_if_needed(
-    path(pkg, "R"), type = "directory"
+    fs::path(path), type = "directory"
   )
   if (!dir_created){
     cat_red_bullet(
@@ -41,12 +40,17 @@ add_module <- function(
     return(invisible(FALSE))
   }
   
-  where <- path(
-    "R", paste0(name, ".R")
+  if(dir.exists(fs::path(path, "R")))
+    path <- fs::path(path, "R")
+  
+  old <- setwd(path_abs(path))
+  on.exit(setwd(old))
+  
+  where <- fs::path(
+    paste0(ifelse(is.null(prefix),"",paste0(prefix,"_")), name, ".R")
   )
-  if(check_file_exist(where)){
-    file_create(where)
-  }else{
+    
+  if(!check_file_exist(where)){
     cat_red_bullet(
       "File not created (already exists)"
     )
@@ -95,7 +99,7 @@ add_module <- function(
   file_content <- unlist(strsplit(file_content,"\\n"))
   for(l in 1:length(file_content)){
     # remove $ escapes \\
-    file_content[l] <- sub("\\","",file_content[l],fixed = TRUE)
+    file_content[l] <- sub("\\$","$",file_content[l],fixed = TRUE)
     # remove tabs
     file_content[l] <- sub("\t","",file_content[l])
     # remove snippet placeholders
@@ -122,7 +126,7 @@ add_module <- function(
   }
   writeLines(file_content,where,sep = "\n")
   
-  cat_created(where)
+  cat_created(fs::path(path,where))
   open_or_go_to(where, open)
 }
 
