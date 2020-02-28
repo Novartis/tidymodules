@@ -179,6 +179,8 @@ create_if_needed <- function(
     } else {
       # Create the file 
       if (type == "file"){
+        if(dir_not_exist(dirname(path)))
+          dir_create(dirname(path), recurse = TRUE)
         file_create(path)
         write(content, path, append = TRUE)
       } else if (type == "directory"){
