@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Alias to getMod — mod • tidymodules</title>
+<title>Function wrapper for ports connection expression. — defineEdges • tidymodules</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="Alias to getMod — mod" />
-<meta property="og:description" content="See getMod" />
+<meta property="og:title" content="Function wrapper for ports connection expression. — defineEdges" />
+<meta property="og:description" content="Used in server functions to define how modules are connected to each other." />
 <meta property="og:image" content="https://opensource.nibr.com/tidymodules/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -143,27 +143,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Alias to getMod</h1>
+    <h1>Function wrapper for ports connection expression.</h1>
     <small class="dont-index">Source: <a href='https://github.com/Novartis/tidymodules/blob/master/R/utility.R'><code>R/utility.R</code></a></small>
-    <div class="hidden name"><code>mod.Rd</code></div>
+    <div class="hidden name"><code>defineEdges.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code><a href='getMod.html'>getMod</a></code></p>
+    <p>Used in server functions to define how modules are connected to each other.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mod</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>defineEdges</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>id</th>
-      <td><p>Name or Id of the module</p></td>
-    </tr>
-    <tr>
-      <th>group</th>
-      <td><p>Group name</p></td>
+      <th>x</th>
+      <td><p>expression</p></td>
     </tr>
     </table>
 

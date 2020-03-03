@@ -16,6 +16,12 @@
     <loc>https://opensource.nibr.com/tidymodules//reference/UtilityModule.html</loc>
   </url>
   <url>
+    <loc>https://opensource.nibr.com/tidymodules//reference/add_module.html</loc>
+  </url>
+  <url>
+    <loc>https://opensource.nibr.com/tidymodules//reference/add_tm_snippets.html</loc>
+  </url>
+  <url>
     <loc>https://opensource.nibr.com/tidymodules//reference/callModules.html</loc>
   </url>
   <url>
@@ -25,6 +31,9 @@
     <loc>https://opensource.nibr.com/tidymodules//reference/combine_ports.html</loc>
   </url>
   <url>
+    <loc>https://opensource.nibr.com/tidymodules//reference/defineEdges.html</loc>
+  </url>
+  <url>
     <loc>https://opensource.nibr.com/tidymodules//reference/getCacheOption.html</loc>
   </url>
   <url>
@@ -32,6 +41,9 @@
   </url>
   <url>
     <loc>https://opensource.nibr.com/tidymodules//reference/getSessionId.html</loc>
+  </url>
+  <url>
+    <loc>https://opensource.nibr.com/tidymodules//reference/get_R6CG_list.html</loc>
   </url>
   <url>
     <loc>https://opensource.nibr.com/tidymodules//reference/global_options.html</loc>
