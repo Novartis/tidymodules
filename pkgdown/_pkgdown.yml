@@ -39,6 +39,8 @@ reference:
   - '`showExamples`'
   - '`getSessionId`'
   - '`callModules`'
+  - '`add_module`'
+  - '`add_tm_snippets`'
   - '`check_and_load`'
   - '`getMod`'
   - '`mod`'
@@ -54,12 +56,14 @@ reference:
 - title: Port functions and operators
   desc: List of functions and pipe operators used to manage modules communication
   contents:
+  - '`defineEdges`'
   - '`map_ports`'
   - '`combine_ports`'
   - '`race_ports`'
   - '`%>y%`'
   - '`%>>y%`'
   - '`%->%`'
+  - '`%->>%`'
   - '`%x>y%`'
   - '`%x>>y%`'
   - '`%x<y%`'

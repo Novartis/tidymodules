@@ -23,13 +23,13 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 [![Travis-CI build status](https://travis-ci.org/Novartis/tidymodules.svg?branch=master)](https://travis-ci.org/Novartis/tidymodules)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
-The `{tidymodules}` R package is built on top of shiny module using R6 to provide a new object-oriented programming (OOP) approach for module development, new module interface using input/output ports and a set of tidy operators for handling cross-module communication. 
+The `{tidymodules}` R package is built on top of shiny module using `{R6}` to provide a new object-oriented programming (OOP) approach for module development, new module interface using input/output ports and a set of tidy operators for handling cross-module communication. 
 
 The main features of tidymodules and its comparison with conventional Shiny modules are presented in the table below.
 
 | Features |              | tidymodules                                                                                                               | Conventional modules                                                                  |
 |----|----------------------|---------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| [<i style="color:#285fa4;" class="fas fa-laptop-code fa-2x"></i>](articles/intro.html) | Programming style    | - R6 OOP * <br/> - Semantic reference                                                                                       | Functional                                                                            |
+| [<i style="color:#285fa4;" class="fas fa-laptop-code fa-2x"></i>](articles/intro.html) | Programming style    | - `{R6}` OOP * <br/> - Semantic reference                                                                                       | Functional                                                                            |
 | [<i style="color:#285fa4;" class="fas fa-th-large fa-2x"></i>](articles/namespace.html) | Namespace management | - automatic/generated <br/> - ID based lookup <br/> - Grouping                                                                             | - manual management <br /> - must match between ui and server                         |
 | [<i style="color:#285fa4;" class="fas fa-directions fa-2x"></i>](articles/communication.html) | Module communication | - new module input/output port structure <br/> - module ports linked via tidy operators <br/> - automatic network diagram | - parameter passing via module server() <br/> - challenging to manage for complex app |
 | [<i style="color:#285fa4;" class="fas fa-sitemap fa-2x"></i>](articles/inheritance.html) | Inheritance          | - class inheritance <br/> - port inheritance for nested modules                                                           | NA                                                                                    |
@@ -74,3 +74,19 @@ Please note that the `{tidymodules}` is released with a [Contributor Code of Con
 - The SCC team members @ NVS for their valuable feedbacks
 - 2019 Summer interns (Marzi, Stephen and Renan) for contributing to testing the framework and implementing the demo example 4 listed above.
 - Eric Nantz for accepting to introduce tidymodules in his [e-poster](https://rpodcast.shinyapps.io/highlights-shiny) @ rstudio::conf 2020
+
+## Licence
+
+    Copyright 2020 Novartis AG
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
