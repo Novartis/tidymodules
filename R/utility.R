@@ -293,6 +293,8 @@ getSessionId <- function(session = getDefaultReactiveDomain()){
 #' @param r6cg A R6ClassGenerator object.
 #' 
 #' @return vector of class names
+#' 
+#' @keywords internal
 get_R6CG_list <- function(r6cg){
   if(!is(r6cg,"R6ClassGenerator"))
     stop("provide a R6ClassGenerator object!")

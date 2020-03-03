@@ -1,3 +1,8 @@
+# tidymodules 0.1.0.9005
+
+- switch to Apache-2.0 Licence
+
+
 # tidymodules 0.1.0.9004
 
 - add_module function

@@ -6,10 +6,10 @@ tidymodules <img src="man/figures/logo.svg" align="right" height="139" />
 status](https://travis-ci.org/Novartis/tidymodules.svg?branch=master)](https://travis-ci.org/Novartis/tidymodules)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
-The `{tidymodules}` R package is built on top of shiny module using R6
-to provide a new object-oriented programming (OOP) approach for module
-development, new module interface using input/output ports and a set of
-tidy operators for handling cross-module communication.
+The `{tidymodules}` R package is built on top of shiny module using
+`{R6}` to provide a new object-oriented programming (OOP) approach for
+module development, new module interface using input/output ports and a
+set of tidy operators for handling cross-module communication.
 
 The main features of tidymodules and its comparison with conventional
 Shiny modules are presented in the table below.
@@ -33,7 +33,7 @@ Shiny modules are presented in the table below.
 <tr class="odd">
 <td><a href="articles/intro.html"><i style="color:#285fa4;" class="fas fa-laptop-code fa-2x"></i></a></td>
 <td>Programming style</td>
-<td>- R6 OOP * <br/> - Semantic reference</td>
+<td>- <code>{R6}</code> OOP * <br/> - Semantic reference</td>
 <td>Functional</td>
 </tr>
 <tr class="even">
@@ -121,3 +121,20 @@ Acknowledgment
 -   Eric Nantz for accepting to introduce tidymodules in his
     [e-poster](https://rpodcast.shinyapps.io/highlights-shiny) @
     rstudio::conf 2020
+
+Licence
+-------
+
+    Copyright 2020 Novartis AG
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.

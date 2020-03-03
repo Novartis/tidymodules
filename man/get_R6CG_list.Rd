@@ -15,3 +15,4 @@ vector of class names
 \description{
 This function is used to retrieve a list of class name that a R6ClassGenerator object inherit from.
 }
+\keyword{internal}

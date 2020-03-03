@@ -1,6 +1,6 @@
 Package: tidymodules
 Title: A robust framework for developing shiny modules
-Version: 0.1.0.9004
+Version: 0.1.0.9005
 Authors@R: c(
   person('Mustapha', 'Larbaoui', email = 'mustapha.larbaoui@novartis.com', role = c('cre', 'aut')),
   person('Douglas', 'Robinson', email = 'douglas.robinson@novartis.com', role = c('ctb')),
@@ -10,7 +10,7 @@ Authors@R: c(
   person('Marzieh', 'Eslami Rasekh', email = 'marzie.rasekh@gmail.com', role = c('ctb')),
   person('Renan', 'Sauteraud', email = 'rxs575@psu.edu', role = c('ctb')))
 Description: tidymodules offers a robust framework for developing shiny modules based on R6 classes which should facilitates inter-modules communication.
-License: MIT + file LICENSE
+License: Apache License (>= 2.0)
 Encoding: UTF-8
 LazyData: true
 Imports: 
