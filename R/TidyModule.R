@@ -184,7 +184,7 @@ TidyModule <- R6::R6Class(
       isolate(x)
     },
     #' @description
-    #' Function wrapper for port assignement expression.
+    #' Function wrapper for port assignment expression.
     #' @param x expression
     assignPort = function(x){
       observe({

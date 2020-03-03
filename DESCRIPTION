@@ -1,6 +1,6 @@
 Package: tidymodules
 Title: A robust framework for developing shiny modules
-Version: 0.1.0.9003
+Version: 0.1.0.9004
 Authors@R: c(
   person('Mustapha', 'Larbaoui', email = 'mustapha.larbaoui@novartis.com', role = c('cre', 'aut')),
   person('Douglas', 'Robinson', email = 'douglas.robinson@novartis.com', role = c('ctb')),
@@ -19,7 +19,12 @@ Imports:
     digest,
     R6,
     visNetwork,
-    methods
+    methods,
+    snippr,
+    cli,
+    dplyr,
+    fs,
+    purrr
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/Novartis/tidymodules
@@ -34,4 +39,6 @@ Suggests:
     RColorBrewer,
     shinyWidgets,
     plotly
+Remotes: 
+    dgrtwo/snippr@29c1813
 VignetteBuilder: knitr

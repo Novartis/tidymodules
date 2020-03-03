@@ -61,16 +61,13 @@ server <- function(input, output, session) {
   # Add modules server logic
   callModules() 
   # Configure modules communication by connecting ports
-  observe({
+  defineEdges({
     # dataset selector provides data to
     # column mapper and row filter modules
-    # getMod("Marzie") %1>1% getMod("Renan")
-    browser()
     oport("Marzie","dataset") %->>% 
-      iport("Renan","data") %->%
-      iport("Stefan","data")
+        iport("Renan","data") %->% 
+        iport("Stefan","data")
     
-    mod("Marzie") %1>1% mod("Stefan")
     # the mappings are then used by the plot generator
     mod("Renan") %1>1% mod("Doug")
     # plot generator also takes raw and filtered data as input
