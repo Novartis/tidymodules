@@ -357,18 +357,20 @@ A reactivevalues object.
 \subsection{Method \code{getInput()}}{
 Get a input port slot.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TidyModule$getInput(id = 1)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$getInput(id = 1, w = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{id}}{Name or Id of the port.}
+
+\item{\code{w}}{boolean to enable module session check. default to TRUE.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A reactive function or reactivevalues object.
+A reactive function.
 }
 }
 \if{html}{\out{<hr>}}
@@ -535,18 +537,20 @@ A reactivevalues object.
 \subsection{Method \code{getOutput()}}{
 Get a output port slot.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TidyModule$getOutput(id = 1)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$getOutput(id = 1, w = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{id}}{Name or Id of the port.}
+
+\item{\code{w}}{boolean to enable module session check. default to TRUE.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A reactive function or reactivevalues object.
+A reactive function.
 }
 }
 \if{html}{\out{<hr>}}

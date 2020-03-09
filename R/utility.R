@@ -150,6 +150,9 @@ callModules <- function(){
           if(!is.null(serverEnv$session) &&
              is(serverEnv$session, "ShinySession"))
             s <- serverEnv$session
+          if(is.null(s))
+            s <- getDefaultReactiveDomain()
+            
         }
         cloned <- mod$deepClone(o,i,s)
       }

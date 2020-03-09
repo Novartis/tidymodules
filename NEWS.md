@@ -1,6 +1,14 @@
+# tidymodules 0.1.0.9006
+
+- Fix a problem where there is no shiny session argument in app server and calling modules' callModule & callModules.
+- Add warning to module get port functions for some specific cases (global vs user session)
+- fix module iport & oport functions
+- doc fix
+
 # tidymodules 0.1.0.9005
 
 - switch to Apache-2.0 Licence
+- fix doc
 
 
 # tidymodules 0.1.0.9004

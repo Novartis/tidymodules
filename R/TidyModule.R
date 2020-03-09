@@ -241,7 +241,7 @@ TidyModule <- R6::R6Class(
     #' @param id Name or Id of the port.
     #' @return A module input port. A reactivevalues object with name, description, sample, is_parent and port elements.
     iport = function(id = 1){
-      return(private$getPort(id,"input"))
+      return(self$getInputPort(id))
     },
     #' @description
     #' Get all the input ports as a reactivevalues object.
@@ -252,8 +252,17 @@ TidyModule <- R6::R6Class(
     #' @description
     #' Get a input port slot.
     #' @param id Name or Id of the port.
-    #' @return A reactive function or reactivevalues object.
-    getInput = function(id = 1){
+    #' @param w boolean to enable module session check. default to TRUE.
+    #' @return A reactive function.
+    getInput = function(id = 1, w = TRUE){
+      if(w && self$isGlobal() && !UtilityModule$new()$isGlobal()){
+        cmd <- paste0('mod("',self$module_ns,'")$getInput(',ifelse(is.character(id),paste0('"',id,'"'),id),')')
+        warning(paste(
+          "You are trying to access a global session module port from a user session.",
+          "Is this intended? If not, use the code below instead.",
+          cmd, sep= "\n"))
+      }
+      
       return(private$get(id, "input"))
     },
     #' @description
@@ -328,7 +337,7 @@ TidyModule <- R6::R6Class(
     #' @param id Name or Id of the port.
     #' @return A module output port. A reactivevalues object with name, description, sample, is_parent and port elements.
     oport = function(id = 1){
-      return(private$getPort(id,"output"))
+      return(self$getOutputPort(id))
     },
     #' @description
     #' Get all the output ports as a reactivevalues object.
@@ -339,8 +348,17 @@ TidyModule <- R6::R6Class(
     #' @description
     #' Get a output port slot.
     #' @param id Name or Id of the port.
-    #' @return A reactive function or reactivevalues object.
-    getOutput = function(id = 1){
+    #' @param w boolean to enable module session check. default to TRUE.
+    #' @return A reactive function.
+    getOutput = function(id = 1, w = TRUE){
+      if(w && self$isGlobal() && !UtilityModule$new()$isGlobal()){
+        cmd <- paste0('mod("',self$module_ns,'")$getOutput(',ifelse(is.character(id),paste0('"',id,'"'),id),')')
+        warning(paste(
+          "You are trying to access a global session module port from a user session.",
+          "Is this intended? If not, use the code below instead.",
+          cmd, sep= "\n"))
+      }
+      
       return(private$get(id, "output"))
     },
     #' @description
@@ -391,6 +409,9 @@ TidyModule <- R6::R6Class(
       output <- parent.frame()$output
       input <- parent.frame()$output
       session <- parent.frame()$session
+      if(is.null(session))
+        session <- getDefaultReactiveDomain()
+      
       disable_cache <- getCacheOption()
       
       if(!self$isGlobal()){
