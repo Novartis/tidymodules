@@ -78,7 +78,7 @@ It provides methods for defining input and output communication ports, managing 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidymodules</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9006</span>
       </span>
     </div>
 
@@ -408,15 +408,17 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-getInput"></a></p><h3>Method <code>getInput()</code></h3>
 <p>Get a input port slot.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getInput(id = 1)</pre><p></div></p>
+<p><div class="r"></p><pre>TidyModule$getInput(id = 1, w = TRUE)</pre><p></div></p>
 
 <h3>Arguments</h3>
 <p><div class="arguments"></p><dl class='dl-horizontal'>
 <dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
 
+<dt><code>w</code></dt><dd><p>boolean to enable module session check. default to TRUE.</p></dd>
+
 </dl><p></div></p>
 <h3>Returns</h3>
-<p>A reactive function or reactivevalues object.</p>
+<p>A reactive function.</p>
 <p><hr>
 <a id="method-execInput"></a></p><h3>Method <code>execInput()</code></h3>
 <p>Execute an input port slot, that is, the reactive function stored in the port.
@@ -528,15 +530,17 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-getOutput"></a></p><h3>Method <code>getOutput()</code></h3>
 <p>Get a output port slot.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getOutput(id = 1)</pre><p></div></p>
+<p><div class="r"></p><pre>TidyModule$getOutput(id = 1, w = TRUE)</pre><p></div></p>
 
 <h3>Arguments</h3>
 <p><div class="arguments"></p><dl class='dl-horizontal'>
 <dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
 
+<dt><code>w</code></dt><dd><p>boolean to enable module session check. default to TRUE.</p></dd>
+
 </dl><p></div></p>
 <h3>Returns</h3>
-<p>A reactive function or reactivevalues object.</p>
+<p>A reactive function.</p>
 <p><hr>
 <a id="method-execOutput"></a></p><h3>Method <code>execOutput()</code></h3>
 <p>Execute an output port slot, that is, the reactive function stored in the port.
