@@ -666,21 +666,31 @@ TidyModule <- R6::R6Class(
       attr(rv,"tidymodules_is_parent")        <- is_parent
       attr(rv,"tidymodules_module_ns")        <- self$module_ns
       
-      attr(p,"tidymodules")  <- TRUE
-      attr(p,"tidymodules_port_slot")        <- TRUE
-      attr(p,"tidymodules_port_type")        <- type
-      attr(p,"tidymodules_port_id")          <- private$countPort(type)+1
-      attr(p,"tidymodules_port_name")        <- name
-      attr(p,"tidymodules_port_description") <- description
-      attr(p,"tidymodules_port_sample")      <- sample
-      attr(p,"tidymodules_is_parent")        <- is_parent
-      attr(p,"tidymodules_module_ns")        <- self$module_ns
-      
+      # Only add attributes to port at definition
+      if(is.null(p)){
+        attr(p,"tidymodules")  <- TRUE
+        attr(p,"tidymodules_port_slot")        <- TRUE
+        attr(p,"tidymodules_port_type")        <- type
+        attr(p,"tidymodules_port_id")          <- private$countPort(type)+1
+        attr(p,"tidymodules_port_name")        <- name
+        attr(p,"tidymodules_port_description") <- description
+        attr(p,"tidymodules_port_sample")      <- sample
+        attr(p,"tidymodules_is_parent")        <- is_parent
+        attr(p,"tidymodules_module_ns")        <- self$module_ns
+      }
       rv[["port"]] <- p
+      
       key = ifelse(type == "input", "i" , "o")
-      self[[key]][[name]] <- rv
-      nv <- self$port_names[[type]]
-      self$port_names[[type]] <- c(nv,name)
+      existing_port <- self[[key]][[name]]
+      if(!is.null(existing_port) && is.reactivevalues(existing_port)){
+        warning(paste0("Skip adding ",type," port ",name," to ",self$module_ns,
+                       " ! Existing port from ",ifelse(is_parent,"parent "," "),
+                       attributes(existing_port)$tidymodules_module_ns))
+      }else{
+        self[[key]][[name]] <- rv
+        nv <- self$port_names[[type]]
+        self$port_names[[type]] <- c(nv,name)
+      }
     },
      updatePort = function(id = NULL, port = NULL, type = "input"){
       stopifnot((!is.null(id)))
@@ -732,7 +742,7 @@ TidyModule <- R6::R6Class(
         })
       }
     },
-     updatePorts = function(ports = NULL, type = "input"){
+     updatePorts = function(ports = NULL, type = "input", is_parent = FALSE){
       stopifnot(!is.null(ports))
       if(!is.reactivevalues(ports))
         stop(paste0(deparse(substitute(ports))," is not a reactive list"))
@@ -745,9 +755,14 @@ TidyModule <- R6::R6Class(
             stop(paste0("Adding port name ",p," failed, it already exist in ",type," port definition."))
           }else{
             port <- ports[[p]]
-            self[[key]][[p]] <- port
-            nv <- self$port_names[[type]]
-            self$port_names[[type]] <- c(nv,p)
+            private$addPort(
+              type = type,
+              name = port$name,
+              description = port$description,
+              sample = port$sample,
+              port = port$port,
+              is_parent = is_parent
+            )
           }
         }
       })

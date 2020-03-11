@@ -128,7 +128,7 @@ multi_port_map <- function(l_mod,r_mod,f = FALSE, t = NULL){
     ins <- l_mod$getOutputPorts()
   if(!is.null(t)){
     if(t == "input" && !is.null(outs)){
-      r_mod$updateInputPorts(outs)
+      r_mod$updateInputPorts(outs,is_parent=TRUE)
       for (idx in 1:length(reactiveValuesToList(outs)))
         (r_mod$getStore())$addEdge(
           from = list(type = "input", m = l_mod, port = idx),
