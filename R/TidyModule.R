@@ -273,7 +273,13 @@ TidyModule <- R6::R6Class(
           cmd, sep= "\n"))
       }
       
-      return(private$get(id, "input"))
+      r <- private$get(id)
+      # special handling for inherited input ports
+      # since they are wraped in a reactive
+      if(private$getPort(id)$parent)
+        r <- r()
+      
+      return(r)
     },
     #' @description
     #' Execute an input port slot, that is, the reactive function stored in the port.
@@ -789,7 +795,7 @@ TidyModule <- R6::R6Class(
             rport <- port$port
             makeReactive <- function(p){
               force(p)
-              reactive( p$port() )
+              reactive(p$port)
             }
             if(is_parent)
               rport <- makeReactive(port)
