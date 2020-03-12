@@ -78,7 +78,7 @@ It provides methods for defining input and output communication ports, managing 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidymodules</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9007</span>
       </span>
     </div>
 
@@ -169,7 +169,7 @@ It provides methods for defining input and output communication ports, managing 
 
 <dt><code>parent_mod</code></dt><dd><p>Reference to parent module in case of nested modules.</p></dd>
 
-<dt><code>parent_ports</code></dt><dd><p>logical value indicating if the module inherit the parent's input ports in case of nested modules.</p></dd>
+<dt><code>pass_ports</code></dt><dd><p>logical value indicating if the module should pass its ports to any nested modules. This is initialized with the <code>inherit</code> argument of <code>new()</code>.</p></dd>
 
 <dt><code>group</code></dt><dd><p>Group name of the module.</p></dd>
 
@@ -335,7 +335,8 @@ Please note that a module can have many visual representations.</p><h3>Usage</h3
   description = NULL,
   sample = NULL,
   input = FALSE,
-  is_parent = FALSE
+  is_parent = FALSE,
+  inherit = TRUE
 )</pre><p></div></p>
 
 <h3>Arguments</h3>
@@ -349,6 +350,8 @@ Please note that a module can have many visual representations.</p><h3>Usage</h3
 <dt><code>input</code></dt><dd><p>This argument should be ignored. Only here for backward compatibility.</p></dd>
 
 <dt><code>is_parent</code></dt><dd><p>Is the port inherited from the parent module.</p></dd>
+
+<dt><code>inherit</code></dt><dd><p>Should the port be passed to nested module. default to TRUE.</p></dd>
 
 </dl><p></div></p>
 <p><hr>
@@ -367,11 +370,13 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-updateInputPorts"></a></p><h3>Method <code>updateInputPorts()</code></h3>
 <p>This function add a set of input ports to the module.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$updateInputPorts(inputs = NULL)</pre><p></div></p>
+<p><div class="r"></p><pre>TidyModule$updateInputPorts(inputs = NULL, is_parent = FALSE)</pre><p></div></p>
 
 <h3>Arguments</h3>
 <p><div class="arguments"></p><dl class='dl-horizontal'>
 <dt><code>inputs</code></dt><dd><p>reactivevalues with the input ports.</p></dd>
+
+<dt><code>is_parent</code></dt><dd><p>Are the ports from a parent module. Default to FALSE.</p></dd>
 
 </dl><p></div></p>
 <p><hr>
@@ -451,11 +456,13 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-updateOutputPorts"></a></p><h3>Method <code>updateOutputPorts()</code></h3>
 <p>This function add a set of output ports to the module.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$updateOutputPorts(outputs = NULL)</pre><p></div></p>
+<p><div class="r"></p><pre>TidyModule$updateOutputPorts(outputs = NULL, is_parent = FALSE)</pre><p></div></p>
 
 <h3>Arguments</h3>
 <p><div class="arguments"></p><dl class='dl-horizontal'>
 <dt><code>outputs</code></dt><dd><p>reactivevalues with the output ports.</p></dd>
+
+<dt><code>is_parent</code></dt><dd><p>Are the ports from a parent module. Default to FALSE.</p></dd>
 
 </dl><p></div></p>
 <p><hr>
