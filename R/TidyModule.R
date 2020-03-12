@@ -689,7 +689,7 @@ TidyModule <- R6::R6Class(
       attr(rv,"tidymodules_module_ns")        <- self$module_ns
       
       # Only add attributes to port at definition
-      if(is.null(p)){
+      if(is.logical(p)){
         attr(p,"tidymodules")  <- TRUE
         attr(p,"tidymodules_port_slot")        <- TRUE
         attr(p,"tidymodules_port_type")        <- type
@@ -698,7 +698,7 @@ TidyModule <- R6::R6Class(
         attr(p,"tidymodules_port_description") <- description
         attr(p,"tidymodules_port_sample")      <- sample
         attr(p,"tidymodules_is_parent")        <- is_parent
-        attr(r,"tidymodules_inherit")          <- inherit
+        attr(p,"tidymodules_inherit")          <- inherit
         attr(p,"tidymodules_module_ns")        <- self$module_ns
       }
       rv[["port"]] <- p
