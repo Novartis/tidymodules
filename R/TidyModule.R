@@ -22,8 +22,8 @@ TidyModule <- R6::R6Class(
     parent_ns = NULL,
     #' @field parent_mod Reference to parent module in case of nested modules.
     parent_mod = NULL,
-    #' @field parent_ports logical value indicating if the module inherit the parent's input ports in case of nested modules.
-    parent_ports = NULL,
+    #' @field pass_ports logical value indicating if the module should pass its ports to any nested modules. This is initialized with the `inherit` argument of `new()`.
+    pass_ports = NULL,
     #' @field group Group name of the module.
     group = NULL,
     #' @field created Initialization time of the module.
@@ -50,7 +50,7 @@ TidyModule <- R6::R6Class(
       if(is.null(private$shared$store))
         private$shared$store <- ModStore$new()
       
-      self$parent_ports <- inherit
+      self$pass_ports <- inherit
       
       ses <- self$getSession()
       isolate({
@@ -131,7 +131,7 @@ TidyModule <- R6::R6Class(
       if(!self$isGlobal() &&
          !is.null(self$parent_mod) && 
          is(self$parent_mod,"TidyModule") &&
-         self$parent_ports)
+         self$pass_ports)
         self$parent_mod %:i:% self
     },
     #' @description
@@ -187,9 +187,14 @@ TidyModule <- R6::R6Class(
     #' Function wrapper for port assignment expression.
     #' @param x expression
     assignPort = function(x){
-      observe({
+      # TODO: There must be a better way to do that
+      # Only add observe in non-reactive context
+      if(is.null(shiny:::.getReactiveEnvironment()$.currentContext))
+        observe({
+          isolate(x)
+        })
+      else
         isolate(x)
-      })
     },
     #' @description
     #' Add input port function. To be called within `definePort` function
@@ -197,19 +202,22 @@ TidyModule <- R6::R6Class(
     #' @param description port description.
     #' @param sample sample dataset consumed by this port. Mandatory!
     #' @param is_parent Is the port inherited from the parent module.
+    #' @param inherit Should the port be passed to nested module. default to TRUE.
     #' @param input This argument should be ignored. Only here for backward compatibility.
     addInputPort = function(
       name = NULL,
       description = NULL,
       sample = NULL,
       input = FALSE,
-      is_parent = FALSE){
+      is_parent = FALSE,
+      inherit = TRUE){
       private$addPort(
         type = "input",
         name = name,
         description = description,
         sample = sample,
-        is_parent = is_parent
+        is_parent = is_parent,
+        inherit = inherit
       )
     },
     #' @description
@@ -225,9 +233,11 @@ TidyModule <- R6::R6Class(
     #' @description
     #' This function add a set of input ports to the module.
     #' @param inputs reactivevalues with the input ports.
+    #' @param is_parent Are the ports from a parent module. Default to FALSE.
     updateInputPorts = function(
-      inputs = NULL){
-      private$updatePorts(ports = inputs, type = "input")
+      inputs = NULL,
+      is_parent = FALSE){
+      private$updatePorts(ports = inputs, type = "input", is_parent = is_parent)
     },
     #' @description
     #' Get an input port from the module.
@@ -291,9 +301,11 @@ TidyModule <- R6::R6Class(
     #' @description
     #' This function add a set of output ports to the module.
     #' @param outputs reactivevalues with the output ports.
+    #' @param is_parent Are the ports from a parent module. Default to FALSE.
     updateOutputPorts = function(
-      outputs = NULL){
-      private$updatePorts(ports = outputs, type = "output")
+      outputs = NULL,
+      is_parent = FALSE){
+      private$updatePorts(ports = outputs, type = "output", is_parent = is_parent)
     },
     #' @description
     #' Add output port function. To be called within `definePort` function
@@ -543,9 +555,16 @@ TidyModule <- R6::R6Class(
               if(po$parent)
                 next
               if(type == "input")
-                copy$addInputPort(po$name,po$description,po$sample)
+                copy$addInputPort(
+                  name = po$name,
+                  description = po$description,
+                  sample = po$sample,
+                  inherit = po$inherit)
               else
-                copy$addOutputPort(po$name,po$description,po$sample)
+                copy$addOutputPort(
+                  name = po$name,
+                  description = po$description,
+                  sample = po$sample)
             }
         }
         
@@ -560,7 +579,7 @@ TidyModule <- R6::R6Class(
             copy[[at]]$parent_mod <- copy
             self$getStore()$addMod(copy[[at]])
             # Now add ports to child if any
-            if(copy[[at]]$parent_ports)
+            if(copy[[at]]$pass_ports)
               copy %:i:% copy[[at]]
           } else if(is.list(self[[at]]) &&
                     length(copy[[at]]) > 0 && 
@@ -572,7 +591,7 @@ TidyModule <- R6::R6Class(
                 l[[k]]$parent_mod <- copy
                 self$getStore()$addMod(l[[k]])
                 # Now add ports to child if any
-                if(l[[k]]$parent_ports)
+                if(l[[k]]$pass_ports)
                   copy %:i:% l[[k]]
               }
             }
@@ -645,13 +664,15 @@ TidyModule <- R6::R6Class(
       description = paste0("Short description for this module's ",type),
       sample = NULL,
       port = FALSE,
-      is_parent = FALSE){
+      is_parent = FALSE,
+      inherit = TRUE){
       stopifnot(!is.null(name) && !is.null(sample))
       rv <- reactiveValues(
         name = name,
         description = description,
         sample = sample,
-        parent = is_parent
+        parent = is_parent,
+        inherit = inherit
       )
       
       p = port
@@ -664,6 +685,7 @@ TidyModule <- R6::R6Class(
       attr(rv,"tidymodules_port_description") <- description
       attr(rv,"tidymodules_port_sample")      <- sample
       attr(rv,"tidymodules_is_parent")        <- is_parent
+      attr(rv,"tidymodules_inherit")          <- inherit
       attr(rv,"tidymodules_module_ns")        <- self$module_ns
       
       # Only add attributes to port at definition
@@ -676,6 +698,7 @@ TidyModule <- R6::R6Class(
         attr(p,"tidymodules_port_description") <- description
         attr(p,"tidymodules_port_sample")      <- sample
         attr(p,"tidymodules_is_parent")        <- is_parent
+        attr(r,"tidymodules_inherit")          <- inherit
         attr(p,"tidymodules_module_ns")        <- self$module_ns
       }
       rv[["port"]] <- p
@@ -683,9 +706,14 @@ TidyModule <- R6::R6Class(
       key = ifelse(type == "input", "i" , "o")
       existing_port <- self[[key]][[name]]
       if(!is.null(existing_port) && is.reactivevalues(existing_port)){
-        warning(paste0("Skip adding ",type," port ",name," to ",self$module_ns,
-                       " ! Existing port from ",ifelse(is_parent,"parent "," "),
-                       attributes(existing_port)$tidymodules_module_ns))
+        warning(paste0("Skip adding ",type," port '",name,"' to ",self$module_ns,
+                       " ! Port already defined ",
+                       ifelse(existing_port$parent,
+                              paste0("and inherited from parent ",self$parent_ns),
+                              "!"
+                       )
+                )
+        )
       }else{
         self[[key]][[name]] <- rv
         nv <- self$port_names[[type]]
@@ -732,6 +760,9 @@ TidyModule <- R6::R6Class(
         # Attach module information to the output port
         # This will facilitate storage of module edges
         isolate({
+          # Don't allow update of inherited port
+          if(self[[key]][[id]][["parent"]])
+            stop(paste0("Updating ",type," port '",id,"' inherited from parent ",self$parent_ns," is not permitted!"))
           attrs <- attributes(self[[key]][[id]][["port"]])
           if(type == "output")
             for(a in names(attrs))
@@ -752,17 +783,26 @@ TidyModule <- R6::R6Class(
       isolate({
         for(p in names(ports)){
           if(p %in%  self$port_names[[type]]){
-            stop(paste0("Adding port name ",p," failed, it already exist in ",type," port definition."))
+            stop(paste0("Adding port name ",p," to module ",self$module_ns," failed, it already exist in ",type," port definition."))
           }else{
             port <- ports[[p]]
-            private$addPort(
-              type = type,
-              name = port$name,
-              description = port$description,
-              sample = port$sample,
-              port = port$port,
-              is_parent = is_parent
-            )
+            rport <- port$port
+            makeReactive <- function(p){
+              force(p)
+              reactive( p$port() )
+            }
+            if(is_parent)
+              rport <- makeReactive(port)
+            if(!(is_parent && !port$inherit))
+              private$addPort(
+                type = type,
+                name = port$name,
+                description = port$description,
+                sample = port$sample,
+                port = rport,
+                is_parent = is_parent,
+                inherit = port$inherit
+              )
           }
         }
       })
@@ -803,10 +843,29 @@ TidyModule <- R6::R6Class(
     printPorts = function(type = "input"){
       if(private$countPort(type)>0)
         for (p in 1:private$countPort(type)) {
-          port = private$getPort(p,type)
-          cat(paste0("(",p,") ",port$name," => ",ifelse(
-            is.reactive(port[["port"]]) || 
-            port[["port"]],"OK","Empty"),"\n"))
+          port <- private$getPort(p,type)
+          pport <- NULL
+          if(port$parent){
+            if(type == "input")
+              pport <- self$parent_mod$getInputPort(port$name)
+            else
+              pport <- self$parent_mod$getOutputPort(port$name)
+          }
+          cat(
+            paste0("(",p,") ",
+                   ifelse(
+                     port$parent,
+                     "(Inherit) ",
+                     ""),
+                   port$name,
+                   " => ",
+                   ifelse(port$parent,
+                    ifelse(is.reactive(pport$port) || pport$port,"OK","Empty"),  
+                    ifelse(is.reactive(port$port) || port$port,"OK","Empty")
+                   ),
+                   "\n"
+            )
+          )
         }
     },
     trimParentNS = function(){
