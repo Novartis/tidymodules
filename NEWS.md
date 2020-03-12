@@ -1,5 +1,6 @@
 # tidymodules 0.1.0.9007
 
+- Correct port attibutes assignment
 - Rename TidyModule field `parent_ports` to `pass_ports`
 - Make `assignPort` function work in dynamic context
 - Add `inherit` parameter to `addPort` function to better control ports inheritance
