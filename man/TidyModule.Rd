@@ -30,7 +30,7 @@ m
 
 \item{\code{parent_mod}}{Reference to parent module in case of nested modules.}
 
-\item{\code{parent_ports}}{logical value indicating if the module inherit the parent's input ports in case of nested modules.}
+\item{\code{pass_ports}}{logical value indicating if the module should pass its ports to any nested modules. This is initialized with the \code{inherit} argument of \code{new()}.}
 
 \item{\code{group}}{Group name of the module.}
 
@@ -247,7 +247,8 @@ Add input port function. To be called within \code{definePort} function
   description = NULL,
   sample = NULL,
   input = FALSE,
-  is_parent = FALSE
+  is_parent = FALSE,
+  inherit = TRUE
 )}\if{html}{\out{</div>}}
 }
 
@@ -263,6 +264,8 @@ Add input port function. To be called within \code{definePort} function
 \item{\code{input}}{This argument should be ignored. Only here for backward compatibility.}
 
 \item{\code{is_parent}}{Is the port inherited from the parent module.}
+
+\item{\code{inherit}}{Should the port be passed to nested module. default to TRUE.}
 }
 \if{html}{\out{</div>}}
 }
@@ -291,13 +294,15 @@ Called within the \code{assignPort} function
 \subsection{Method \code{updateInputPorts()}}{
 This function add a set of input ports to the module.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TidyModule$updateInputPorts(inputs = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$updateInputPorts(inputs = NULL, is_parent = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{inputs}}{reactivevalues with the input ports.}
+
+\item{\code{is_parent}}{Are the ports from a parent module. Default to FALSE.}
 }
 \if{html}{\out{</div>}}
 }
@@ -420,13 +425,15 @@ Called within the \code{assignPort} function
 \subsection{Method \code{updateOutputPorts()}}{
 This function add a set of output ports to the module.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TidyModule$updateOutputPorts(outputs = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$updateOutputPorts(outputs = NULL, is_parent = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{outputs}}{reactivevalues with the output ports.}
+
+\item{\code{is_parent}}{Are the ports from a parent module. Default to FALSE.}
 }
 \if{html}{\out{</div>}}
 }

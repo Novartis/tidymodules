@@ -1,3 +1,12 @@
+# tidymodules 0.1.0.9007
+
+- Correct port attibutes assignment
+- Rename TidyModule field `parent_ports` to `pass_ports`
+- Make `assignPort` function work in dynamic context
+- Add `inherit` parameter to `addPort` function to better control ports inheritance
+- Add extra warnings and exceptions related to nested modules and port inheritance
+- Improve module console printing to highlight inherited ports
+
 # tidymodules 0.1.0.9006
 
 - Fix a problem where there is no shiny session argument in app server and calling modules' callModule & callModules.
