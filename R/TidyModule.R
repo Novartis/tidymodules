@@ -793,12 +793,37 @@ TidyModule <- R6::R6Class(
           }else{
             port <- ports[[p]]
             rport <- port$port
-            makeReactive <- function(p){
-              force(p)
-              reactive(p$port)
+            # couple of functions for managing inherited ports
+            getParentReactive <- function(p){
+              parent_mod_ns <- attr(p,"tidymodules_module_ns")
+              r <- reactive({
+                force(p)
+                force(self)
+                force(parent_mod_ns)
+                
+                m <- self$parent_mod
+                if(!is.null(parent_mod_ns)){
+                  m <- mod(parent_mod_ns)
+                }else{
+                  warning(paste0("Couldn't find parent module while passing input ports to ",self$module_ns))
+                }
+                
+                if(type == "input")
+                  m$getInput(p$name)
+                else
+                  m$getOutput(p$name)
+              })
+              
+              # copy tm attributes
+              attrs <- attributes(p$port)
+              for(a in names(attrs))
+                if(grepl("tidymodules",a))
+                  attr(r,a) <- attrs[[a]]
+              
+              r
             }
             if(is_parent)
-              rport <- makeReactive(port)
+              rport <- getParentReactive(port)
             if(!(is_parent && !port$inherit))
               private$addPort(
                 type = type,
