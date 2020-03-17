@@ -18,37 +18,33 @@ Store <- R6::R6Class(
     #' @return UI elements.
     ui = function(){
       tagList(
-        tabsetPanel(type = "tabs",
-                    tabPanel("Sessions",
-                             fluidRow(
-                               br(),
-                               DT::dataTableOutput(self$ns("sessions"))
-                             )
-                    ),
-                    tabPanel("Mods",
-                             fluidRow(
-                               br(),
-                               DT::dataTableOutput(self$ns("mods"))
-                             )
-                    ),
-                    tabPanel("Edges",
-                             fluidRow(
-                               br(),
-                               DT::dataTableOutput(self$ns("edges"))
-                             )
-                    ),
-                    tabPanel("Port Mapping",
-                             fluidRow(
-                               br(),
-                               visNetwork::visNetworkOutput(self$ns("portD"),width = "100%",height = "800px")
-                             )
-                    )
-                    # tabPanel("ERD",
-                    #          fluidRow(
-                    #            br(),
-                    #            visNetwork::visNetworkOutput(self$ns("classD"))
-                    #          )
-                    # )
+        tabsetPanel(
+          id = "store_ID",
+          type = "tabs",
+          tabPanel("Sessions",
+                   fluidRow(
+                     br(),
+                     DT::dataTableOutput(self$ns("sessions"))
+                   )
+          ),
+          tabPanel("Mods",
+                   fluidRow(
+                     br(),
+                     DT::dataTableOutput(self$ns("mods"))
+                   )
+          ),
+          tabPanel("Edges",
+                   fluidRow(
+                     br(),
+                     DT::dataTableOutput(self$ns("edges"))
+                   )
+          ),
+          tabPanel("Port Mapping",
+                   fluidRow(
+                     br(),
+                     visNetwork::visNetworkOutput(self$ns("portD"),width = "100%",height = "800px")
+                   )
+          )
         )
       )
     },
