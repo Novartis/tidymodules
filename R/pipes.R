@@ -129,12 +129,13 @@ multi_port_map <- function(l_mod,r_mod,f = FALSE, t = NULL){
   if(!is.null(t)){
     if(t == "input" && !is.null(outs)){
       r_mod$updateInputPorts(outs,is_parent=TRUE)
-      for (idx in 1:length(reactiveValuesToList(outs)))
-        if(outs[[names(outs)[idx]]]$inherit)
+      for (n in names(outs))
+        if(outs[[n]]$inherit){
           (r_mod$getStore())$addEdge(
-            from = list(type = "input", m = l_mod, port = idx),
-            to =   list(type = "input", m = r_mod, port = idx)
+            from = list(type = "input", m = l_mod, port = n),
+            to =   list(type = "input", m = r_mod, port = n)
           )
+        }
     }
   }else{
     if(length(outs) != length(ins))
@@ -142,13 +143,13 @@ multi_port_map <- function(l_mod,r_mod,f = FALSE, t = NULL){
                   deparse(substitute(l_mod))," [",length(outs),"] / ",
                   deparse(substitute(r_mod))," [",length(ins),"]"))
     
-    for (idx in 1:length(outs)) {
+    for (n in names(outs)) {
       r_mod$updateInputPort(
-        id = idx,
-        input = l_mod$getOutputPort(id = idx))
+        id = n,
+        input = l_mod$getOutputPort(id = n))
       (r_mod$getStore())$addEdge(
-        from = list(type = "output", m = l_mod, port = idx),
-        to =   list(type = "input",m = r_mod, port = idx)
+        from = list(type = "output", m = l_mod, port = n),
+        to =   list(type = "input",m = r_mod, port = n)
       )
     }
   }
