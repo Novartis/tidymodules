@@ -5,7 +5,6 @@
 #' This is the main class provided by tidymodules and should be the parent of all tidymodules modules.
 #' It provides methods for defining input and output communication ports, managing module namespace and many other useful features.
 #'
-#' @import shiny
 #' @import R6
 #' 
 #' @export

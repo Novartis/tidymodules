@@ -14,17 +14,18 @@ License: Apache License (>= 2.0)
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    shiny,
     stringi,
     digest,
     R6,
-    visNetwork,
     methods,
     snippr,
     cli,
     dplyr,
     fs,
-    purrr
+    purrr,
+    visNetwork
+Depends:
+    shiny
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/Novartis/tidymodules
