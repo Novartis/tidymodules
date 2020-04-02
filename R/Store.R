@@ -21,25 +21,25 @@ Store <- R6::R6Class(
         tabsetPanel(
           id = "store_ID",
           type = "tabs",
-          tabPanel("Sessions",
+          shiny::tabPanel("Sessions",
                    fluidRow(
                      br(),
                      DT::dataTableOutput(self$ns("sessions"))
                    )
           ),
-          tabPanel("Mods",
+          shiny::tabPanel("Mods",
                    fluidRow(
                      br(),
                      DT::dataTableOutput(self$ns("mods"))
                    )
           ),
-          tabPanel("Edges",
+          shiny::tabPanel("Edges",
                    fluidRow(
                      br(),
                      DT::dataTableOutput(self$ns("edges"))
                    )
           ),
-          tabPanel("Port Mapping",
+          shiny::tabPanel("Port Mapping",
                    fluidRow(
                      br(),
                      visNetwork::visNetworkOutput(self$ns("portD"),width = "100%",height = "800px")
