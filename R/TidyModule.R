@@ -288,7 +288,8 @@ TidyModule <- R6::R6Class(
     #' @param require Check that the port is available.
     #' @return Output of the reacive function execution.
     execInput = function(id = 1, require = TRUE){
-      r <- self$getInput(id)
+      mod <- getMod(self$module_ns)
+      r <- mod$getInput(id)
       if(require)
         req(r)
       return(r())
@@ -386,7 +387,8 @@ TidyModule <- R6::R6Class(
     #' @param require Check that the port is available.
     #' @return Output of the reacive function execution.
     execOutput = function(id = 1, require = TRUE){
-      r <- self$getOutput(id)
+      mod <- getMod(self$module_ns)
+      r <- mod$getOutput(id)
       if(require)
         req(r)
       return(r())
