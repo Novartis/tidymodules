@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -44,8 +48,7 @@
 
 <meta property="og:title" content="R6 Class Representing a ModStore — ModStore" />
 <meta property="og:description" content="This class is used to create a storage for tidymodules objects." />
-<meta property="og:image" content="https://opensource.nibr.com/tidymodules/logo.png" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="https://opensource.nibr.com/tidymodules/logo.svg" />
 
 
 
@@ -63,7 +66,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -77,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidymodules</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9008</span>
       </span>
     </div>
 
@@ -125,7 +128,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/Novartis/tidymodules">
+  <a href="https://github.com/Novartis/tidymodules/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -182,72 +185,70 @@
 Should be called once by the TidyModule class.
 Not to be called directly outside TidyModule.
 The ModStore object can be retrieved from any TidyModule object, see example below.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ModStore$new()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>ModStore</span>$<span class='fu'>new</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>A new <code>ModStore</code> object.</p>
 <h3>Examples</h3>
-<p><div class="r example copy"></p><pre>MyModule &lt;- R6::R6Class("MyModule", inherit = tidymodules::TidyModule)
-m &lt;- MyModule$new()
-s &lt;- m$getStore()
-</pre><p></div></p>
+<p><div class="r example copy"></p><pre><span class='no'>MyModule</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='kw pkg'>R6</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6Class</a></span>(<span class='st'>"MyModule"</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='kw pkg'>tidymodules</span><span class='kw ns'>::</span><span class='no'><a href='TidyModule.html'>TidyModule</a></span>)
+<span class='no'>m</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='no'>MyModule</span>$<span class='fu'>new</span>()
+<span class='no'>s</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='no'>m</span>$<span class='fu'>getStore</span>()</pre><p></div></p>
 
 <p><hr>
 <a id="method-isStored"></a></p><h3>Method <code>isStored()</code></h3>
 <p>Check if a module is stored in the current session.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ModStore$isStored(m)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>ModStore</span>$<span class='fu'>isStored</span>(<span class='no'>m</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>m</code></dt><dd><p>TidyModule object.</p></dd>
 
 </dl><p></div></p>
 <h3>Examples</h3>
-<p><div class="r example copy"></p><pre>MyModule &lt;- R6::R6Class("MyModule", inherit = tidymodules::TidyModule)
-m &lt;- MyModule$new()
-s &lt;- m$getStore()
-s$isStored(m)
-</pre><p></div></p>
+<p><div class="r example copy"></p><pre><span class='no'>MyModule</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='kw pkg'>R6</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6Class</a></span>(<span class='st'>"MyModule"</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='kw pkg'>tidymodules</span><span class='kw ns'>::</span><span class='no'><a href='TidyModule.html'>TidyModule</a></span>)
+<span class='no'>m</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='no'>MyModule</span>$<span class='fu'>new</span>()
+<span class='no'>s</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='no'>m</span>$<span class='fu'>getStore</span>()
+<span class='no'>s</span>$<span class='fu'>isStored</span>(<span class='no'>m</span>)</pre><p></div></p>
 
 <p><hr>
 <a id="method-getGlobalSession"></a></p><h3>Method <code>getGlobalSession()</code></h3>
 <p>Retrieve the global session 'global_session'.
 This is the session that exists outside the application server function</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ModStore$getGlobalSession()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>ModStore</span>$<span class='fu'>getGlobalSession</span>()</pre><p></div></p>
 
 <p><hr>
 <a id="method-getSession"></a></p><h3>Method <code>getSession()</code></h3>
 <p>Retrieve a module session.
 This could be the global session or a user session.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ModStore$getSession(m)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>ModStore</span>$<span class='fu'>getSession</span>(<span class='no'>m</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>m</code></dt><dd><p>TidyModule object.</p></dd>
 
 </dl><p></div></p>
 <p><hr>
 <a id="method-getSessions"></a></p><h3>Method <code>getSessions()</code></h3>
 <p>Retrieve all sessions.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ModStore$getSessions()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>ModStore</span>$<span class='fu'>getSessions</span>()</pre><p></div></p>
 
 <p><hr>
 <a id="method-getMods"></a></p><h3>Method <code>getMods()</code></h3>
 <p>Retrieve all modules.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ModStore$getMods(m)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>ModStore</span>$<span class='fu'>getMods</span>(<span class='no'>m</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>m</code></dt><dd><p>TidyModule object.</p></dd>
 
 </dl><p></div></p>
 <p><hr>
 <a id="method-getEdges"></a></p><h3>Method <code>getEdges()</code></h3>
 <p>Retrieve modules connections.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ModStore$getEdges(m)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>ModStore</span>$<span class='fu'>getEdges</span>(<span class='no'>m</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>m</code></dt><dd><p>TidyModule object.</p></dd>
 
 </dl><p></div></p>
@@ -256,10 +257,10 @@ This could be the global session or a user session.</p><h3>Usage</h3>
 <p>Add modules connections into ModStore.
 An edge is either a connection between a reactive object and a module
 or between two modules.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ModStore$addEdge(from, to, mode = "direct", comment = NA)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>ModStore</span>$<span class='fu'>addEdge</span>(<span class='no'>from</span>, <span class='no'>to</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"direct"</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>from</code></dt><dd><p>list with three elements: m -&gt; module, type -&gt; input or output, port -&gt; port Id.</p></dd>
 
 <dt><code>to</code></dt><dd><p>list with three elements: m -&gt; module, type -&gt; input or output, port -&gt; port Id.</p></dd>
@@ -272,35 +273,35 @@ or between two modules.</p><h3>Usage</h3>
 <p><hr>
 <a id="method-addMod"></a></p><h3>Method <code>addMod()</code></h3>
 <p>Add module into the ModStore.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ModStore$addMod(m)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>ModStore</span>$<span class='fu'>addMod</span>(<span class='no'>m</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>m</code></dt><dd><p>TidyModule object.</p></dd>
 
 </dl><p></div></p>
 <p><hr>
 <a id="method-delMod"></a></p><h3>Method <code>delMod()</code></h3>
 <p>Delete a module from the ModStore.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ModStore$delMod(m)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>ModStore</span>$<span class='fu'>delMod</span>(<span class='no'>m</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>m</code></dt><dd><p>TidyModule object.</p></dd>
 
 </dl><p></div></p>
 <p><hr>
 <a id="method-print"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
 <p>Print the ModStore object.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ModStore$print()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>ModStore</span>$<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>()</pre><p></div></p>
 
 <p><hr>
 <a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
 <p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>ModStore$clone(deep = FALSE)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>ModStore</span>$<span class='fu'>clone</span>(<span class='kw'>deep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
 
 </dl><p></div></p>
@@ -313,7 +314,7 @@ or between two modules.</p><h3>Usage</h3>
 <span class='co'>## Method `ModStore$new`</span>
 <span class='co'>## ------------------------------------------------</span>
 
-<span class='no'>MyModule</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>R6</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6Class</a></span>(<span class='st'>"MyModule"</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='kw pkg'>tidymodules</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/tidymodules/man/TidyModule.html'>TidyModule</a></span>)
+<span class='no'>MyModule</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>R6</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6Class</a></span>(<span class='st'>"MyModule"</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='kw pkg'>tidymodules</span><span class='kw ns'>::</span><span class='no'><a href='TidyModule.html'>TidyModule</a></span>)
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='no'>MyModule</span>$<span class='fu'>new</span>()
 <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='no'>m</span>$<span class='fu'>getStore</span>()
 
@@ -321,19 +322,15 @@ or between two modules.</p><h3>Usage</h3>
 <span class='co'>## Method `ModStore$isStored`</span>
 <span class='co'>## ------------------------------------------------</span>
 
-<span class='no'>MyModule</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>R6</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6Class</a></span>(<span class='st'>"MyModule"</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='kw pkg'>tidymodules</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/tidymodules/man/TidyModule.html'>TidyModule</a></span>)
+<span class='no'>MyModule</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>R6</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6Class</a></span>(<span class='st'>"MyModule"</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='kw pkg'>tidymodules</span><span class='kw ns'>::</span><span class='no'><a href='TidyModule.html'>TidyModule</a></span>)
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='no'>MyModule</span>$<span class='fu'>new</span>()
 <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='no'>m</span>$<span class='fu'>getStore</span>()
 <span class='no'>s</span>$<span class='fu'>isStored</span>(<span class='no'>m</span>)</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#details">Details</a></li>
-      <li><a href="#methods">Methods</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -344,7 +341,7 @@ or between two modules.</p><h3>Usage</h3>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

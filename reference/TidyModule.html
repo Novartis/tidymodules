@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -45,8 +49,7 @@
 <meta property="og:title" content="TidyModule R6 Class, parent of all modules — TidyModule" />
 <meta property="og:description" content="This is the main class provided by tidymodules and should be the parent of all tidymodules modules.
 It provides methods for defining input and output communication ports, managing module namespace and many other useful features." />
-<meta property="og:image" content="https://opensource.nibr.com/tidymodules/logo.png" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="https://opensource.nibr.com/tidymodules/logo.svg" />
 
 
 
@@ -64,7 +67,7 @@ It provides methods for defining input and output communication ports, managing 
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -78,7 +81,7 @@ It provides methods for defining input and output communication ports, managing 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidymodules</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9008</span>
       </span>
     </div>
 
@@ -126,7 +129,7 @@ It provides methods for defining input and output communication ports, managing 
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/Novartis/tidymodules">
+  <a href="https://github.com/Novartis/tidymodules/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -158,7 +161,7 @@ It provides methods for defining input and output communication ports, managing 
 
     <h2 class="hasAnchor" id="public-fields"><a class="anchor" href="#public-fields"></a>Public fields</h2>
 
-    <p><div class="r6-fields"></p><dl class='dl-horizontal'>
+    <p><div class="r6-fields"></p><dl'>
 <dt><code>id</code></dt><dd><p>ID of the module.</p></dd>
 
 <dt><code>name</code></dt><dd><p>Name of the module as generated or provided by the user.</p></dd>
@@ -237,10 +240,10 @@ It provides methods for defining input and output communication ports, managing 
 <p><hr>
 <a id="method-new"></a></p><h3>Method <code>new()</code></h3>
 <p>Create a new tidymodules module.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$new(id = NULL, inherit = TRUE, group = NULL)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>new</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Unique Id to assign to the module. Default to a generated Id using module's class and order of initialization.</p></dd>
 
 <dt><code>inherit</code></dt><dd><p>logical value indicating if a nested module should inherits the parent's input ports. Default to TRUE</p></dd>
@@ -253,10 +256,10 @@ It provides methods for defining input and output communication ports, managing 
 <p><hr>
 <a id="method-ns"></a></p><h3>Method <code>ns()</code></h3>
 <p>namespace function used to generate unique Id for HTML elements.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$ns(id)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>ns</span>(<span class='no'>id</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Id of HTML element / shiny input.</p></dd>
 
 </dl><p></div></p>
@@ -265,17 +268,17 @@ It provides methods for defining input and output communication ports, managing 
 <p><hr>
 <a id="method-getSessionId"></a></p><h3>Method <code><a href='getSessionId.html'>getSessionId()</a></code></h3>
 <p>Get module session Id. This function rely on a shiny output object to find the right session Id.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getSessionId()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'><a href='getSessionId.html'>getSessionId</a></span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>The Session Id of the module.</p>
 <p><hr>
 <a id="method-render"></a></p><h3>Method <code>render()</code></h3>
 <p>Alias to the <code>ui</code> function.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$render(...)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>render</span>(<span class='no'>...</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>...</code></dt><dd><p>arguments passed to the ui function.</p></dd>
 
 </dl><p></div></p>
@@ -284,10 +287,10 @@ It provides methods for defining input and output communication ports, managing 
 <p>UI function generating the module HTML elements.
 This function is eventually implemented in the child module to give the module a visual representation.
 Please note that a module can have many visual representations.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$ui(...)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>ui</span>(<span class='no'>...</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>...</code></dt><dd><p>arguments passed to ui</p></dd>
 
 </dl><p></div></p>
@@ -296,10 +299,10 @@ Please note that a module can have many visual representations.</p><h3>Usage</h3
 <p><hr>
 <a id="method-server"></a></p><h3>Method <code>server()</code></h3>
 <p>server function to be overwritten and called by child module.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$server(input, output, session)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>server</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>input</code></dt><dd><p>shiny input.</p></dd>
 
 <dt><code>output</code></dt><dd><p>shiny output.</p></dd>
@@ -310,37 +313,37 @@ Please note that a module can have many visual representations.</p><h3>Usage</h3
 <p><hr>
 <a id="method-definePort"></a></p><h3>Method <code>definePort()</code></h3>
 <p>Function wrapper for port definition expression.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$definePort(x)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>definePort</span>(<span class='no'>x</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>x</code></dt><dd><p>expression</p></dd>
 
 </dl><p></div></p>
 <p><hr>
 <a id="method-assignPort"></a></p><h3>Method <code>assignPort()</code></h3>
 <p>Function wrapper for port assignment expression.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$assignPort(x)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>assignPort</span>(<span class='no'>x</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>x</code></dt><dd><p>expression</p></dd>
 
 </dl><p></div></p>
 <p><hr>
 <a id="method-addInputPort"></a></p><h3>Method <code>addInputPort()</code></h3>
 <p>Add input port function. To be called within <code>definePort</code> function</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$addInputPort(
-  name = NULL,
-  description = NULL,
-  sample = NULL,
-  input = FALSE,
-  is_parent = FALSE,
-  inherit = TRUE
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>addInputPort</span>(
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sample</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>input</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>is_parent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>name</code></dt><dd><p>port name. must be a unique input port name.</p></dd>
 
 <dt><code>description</code></dt><dd><p>port description.</p></dd>
@@ -358,10 +361,10 @@ Please note that a module can have many visual representations.</p><h3>Usage</h3
 <a id="method-updateInputPort"></a></p><h3>Method <code>updateInputPort()</code></h3>
 <p>Function for filling an input port.
 Called within the <code>assignPort</code> function</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$updateInputPort(id = NULL, input = NULL)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>updateInputPort</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Port name or Id .</p></dd>
 
 <dt><code>input</code></dt><dd><p>The reacive object.</p></dd>
@@ -370,10 +373,10 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-updateInputPorts"></a></p><h3>Method <code>updateInputPorts()</code></h3>
 <p>This function add a set of input ports to the module.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$updateInputPorts(inputs = NULL, is_parent = FALSE)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>updateInputPorts</span>(<span class='kw'>inputs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>is_parent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>inputs</code></dt><dd><p>reactivevalues with the input ports.</p></dd>
 
 <dt><code>is_parent</code></dt><dd><p>Are the ports from a parent module. Default to FALSE.</p></dd>
@@ -382,10 +385,10 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-getInputPort"></a></p><h3>Method <code>getInputPort()</code></h3>
 <p>Get an input port from the module.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getInputPort(id = 1)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getInputPort</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
 
 </dl><p></div></p>
@@ -394,10 +397,10 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-iport"></a></p><h3>Method <code><a href='iport.html'>iport()</a></code></h3>
 <p>Alias to the <code>getInputPort()</code> function.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$iport(id = 1)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'><a href='iport.html'>iport</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
 
 </dl><p></div></p>
@@ -406,17 +409,17 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-getInputPorts"></a></p><h3>Method <code>getInputPorts()</code></h3>
 <p>Get all the input ports as a reactivevalues object.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getInputPorts()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getInputPorts</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>A reactivevalues object.</p>
 <p><hr>
 <a id="method-getInput"></a></p><h3>Method <code>getInput()</code></h3>
 <p>Get a input port slot.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getInput(id = 1, w = TRUE)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getInput</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
 
 <dt><code>w</code></dt><dd><p>boolean to enable module session check. default to TRUE.</p></dd>
@@ -429,10 +432,10 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p>Execute an input port slot, that is, the reactive function stored in the port.
 The <code>require</code> argument which is <code>TRUE</code> by default allows you disable checking if the port is Truthy.
 See <code><a href='https://rdrr.io/pkg/shiny/man/req.html'>shiny::req</a></code> function.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$execInput(id = 1, require = TRUE)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>execInput</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>require</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
 
 <dt><code>require</code></dt><dd><p>Check that the port is available.</p></dd>
@@ -444,10 +447,10 @@ See <code><a href='https://rdrr.io/pkg/shiny/man/req.html'>shiny::req</a></code>
 <a id="method-updateOutputPort"></a></p><h3>Method <code>updateOutputPort()</code></h3>
 <p>Function for filling an output port.
 Called within the <code>assignPort</code> function</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$updateOutputPort(id = NULL, output = NULL)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>updateOutputPort</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>output</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Port name or Id .</p></dd>
 
 <dt><code>output</code></dt><dd><p>The reacive object.</p></dd>
@@ -456,10 +459,10 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-updateOutputPorts"></a></p><h3>Method <code>updateOutputPorts()</code></h3>
 <p>This function add a set of output ports to the module.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$updateOutputPorts(outputs = NULL, is_parent = FALSE)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>updateOutputPorts</span>(<span class='kw'>outputs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>is_parent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>outputs</code></dt><dd><p>reactivevalues with the output ports.</p></dd>
 
 <dt><code>is_parent</code></dt><dd><p>Are the ports from a parent module. Default to FALSE.</p></dd>
@@ -468,16 +471,16 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-addOutputPort"></a></p><h3>Method <code>addOutputPort()</code></h3>
 <p>Add output port function. To be called within <code>definePort</code> function</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$addOutputPort(
-  name = NULL,
-  description = NULL,
-  sample = NULL,
-  output = FALSE,
-  is_parent = FALSE
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>addOutputPort</span>(
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sample</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>output</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>is_parent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>name</code></dt><dd><p>port name. must be a unique output port name.</p></dd>
 
 <dt><code>description</code></dt><dd><p>port description.</p></dd>
@@ -492,10 +495,10 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-getPortName"></a></p><h3>Method <code>getPortName()</code></h3>
 <p>Utility function that returns a port name from the Id.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getPortName(id = NULL, type = "input")</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getPortName</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"input"</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Port Id</p></dd>
 
 <dt><code>type</code></dt><dd><p>Port type, input or output.</p></dd>
@@ -506,10 +509,10 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-getOutputPort"></a></p><h3>Method <code>getOutputPort()</code></h3>
 <p>Get an output port from the module.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getOutputPort(id = 1)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getOutputPort</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
 
 </dl><p></div></p>
@@ -518,10 +521,10 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-oport"></a></p><h3>Method <code><a href='oport.html'>oport()</a></code></h3>
 <p>Alias to the <code>getOutputPort()</code> function.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$oport(id = 1)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'><a href='oport.html'>oport</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
 
 </dl><p></div></p>
@@ -530,17 +533,17 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p><hr>
 <a id="method-getOutputPorts"></a></p><h3>Method <code>getOutputPorts()</code></h3>
 <p>Get all the output ports as a reactivevalues object.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getOutputPorts()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getOutputPorts</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>A reactivevalues object.</p>
 <p><hr>
 <a id="method-getOutput"></a></p><h3>Method <code>getOutput()</code></h3>
 <p>Get a output port slot.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getOutput(id = 1, w = TRUE)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getOutput</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
 
 <dt><code>w</code></dt><dd><p>boolean to enable module session check. default to TRUE.</p></dd>
@@ -553,10 +556,10 @@ Called within the <code>assignPort</code> function</p><h3>Usage</h3>
 <p>Execute an output port slot, that is, the reactive function stored in the port.
 The <code>require</code> argument which is <code>TRUE</code> by default allows you disable checking if the port is Truthy.
 See <code><a href='https://rdrr.io/pkg/shiny/man/req.html'>shiny::req</a></code> function.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$execOutput(id = 1, require = TRUE)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>execOutput</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>require</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>id</code></dt><dd><p>Name or Id of the port.</p></dd>
 
 <dt><code>require</code></dt><dd><p>Check that the port is available.</p></dd>
@@ -567,31 +570,31 @@ See <code><a href='https://rdrr.io/pkg/shiny/man/req.html'>shiny::req</a></code>
 <p><hr>
 <a id="method-getStore"></a></p><h3>Method <code>getStore()</code></h3>
 <p>Function for retrieving the central ModStore.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getStore()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getStore</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>The <code>ModStore</code> object.</p>
 <p><hr>
 <a id="method-countInputPort"></a></p><h3>Method <code>countInputPort()</code></h3>
 <p>Utility function that counts the number of input ports.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$countInputPort()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>countInputPort</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>The input ports count.</p>
 <p><hr>
 <a id="method-countOutputPort"></a></p><h3>Method <code>countOutputPort()</code></h3>
 <p>Utility function that counts the number of output ports.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$countOutputPort()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>countOutputPort</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>The output ports count.</p>
 <p><hr>
 <a id="method-use"></a></p><h3>Method <code>use()</code></h3>
 <p>Alias to the <code>callModule</code> function.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$use(...)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>use</span>(<span class='no'>...</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>...</code></dt><dd><p>arguments passed to the <code>server</code> function of the module.</p></dd>
 
 </dl><p></div></p>
@@ -601,31 +604,31 @@ See <code><a href='https://rdrr.io/pkg/shiny/man/req.html'>shiny::req</a></code>
 This function don't need the user to provide a namespace Id as a module already knows its identity.
 Options provided as arguments will be passed to the server function of the module.
 Note that the module reference <code>self</code> might not be the one injected.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$callModule(...)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>callModule</span>(<span class='no'>...</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>...</code></dt><dd><p>arguments passed to the <code>server</code> function of the module.</p></dd>
 
 </dl><p></div></p>
 <p><hr>
 <a id="method-isStored"></a></p><h3>Method <code>isStored()</code></h3>
 <p>Function to check if the module is store in the current session.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$isStored()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>isStored</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>logical value.</p>
 <p><hr>
 <a id="method-isGlobal"></a></p><h3>Method <code>isGlobal()</code></h3>
 <p>Check if the session attached to the module is the <code>global_session</code>.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$isGlobal()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>isGlobal</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>logical value.</p>
 <p><hr>
 <a id="method-getSession"></a></p><h3>Method <code>getSession()</code></h3>
 <p>Get the current session.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getSession()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getSession</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>A reactivevalues object with the following elements.
@@ -640,7 +643,7 @@ edges = list of connection edges</p>
 <p><hr>
 <a id="method-getGlobalSession"></a></p><h3>Method <code>getGlobalSession()</code></h3>
 <p>Get the global session.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getGlobalSession()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getGlobalSession</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>A reactivevalues object with the following elements.
@@ -655,10 +658,10 @@ edges = empty data.frame</p>
 <p><hr>
 <a id="method-doServer"></a></p><h3>Method <code>doServer()</code></h3>
 <p>Function interfacing with shiny's callModule.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$doServer(...)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>doServer</span>(<span class='no'>...</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>...</code></dt><dd><p>arguments passed to the <code>server</code> function of the module.</p></dd>
 
 </dl><p></div></p>
@@ -666,10 +669,10 @@ edges = empty data.frame</p>
 <a id="method-getPortDef"></a></p><h3>Method <code>getPortDef()</code></h3>
 <p>Utility function to retrieve a port definition in the form of a list.
 This is a useful function to learn about a specific port.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getPortDef(type = NULL, id = 1)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getPortDef</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>type</code></dt><dd><p>Port type, input or output.</p></dd>
 
 <dt><code>id</code></dt><dd><p>Name or Id of port.</p></dd>
@@ -681,23 +684,22 @@ This is a useful function to learn about a specific port.</p><h3>Usage</h3>
 <a id="method-print"></a></p><h3>Method <code><a href='https://rdrr.io/r/base/print.html'>print()</a></code></h3>
 <p>Module printing function.
 Print the structure of a module.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$print()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>()</pre><p></div></p>
 
 <h3>Examples</h3>
-<p><div class="r example copy"></p><pre>MyModule &lt;- R6::R6Class("MyModule", inherit = tidymodules::TidyModule)
-m &lt;- MyModule$new()
-m
-</pre><p></div></p>
+<p><div class="r example copy"></p><pre><span class='no'>MyModule</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='kw pkg'>R6</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6Class</a></span>(<span class='st'>"MyModule"</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='kw pkg'>tidymodules</span><span class='kw ns'>::</span><span class='no'>TidyModule</span>)
+<span class='no'>m</span> <span class='kw'>&amp;</span><span class='no'>lt</span>;- <span class='no'>MyModule</span>$<span class='fu'>new</span>()
+<span class='no'>m</span></pre><p></div></p>
 
 <p><hr>
 <a id="method-deepClone"></a></p><h3>Method <code>deepClone()</code></h3>
 <p>Module cloning function.
 Take care of ports (cloning reactive objects) and nested modules.
 Note that the Ids/namespace are not changed.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$deepClone(o = NULL, i = NULL, s = NULL)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>deepClone</span>(<span class='kw'>o</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>s</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>o</code></dt><dd><p>Optional shiny output.</p></dd>
 
 <dt><code>i</code></dt><dd><p>Optional shiny input</p></dd>
@@ -710,10 +712,10 @@ Note that the Ids/namespace are not changed.</p><h3>Usage</h3>
 <p><hr>
 <a id="method-reset"></a></p><h3>Method <code>reset()</code></h3>
 <p>This function reset the ports.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$reset(o = NULL, i = NULL, s = NULL)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>reset</span>(<span class='kw'>o</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>i</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>s</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>o</code></dt><dd><p>Optional shiny output.</p></dd>
 
 <dt><code>i</code></dt><dd><p>Optional shiny input</p></dd>
@@ -724,31 +726,31 @@ Note that the Ids/namespace are not changed.</p><h3>Usage</h3>
 <p><hr>
 <a id="method-getShinyInput"></a></p><h3>Method <code>getShinyInput()</code></h3>
 <p>Retrieve the shiny input.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getShinyInput()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getShinyInput</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>Shiny input object.</p>
 <p><hr>
 <a id="method-getShinyOutput"></a></p><h3>Method <code>getShinyOutput()</code></h3>
 <p>Retrieve the shiny output.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getShinyOutput()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getShinyOutput</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>Shiny output object.</p>
 <p><hr>
 <a id="method-getShinySession"></a></p><h3>Method <code>getShinySession()</code></h3>
 <p>Retrieve the shiny output.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$getShinySession()</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>getShinySession</span>()</pre><p></div></p>
 
 <h3>Returns</h3>
 <p>Shiny session object.</p>
 <p><hr>
 <a id="method-clone"></a></p><h3>Method <code>clone()</code></h3>
 <p>The objects of this class are cloneable with this method.</p><h3>Usage</h3>
-<p><div class="r"></p><pre>TidyModule$clone(deep = FALSE)</pre><p></div></p>
+<p><div class="r"></p><pre><span class='no'>TidyModule</span>$<span class='fu'>clone</span>(<span class='kw'>deep</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre><p></div></p>
 
 <h3>Arguments</h3>
-<p><div class="arguments"></p><dl class='dl-horizontal'>
+<p><div class="arguments"></p><dl'>
 <dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p></dd>
 
 </dl><p></div></p>
@@ -761,7 +763,7 @@ Note that the Ids/namespace are not changed.</p><h3>Usage</h3>
 <span class='co'>## Method `TidyModule$print`</span>
 <span class='co'>## ------------------------------------------------</span>
 
-<span class='no'>MyModule</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>R6</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6Class</a></span>(<span class='st'>"MyModule"</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='kw pkg'>tidymodules</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/tidymodules/man/TidyModule.html'>TidyModule</a></span>)
+<span class='no'>MyModule</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>R6</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6Class</a></span>(<span class='st'>"MyModule"</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='kw pkg'>tidymodules</span><span class='kw ns'>::</span><span class='no'>TidyModule</span>)
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='no'>MyModule</span>$<span class='fu'>new</span>()
 <span class='no'>m</span></div><div class='output co'>#&gt; Module Namespace MyModule-3
 #&gt; Module Session global_session
@@ -769,14 +771,10 @@ Note that the Ids/namespace are not changed.</p><h3>Usage</h3>
 #&gt; - Input [0]
 #&gt; - Output [0]</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#public-fields">Public fields</a></li>
-      <li><a href="#methods">Methods</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -787,7 +785,7 @@ Note that the Ids/namespace are not changed.</p><h3>Usage</h3>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
