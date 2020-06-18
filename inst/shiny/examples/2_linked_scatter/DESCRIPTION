@@ -1,7 +1,6 @@
 Title: tidymodules - Linked scatter
 Author: Mustapha Larbaoui
-AuthorUrl: gitlab page
-License: MIT
+License: Apache
 DisplayMode: Showcase
 Tags: module, ggplot
 Type: Shiny

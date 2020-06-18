@@ -1,7 +1,6 @@
 Title: tidymodules - Orchestrating module communication
 Author: Mustapha Larbaoui
-AuthorUrl: gitlab page
-License: MIT
+License: Apache
 DisplayMode: Showcase
 Tags: module, ggplot
 Type: Shiny
