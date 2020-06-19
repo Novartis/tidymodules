@@ -112,31 +112,31 @@ oport <- function(id = 1, p = 1, g = NULL){
 }
 
 #' 
-#' @title List modules function
+#' @title List modules in current session
 #'
-#' @description This function list the modules found in the global session
+#' @description This function list module objects found in the current session
 #' 
-#' #' @param verbose Display module description 
+#' #' @param verbose Display module description as well
 #' 
 #' @importFrom  cli cat_bullet cat_boxx
 #' 
 #' @export
-listModules <- function(verbose = FALSE){
-  globalSession <- UtilityModule$new()$getGlobalSession()
+listModules <- function(verbose = FALSE, global = FALSE){
+  currentSession <- UtilityModule$new()$getSession()
   isolate({
-    if(length(globalSession$collection) == 0)
+    if(length(currentSession$collection) == 0)
       cat_bullet(paste0("No module found!"),
                  bullet_col = "orange",
                  bullet = "cross")
     else
-      cat_bullet(paste0("Found ",length(globalSession$collection)," module(s)!"),
+      cat_bullet(paste0("Found ",length(currentSession$collection)," module(s)!"),
                  bullet_col = "green",
                  bullet = "tick")
-    invisible(lapply(globalSession$collection,function(mod){
+    invisible(for(mod in currentSession$collection) {
       cat_bullet(mod$module_ns,bullet = "circle_dotted")
       if(verbose)
-        cat_boxx(capture.output(pg))
-    }))
+        cat_boxx(capture.output(mod))
+    })
   })
 }
 

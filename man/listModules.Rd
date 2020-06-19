@@ -2,12 +2,12 @@
 % Please edit documentation in R/utility.R
 \name{listModules}
 \alias{listModules}
-\title{List modules function}
+\title{List modules in current session}
 \usage{
-listModules(verbose = FALSE)
+listModules(verbose = FALSE, global = FALSE)
 }
 \description{
-This function list the modules found in the global session
+This function list module objects found in the current session
 
-#' @param verbose Display module description
+#' @param verbose Display module description as well
 }
