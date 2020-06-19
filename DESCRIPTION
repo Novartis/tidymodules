@@ -1,6 +1,6 @@
 Package: tidymodules
 Title: A robust framework for developing shiny modules
-Version: 0.1.0.9008
+Version: 0.1.0.9010
 Authors@R: c(
   person('Mustapha', 'Larbaoui', email = 'mustapha.larbaoui@novartis.com', role = c('cre', 'aut')),
   person('Douglas', 'Robinson', email = 'douglas.robinson@novartis.com', role = c('ctb')),
@@ -26,7 +26,7 @@ Imports:
     visNetwork
 Depends:
     shiny
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/Novartis/tidymodules
 BugReports: https://github.com/Novartis/tidymodules/issues

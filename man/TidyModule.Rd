@@ -55,6 +55,7 @@ m
 \item \href{#method-render}{\code{TidyModule$render()}}
 \item \href{#method-ui}{\code{TidyModule$ui()}}
 \item \href{#method-server}{\code{TidyModule$server()}}
+\item \href{#method-view}{\code{TidyModule$view()}}
 \item \href{#method-definePort}{\code{TidyModule$definePort()}}
 \item \href{#method-assignPort}{\code{TidyModule$assignPort()}}
 \item \href{#method-addInputPort}{\code{TidyModule$addInputPort()}}
@@ -96,6 +97,7 @@ m
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new tidymodules module.
 \subsection{Usage}{
@@ -119,6 +121,7 @@ A new \code{TidyModule} object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ns"></a>}}
+\if{latex}{\out{\hypertarget{method-ns}{}}}
 \subsection{Method \code{ns()}}{
 namespace function used to generate unique Id for HTML elements.
 \subsection{Usage}{
@@ -138,6 +141,7 @@ A unique string Id.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getSessionId"></a>}}
+\if{latex}{\out{\hypertarget{method-getSessionId}{}}}
 \subsection{Method \code{getSessionId()}}{
 Get module session Id. This function rely on a shiny output object to find the right session Id.
 \subsection{Usage}{
@@ -150,6 +154,7 @@ The Session Id of the module.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-render"></a>}}
+\if{latex}{\out{\hypertarget{method-render}{}}}
 \subsection{Method \code{render()}}{
 Alias to the \code{ui} function.
 \subsection{Usage}{
@@ -166,6 +171,7 @@ Alias to the \code{ui} function.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ui"></a>}}
+\if{latex}{\out{\hypertarget{method-ui}{}}}
 \subsection{Method \code{ui()}}{
 UI function generating the module HTML elements.
 This function is eventually implemented in the child module to give the module a visual representation.
@@ -187,6 +193,7 @@ Empty tagList()
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-server"></a>}}
+\if{latex}{\out{\hypertarget{method-server}{}}}
 \subsection{Method \code{server()}}{
 server function to be overwritten and called by child module.
 \subsection{Usage}{
@@ -206,7 +213,18 @@ server function to be overwritten and called by child module.
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-view"></a>}}
+\if{latex}{\out{\hypertarget{method-view}{}}}
+\subsection{Method \code{view()}}{
+Preview the module in a gadget.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$view()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-definePort"></a>}}
+\if{latex}{\out{\hypertarget{method-definePort}{}}}
 \subsection{Method \code{definePort()}}{
 Function wrapper for port definition expression.
 \subsection{Usage}{
@@ -223,6 +241,7 @@ Function wrapper for port definition expression.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-assignPort"></a>}}
+\if{latex}{\out{\hypertarget{method-assignPort}{}}}
 \subsection{Method \code{assignPort()}}{
 Function wrapper for port assignment expression.
 \subsection{Usage}{
@@ -239,6 +258,7 @@ Function wrapper for port assignment expression.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-addInputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-addInputPort}{}}}
 \subsection{Method \code{addInputPort()}}{
 Add input port function. To be called within \code{definePort} function
 \subsection{Usage}{
@@ -272,6 +292,7 @@ Add input port function. To be called within \code{definePort} function
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-updateInputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-updateInputPort}{}}}
 \subsection{Method \code{updateInputPort()}}{
 Function for filling an input port.
 Called within the \code{assignPort} function
@@ -291,6 +312,7 @@ Called within the \code{assignPort} function
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-updateInputPorts"></a>}}
+\if{latex}{\out{\hypertarget{method-updateInputPorts}{}}}
 \subsection{Method \code{updateInputPorts()}}{
 This function add a set of input ports to the module.
 \subsection{Usage}{
@@ -309,6 +331,7 @@ This function add a set of input ports to the module.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getInputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-getInputPort}{}}}
 \subsection{Method \code{getInputPort()}}{
 Get an input port from the module.
 \subsection{Usage}{
@@ -328,6 +351,7 @@ A module input port. A reactivevalues object with name, description, sample, is_
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-iport"></a>}}
+\if{latex}{\out{\hypertarget{method-iport}{}}}
 \subsection{Method \code{iport()}}{
 Alias to the \code{getInputPort()} function.
 \subsection{Usage}{
@@ -347,6 +371,7 @@ A module input port. A reactivevalues object with name, description, sample, is_
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getInputPorts"></a>}}
+\if{latex}{\out{\hypertarget{method-getInputPorts}{}}}
 \subsection{Method \code{getInputPorts()}}{
 Get all the input ports as a reactivevalues object.
 \subsection{Usage}{
@@ -359,6 +384,7 @@ A reactivevalues object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getInput"></a>}}
+\if{latex}{\out{\hypertarget{method-getInput}{}}}
 \subsection{Method \code{getInput()}}{
 Get a input port slot.
 \subsection{Usage}{
@@ -380,6 +406,7 @@ A reactive function.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-execInput"></a>}}
+\if{latex}{\out{\hypertarget{method-execInput}{}}}
 \subsection{Method \code{execInput()}}{
 Execute an input port slot, that is, the reactive function stored in the port.
 The \code{require} argument which is \code{TRUE} by default allows you disable checking if the port is Truthy.
@@ -403,6 +430,7 @@ Output of the reacive function execution.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-updateOutputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-updateOutputPort}{}}}
 \subsection{Method \code{updateOutputPort()}}{
 Function for filling an output port.
 Called within the \code{assignPort} function
@@ -422,6 +450,7 @@ Called within the \code{assignPort} function
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-updateOutputPorts"></a>}}
+\if{latex}{\out{\hypertarget{method-updateOutputPorts}{}}}
 \subsection{Method \code{updateOutputPorts()}}{
 This function add a set of output ports to the module.
 \subsection{Usage}{
@@ -440,6 +469,7 @@ This function add a set of output ports to the module.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-addOutputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-addOutputPort}{}}}
 \subsection{Method \code{addOutputPort()}}{
 Add output port function. To be called within \code{definePort} function
 \subsection{Usage}{
@@ -470,6 +500,7 @@ Add output port function. To be called within \code{definePort} function
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getPortName"></a>}}
+\if{latex}{\out{\hypertarget{method-getPortName}{}}}
 \subsection{Method \code{getPortName()}}{
 Utility function that returns a port name from the Id.
 \subsection{Usage}{
@@ -491,6 +522,7 @@ Port name.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getOutputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-getOutputPort}{}}}
 \subsection{Method \code{getOutputPort()}}{
 Get an output port from the module.
 \subsection{Usage}{
@@ -510,6 +542,7 @@ A module output port. A reactivevalues object with name, description, sample, is
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-oport"></a>}}
+\if{latex}{\out{\hypertarget{method-oport}{}}}
 \subsection{Method \code{oport()}}{
 Alias to the \code{getOutputPort()} function.
 \subsection{Usage}{
@@ -529,6 +562,7 @@ A module output port. A reactivevalues object with name, description, sample, is
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getOutputPorts"></a>}}
+\if{latex}{\out{\hypertarget{method-getOutputPorts}{}}}
 \subsection{Method \code{getOutputPorts()}}{
 Get all the output ports as a reactivevalues object.
 \subsection{Usage}{
@@ -541,6 +575,7 @@ A reactivevalues object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getOutput"></a>}}
+\if{latex}{\out{\hypertarget{method-getOutput}{}}}
 \subsection{Method \code{getOutput()}}{
 Get a output port slot.
 \subsection{Usage}{
@@ -562,6 +597,7 @@ A reactive function.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-execOutput"></a>}}
+\if{latex}{\out{\hypertarget{method-execOutput}{}}}
 \subsection{Method \code{execOutput()}}{
 Execute an output port slot, that is, the reactive function stored in the port.
 The \code{require} argument which is \code{TRUE} by default allows you disable checking if the port is Truthy.
@@ -585,6 +621,7 @@ Output of the reacive function execution.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getStore"></a>}}
+\if{latex}{\out{\hypertarget{method-getStore}{}}}
 \subsection{Method \code{getStore()}}{
 Function for retrieving the central ModStore.
 \subsection{Usage}{
@@ -597,6 +634,7 @@ The \code{ModStore} object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-countInputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-countInputPort}{}}}
 \subsection{Method \code{countInputPort()}}{
 Utility function that counts the number of input ports.
 \subsection{Usage}{
@@ -609,6 +647,7 @@ The input ports count.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-countOutputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-countOutputPort}{}}}
 \subsection{Method \code{countOutputPort()}}{
 Utility function that counts the number of output ports.
 \subsection{Usage}{
@@ -621,6 +660,7 @@ The output ports count.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-use"></a>}}
+\if{latex}{\out{\hypertarget{method-use}{}}}
 \subsection{Method \code{use()}}{
 Alias to the \code{callModule} function.
 \subsection{Usage}{
@@ -637,6 +677,7 @@ Alias to the \code{callModule} function.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-callModule"></a>}}
+\if{latex}{\out{\hypertarget{method-callModule}{}}}
 \subsection{Method \code{callModule()}}{
 callModule function. Similar to shiny callModule. Used to inject the server logic into the application.
 This function don't need the user to provide a namespace Id as a module already knows its identity.
@@ -656,6 +697,7 @@ Note that the module reference \code{self} might not be the one injected.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-isStored"></a>}}
+\if{latex}{\out{\hypertarget{method-isStored}{}}}
 \subsection{Method \code{isStored()}}{
 Function to check if the module is store in the current session.
 \subsection{Usage}{
@@ -668,6 +710,7 @@ logical value.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-isGlobal"></a>}}
+\if{latex}{\out{\hypertarget{method-isGlobal}{}}}
 \subsection{Method \code{isGlobal()}}{
 Check if the session attached to the module is the \code{global_session}.
 \subsection{Usage}{
@@ -680,6 +723,7 @@ logical value.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getSession"></a>}}
+\if{latex}{\out{\hypertarget{method-getSession}{}}}
 \subsection{Method \code{getSession()}}{
 Get the current session.
 \subsection{Usage}{
@@ -700,6 +744,7 @@ edges = list of connection edges
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getGlobalSession"></a>}}
+\if{latex}{\out{\hypertarget{method-getGlobalSession}{}}}
 \subsection{Method \code{getGlobalSession()}}{
 Get the global session.
 \subsection{Usage}{
@@ -720,6 +765,7 @@ edges = empty data.frame
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-doServer"></a>}}
+\if{latex}{\out{\hypertarget{method-doServer}{}}}
 \subsection{Method \code{doServer()}}{
 Function interfacing with shiny's callModule.
 \subsection{Usage}{
@@ -736,6 +782,7 @@ Function interfacing with shiny's callModule.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getPortDef"></a>}}
+\if{latex}{\out{\hypertarget{method-getPortDef}{}}}
 \subsection{Method \code{getPortDef()}}{
 Utility function to retrieve a port definition in the form of a list.
 This is a useful function to learn about a specific port.
@@ -758,6 +805,7 @@ List of the port definition.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 Module printing function.
 Print the structure of a module.
@@ -778,6 +826,7 @@ m
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-deepClone"></a>}}
+\if{latex}{\out{\hypertarget{method-deepClone}{}}}
 \subsection{Method \code{deepClone()}}{
 Module cloning function.
 Take care of ports (cloning reactive objects) and nested modules.
@@ -803,6 +852,7 @@ A cloned module.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-reset}{}}}
 \subsection{Method \code{reset()}}{
 This function reset the ports.
 \subsection{Usage}{
@@ -823,6 +873,7 @@ This function reset the ports.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getShinyInput"></a>}}
+\if{latex}{\out{\hypertarget{method-getShinyInput}{}}}
 \subsection{Method \code{getShinyInput()}}{
 Retrieve the shiny input.
 \subsection{Usage}{
@@ -835,6 +886,7 @@ Shiny input object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getShinyOutput"></a>}}
+\if{latex}{\out{\hypertarget{method-getShinyOutput}{}}}
 \subsection{Method \code{getShinyOutput()}}{
 Retrieve the shiny output.
 \subsection{Usage}{
@@ -847,6 +899,7 @@ Shiny output object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-getShinySession"></a>}}
+\if{latex}{\out{\hypertarget{method-getShinySession}{}}}
 \subsection{Method \code{getShinySession()}}{
 Retrieve the shiny output.
 \subsection{Usage}{
@@ -859,6 +912,7 @@ Shiny session object.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

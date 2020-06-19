@@ -4,7 +4,9 @@
 \name{session_type}
 \alias{session_type}
 \title{List of possible session types}
-\format{An object of class \code{list} of length 3.}
+\format{
+An object of class \code{list} of length 3.
+}
 \usage{
 session_type
 }

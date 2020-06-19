@@ -110,6 +110,36 @@ iport <- function(id = 1, p = 1, g = NULL){
 oport <- function(id = 1, p = 1, g = NULL){
   port(id,p,"out",g)
 }
+
+#' 
+#' @title List modules function
+#'
+#' @description This function list the modules found in the global session
+#' 
+#' #' @param verbose Display module description 
+#' 
+#' @importFrom  cli cat_bullet cat_boxx
+#' 
+#' @export
+listModules <- function(verbose = FALSE){
+  globalSession <- UtilityModule$new()$getGlobalSession()
+  isolate({
+    if(length(globalSession$collection) == 0)
+      cat_bullet(paste0("No module found!"),
+                 bullet_col = "orange",
+                 bullet = "cross")
+    else
+      cat_bullet(paste0("Found ",length(globalSession$collection)," module(s)!"),
+                 bullet_col = "green",
+                 bullet = "tick")
+    invisible(lapply(globalSession$collection,function(mod){
+      cat_bullet(mod$module_ns,bullet = "circle_dotted")
+      if(verbose)
+        cat_boxx(capture.output(pg))
+    }))
+  })
+}
+
 #' 
 #' @title Call modules function
 #'

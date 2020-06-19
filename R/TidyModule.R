@@ -177,6 +177,20 @@ TidyModule <- R6::R6Class(
       })
     },
     #' @description
+    #' Preview the module in a gadget.
+    view = function(){
+      s <- function(input, output, session){
+        callModules()
+        self$server(input, output, session)
+      }
+      
+      app <- shinyApp(ui = miniUI::miniPage(self$ui()), server = s)
+      viewer <- dialogViewer(paste0("Preview of ",self$module_ns))
+      #viewer <- paneViewer(300)
+      #viewer <- browserViewer()
+      runGadget(app, viewer = viewer, stopOnCancel = TRUE)
+    },
+    #' @description
     #' Function wrapper for port definition expression.
     #' @param x expression
     definePort = function(x){

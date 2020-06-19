@@ -70,11 +70,13 @@ UtilityModule$new()$getSessionId()
 \item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="updateOutputPort">}\href{../../tidymodules/html/TidyModule.html#method-updateOutputPort}{\code{tidymodules::TidyModule$updateOutputPort()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="updateOutputPorts">}\href{../../tidymodules/html/TidyModule.html#method-updateOutputPorts}{\code{tidymodules::TidyModule$updateOutputPorts()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="use">}\href{../../tidymodules/html/TidyModule.html#method-use}{\code{tidymodules::TidyModule$use()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="view">}\href{../../tidymodules/html/TidyModule.html#method-view}{\code{tidymodules::TidyModule$view()}}\out{</span>}
 }
 \out{</details>}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 Initialize function.
 \subsection{Usage}{
@@ -87,6 +89,7 @@ Initialize function.
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
