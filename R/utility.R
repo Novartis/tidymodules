@@ -8,6 +8,8 @@
 #' @param id Name or Id of the module
 #' @param group Group name
 #' 
+#' @import shiny
+#' 
 #' @export
 #'
 #' @examples
@@ -57,6 +59,8 @@ getMod <- function(id = 1, group = NULL){
 #' @param id Name or Id of the module
 #' @param group Group name
 #' 
+#' @import shiny
+#' 
 #' @export
 mod <- function(id = 1, group = NULL){
   getMod(id,group)
@@ -71,6 +75,8 @@ mod <- function(id = 1, group = NULL){
 #' @param g Module group name
 #' @param t Port type, in or out
 #' @param p Port Id or name
+#' 
+#' @import shiny
 #' 
 #' @export
 port <- function(id = 1, p = 1, t = "in", g = NULL){
@@ -93,6 +99,8 @@ port <- function(id = 1, p = 1, t = "in", g = NULL){
 #' @param g Module group name
 #' @param p Port Id or name
 #' 
+#' @import shiny
+#' 
 #' @export
 iport <- function(id = 1, p = 1, g = NULL){
   port(id,p,"in",g)
@@ -105,6 +113,8 @@ iport <- function(id = 1, p = 1, g = NULL){
 #' @param id Name or Id of the module
 #' @param g Module group name
 #' @param p Port Id or name
+#' 
+#' @import shiny
 #' 
 #' @export
 oport <- function(id = 1, p = 1, g = NULL){
@@ -119,6 +129,7 @@ oport <- function(id = 1, p = 1, g = NULL){
 #' #' @param verbose Display module description as well
 #' 
 #' @importFrom  cli cat_bullet cat_boxx
+#' @import shiny
 #' 
 #' @export
 listModules <- function(verbose = FALSE, global = FALSE){
@@ -151,6 +162,8 @@ listModules <- function(verbose = FALSE, global = FALSE){
 #' Note that this function can only be called in the app server function at the moment.
 #' We are working on supporting callModules within module server function for invoking nested modules.
 #' 
+#' 
+#' @import shiny
 #' 
 #' @export
 callModules <- function(){
@@ -200,6 +213,8 @@ callModules <- function(){
 #' @description Used in server functions to define how modules are connected to each other.
 #' 
 #' @param x expression
+#' 
+#' @import shiny
 #' 
 #' @export
 defineEdges  <- function(x){
@@ -285,6 +300,8 @@ NULL
 #' @param out A shiny output as provide by the shiny server function.
 #' 
 #' @return A session ID
+#' 
+#' @import shiny
 #' 
 #' @export
 getSessionId <- function(session = getDefaultReactiveDomain()){

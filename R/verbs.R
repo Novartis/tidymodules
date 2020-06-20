@@ -49,6 +49,7 @@ map_ports <- function(leftModule = NULL, leftPort = 1,
 #' })
 #' }
 #' 
+#' @import shiny
 #' 
 #' @export
 combine_ports <- function(...){
@@ -94,6 +95,7 @@ combine_ports <- function(...){
 #' })
 #' }
 #' 
+#' @import shiny
 #' 
 #' @export
 race_ports <- function(...){

@@ -24,7 +24,7 @@ UtilityModule <- R6::R6Class(
         private$shared$store <- ModStore$new()
       
       #### Set Shiny Session Here  #######
-      private$shiny_session <- getDefaultReactiveDomain()
+      private$shiny_session <- shiny::getDefaultReactiveDomain()
     }
   )
 )

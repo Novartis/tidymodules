@@ -6,6 +6,7 @@
 #' It provides methods for defining input and output communication ports, managing module namespace and many other useful features.
 #'
 #' @import R6
+#' @import shiny
 #' 
 #' @export
 TidyModule <- R6::R6Class(
@@ -112,7 +113,7 @@ TidyModule <- R6::R6Class(
         paste0(self$parent_ns,"-",self$id))
       
       ####   Capture ShinySession    #######
-      private$shiny_session <- getDefaultReactiveDomain()
+      private$shiny_session <- shiny::getDefaultReactiveDomain()
       
       self$created <- Sys.time()
       
@@ -443,7 +444,7 @@ TidyModule <- R6::R6Class(
       input <- parent.frame()$output
       session <- parent.frame()$session
       if(is.null(session))
-        session <- getDefaultReactiveDomain()
+        session <- shiny::getDefaultReactiveDomain()
       
       disable_cache <- getCacheOption()
       

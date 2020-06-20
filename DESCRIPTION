@@ -1,6 +1,6 @@
 Package: tidymodules
 Title: A robust framework for developing shiny modules
-Version: 0.1.0.9012
+Version: 0.1.1
 Authors@R: c(
   person('Mustapha', 'Larbaoui', email = 'mustapha.larbaoui@novartis.com', role = c('cre', 'aut')),
   person('Douglas', 'Robinson', email = 'douglas.robinson@novartis.com', role = c('ctb')),
@@ -13,7 +13,7 @@ Description: tidymodules offers a robust framework for developing shiny modules 
 License: Apache License (>= 2.0)
 Encoding: UTF-8
 LazyData: true
-Imports: 
+Imports:
     stringi,
     digest,
     R6,

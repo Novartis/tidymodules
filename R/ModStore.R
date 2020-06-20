@@ -6,6 +6,9 @@
 #'
 #' @details
 #' Manage applications, sessions and modules.
+#' 
+#' @import shiny
+#' 
 #' @export
 ModStore <- R6::R6Class(
   "ModStore",
