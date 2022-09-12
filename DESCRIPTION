@@ -18,7 +18,6 @@ Imports:
     stringi,
     digest,
     R6,
-    cli,
     methods,
     snippr,
     cli,
@@ -27,8 +26,7 @@ Imports:
     purrr,
     visNetwork
 Depends:
-    shiny,
-    R6
+    shiny
 RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/Novartis/tidymodules
@@ -38,7 +36,6 @@ Suggests:
     knitr,
     rmarkdown,
     ggplot2,
-    dplyr,
     shinycssloaders,
     RColorBrewer,
     shinyWidgets,
