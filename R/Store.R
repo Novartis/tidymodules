@@ -41,6 +41,7 @@ Store <- R6::R6Class(
           ),
           tabPanel("Port Mapping",
                    fluidRow(
+                     shiny::uiOutput(self$ns("visControls")),
                      br(),
                      visNetwork::visNetworkOutput(self$ns("portD"),width = "100%",height = "800px")
                    )
@@ -56,6 +57,8 @@ Store <- R6::R6Class(
     server = function(input, output, session){
       # Mandatory
       super$server(input,output,session)
+      
+      currentNode <- reactiveVal("root","current")
       
       session_df <- reactive({
         s <- self$getStore()
@@ -107,8 +110,6 @@ Store <- R6::R6Class(
       edges_df <- reactive({
         s <- self$getStore()
         e <- s$getEdges(self)
-        req(nrow(e) != 0)
-        
         e
       })
       
@@ -169,8 +170,34 @@ Store <- R6::R6Class(
                    arrows =list(to = list(enabled = TRUE, scaleFactor = 2)),
                    color = list(color = "lightblue", highlight = "yellow")) %>%
           #visHierarchicalLayout(direction = "RL", levelSeparation = 500)
-          visNetwork::visLayout(randomSeed = 12)
+          visNetwork::visLayout(randomSeed = 12)  %>%
+          visNetwork::visEvents(doubleClick = paste0("function(nodes) {
+            Shiny.setInputValue('",self$ns("current"),"', nodes.nodes);
+            ;}")) %>% 
+          visNetwork::visInteraction(navigationButtons = TRUE)
       })
+      
+      testFunction <- function(node_id){
+        print(paste("The selected node ID is:", node_id))
+      }
+      
+      observeEvent(input$nav_button,{
+        currentNode('root')
+      })
+      
+      output$visControls <- shiny::renderUI({
+        if(currentNode() != 'root'){
+          shiny::actionButton(self$ns("nav_button"),icon = icon("chevron-left"),label = "previous")
+        }else{
+          ''
+        }
+      })
+      
+      observeEvent(input$current,{
+        testFunction(input$current)
+        browser()
+        currentNode(input$current)
+      },ignoreNULL = TRUE)
         
     }
   )
