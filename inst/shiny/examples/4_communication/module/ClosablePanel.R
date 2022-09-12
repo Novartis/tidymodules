@@ -11,7 +11,7 @@ ClosablePanel <- R6::R6Class(
         tags$span(
           style = "float: right;cursor: pointer;",
           id = self$ns("close"),
-          shiny::icon("times")
+          shiny::icon("times",verify_fa = FALSE)
         )
       )
       content <- tagList(

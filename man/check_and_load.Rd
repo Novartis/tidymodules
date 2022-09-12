@@ -2,9 +2,9 @@
 % Please edit documentation in R/examples.R
 \name{check_and_load}
 \alias{check_and_load}
-\title{check if package namespace exist, load it or display relevant information}
+\title{check if list of package namespaces exist, load them or display relevant information}
 \usage{
-check_and_load(p)
+check_and_load(packages)
 }
 \arguments{
 \item{p}{character verctor of package names}

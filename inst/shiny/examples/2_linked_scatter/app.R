@@ -1,8 +1,6 @@
 library(tidymodules)
 
-check_and_load("ggplot2")
-check_and_load("dplyr")
-check_and_load("shinycssloaders")
+check_and_load(c("ggplot2","dplyr","shinycssloaders"))
 
 
 source(system.file(package = "tidymodules","shiny/examples/2_linked_scatter/linked_scatter.R"))

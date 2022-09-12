@@ -32,7 +32,6 @@ BasePlot <- R6::R6Class(
       
     },
     ui = function(outputFunc=NULL, header = NULL) {
-      
       super$ui(
         fluidRow(
           ifelse(is.null(outputFunc),
@@ -54,7 +53,6 @@ BasePlot <- R6::R6Class(
       # Mandatory
       super$server(input,output,session)
       
-      # Server logic
       selection <- reactive({
         d<-self$getInput("data")
         data <- d()
@@ -71,7 +69,6 @@ BasePlot <- R6::R6Class(
         selection,
         self$getInput("mapping")
       )
-      
       
       # Ports assignment starts here
       self$assignPort({

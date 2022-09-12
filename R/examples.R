@@ -40,7 +40,7 @@ showExamples <- function(id = NULL, server = F,  options = NULL) {
   }
 }
 
-#' @title check if package namespace exist, load it or display relevant information
+#' @title check if list of package namespaces exist, load them or display relevant information
 #'
 #' @description Utility function for managing package dependencies for tidymodules examples
 #' 
@@ -52,10 +52,20 @@ showExamples <- function(id = NULL, server = F,  options = NULL) {
 #'
 #' check_and_load("ggplot2")
 #'
-check_and_load <- function(p) {
-  if (!requireNamespace(p, quietly = TRUE)) {
-    stop(paste0("Package ",p," needed for this shiny example to work. Please install it."),
-         call. = FALSE)
+check_and_load <- function(packages) {
+  missing <- NULL
+  for (p in packages) {
+    if (!requireNamespace(p, quietly = TRUE))
+      missing <- c(missing, p)
+    else
+      library(p,character.only = TRUE)
   }
-  library(p,character.only = TRUE)
+  
+  if(!is.null(missing))
+    stop(
+      "The package(s) above are needed for this shiny example to work, please install them first...\n",
+      cli::cat_bullet(missing,bullet_col = "red"),
+      call. = FALSE
+    )
+         
 }

@@ -99,7 +99,7 @@ ModStore <- R6::R6Class(
           s <- to$m$getSession()
           e <- self$getEdges(to$m)
           
-          toId  <- to$m$module_ns
+          toId    <- to$m$module_ns
           tport   <- to$port
           tname   <- to$m$getPortName(to$port,to$type)
           ttype   <- to$type

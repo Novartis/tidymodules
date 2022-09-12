@@ -47,21 +47,21 @@ LinkedScatter <- R6::R6Class(
                   plotOutput(self$ns("plot2"), brush = self$ns("brush")),type = 3,color.background = "white"))
        )
      },
-     server = function(input, output, session,
-                       data = NULL, 
-                       options = NULL){
+     server = function(input, output, session,...){
        
-       super$server(input, output, session)
+       super$server(input, output, session, ...)
+       
+       args <- list(...)
        
        self$assignPort({
          
          self$updateInputPort(
            id = "data",
-           input = data)
+           input = args$data)
          
          self$updateInputPort(
            id = "option",
-           input = options
+           input = args$options
          )
        })
        
@@ -108,7 +108,7 @@ LinkedScatter <- R6::R6Class(
     scatterPlot = function(data, cols) {
       ggplot(data, aes_string(x = cols[1], y = cols[2])) +
         geom_point(aes(color = selected_)) +
-        scale_color_manual(values = c("black", "#66D65C"), guide = FALSE)
+        scale_color_manual(values = c("black", "#66D65C"), guide = "none")
     }
   )
 )

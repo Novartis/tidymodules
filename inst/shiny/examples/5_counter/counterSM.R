@@ -17,7 +17,6 @@ counter <- function(input, output, session, reset) {
     count(count() + 1)
   })
   observeEvent(reset(),{
-    browser()
     count(0)
   })
   output$out <- renderText({

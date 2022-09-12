@@ -1,10 +1,6 @@
 library(tidymodules)
 
-check_and_load("shinyWidgets")
-check_and_load("ggplot2")
-check_and_load("plotly")
-check_and_load("DT")
-
+check_and_load(c("shinyWidgets","ggplot2","plotly","DT"))
 
 # Load modules from ./module folder
 app_dir <- system.file(package = "tidymodules","shiny/examples/4_communication")

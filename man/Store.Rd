@@ -15,61 +15,61 @@ Should be initialized and injected in your application.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-ui}{\code{Store$ui()}}
-\item \href{#method-server}{\code{Store$server()}}
-\item \href{#method-clone}{\code{Store$clone()}}
+\item \href{#method-Store-ui}{\code{Store$ui()}}
+\item \href{#method-Store-server}{\code{Store$server()}}
+\item \href{#method-Store-clone}{\code{Store$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="addInputPort">}\href{../../tidymodules/html/TidyModule.html#method-addInputPort}{\code{tidymodules::TidyModule$addInputPort()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="addOutputPort">}\href{../../tidymodules/html/TidyModule.html#method-addOutputPort}{\code{tidymodules::TidyModule$addOutputPort()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="assignPort">}\href{../../tidymodules/html/TidyModule.html#method-assignPort}{\code{tidymodules::TidyModule$assignPort()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="callModule">}\href{../../tidymodules/html/TidyModule.html#method-callModule}{\code{tidymodules::TidyModule$callModule()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="countInputPort">}\href{../../tidymodules/html/TidyModule.html#method-countInputPort}{\code{tidymodules::TidyModule$countInputPort()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="countOutputPort">}\href{../../tidymodules/html/TidyModule.html#method-countOutputPort}{\code{tidymodules::TidyModule$countOutputPort()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="deepClone">}\href{../../tidymodules/html/TidyModule.html#method-deepClone}{\code{tidymodules::TidyModule$deepClone()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="definePort">}\href{../../tidymodules/html/TidyModule.html#method-definePort}{\code{tidymodules::TidyModule$definePort()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="doServer">}\href{../../tidymodules/html/TidyModule.html#method-doServer}{\code{tidymodules::TidyModule$doServer()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="execInput">}\href{../../tidymodules/html/TidyModule.html#method-execInput}{\code{tidymodules::TidyModule$execInput()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="execOutput">}\href{../../tidymodules/html/TidyModule.html#method-execOutput}{\code{tidymodules::TidyModule$execOutput()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getGlobalSession">}\href{../../tidymodules/html/TidyModule.html#method-getGlobalSession}{\code{tidymodules::TidyModule$getGlobalSession()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getInput">}\href{../../tidymodules/html/TidyModule.html#method-getInput}{\code{tidymodules::TidyModule$getInput()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getInputPort">}\href{../../tidymodules/html/TidyModule.html#method-getInputPort}{\code{tidymodules::TidyModule$getInputPort()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getInputPorts">}\href{../../tidymodules/html/TidyModule.html#method-getInputPorts}{\code{tidymodules::TidyModule$getInputPorts()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getOutput">}\href{../../tidymodules/html/TidyModule.html#method-getOutput}{\code{tidymodules::TidyModule$getOutput()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getOutputPort">}\href{../../tidymodules/html/TidyModule.html#method-getOutputPort}{\code{tidymodules::TidyModule$getOutputPort()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getOutputPorts">}\href{../../tidymodules/html/TidyModule.html#method-getOutputPorts}{\code{tidymodules::TidyModule$getOutputPorts()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getPortDef">}\href{../../tidymodules/html/TidyModule.html#method-getPortDef}{\code{tidymodules::TidyModule$getPortDef()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getPortName">}\href{../../tidymodules/html/TidyModule.html#method-getPortName}{\code{tidymodules::TidyModule$getPortName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getSession">}\href{../../tidymodules/html/TidyModule.html#method-getSession}{\code{tidymodules::TidyModule$getSession()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getSessionId">}\href{../../tidymodules/html/TidyModule.html#method-getSessionId}{\code{tidymodules::TidyModule$getSessionId()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getShinyInput">}\href{../../tidymodules/html/TidyModule.html#method-getShinyInput}{\code{tidymodules::TidyModule$getShinyInput()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getShinyOutput">}\href{../../tidymodules/html/TidyModule.html#method-getShinyOutput}{\code{tidymodules::TidyModule$getShinyOutput()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getShinySession">}\href{../../tidymodules/html/TidyModule.html#method-getShinySession}{\code{tidymodules::TidyModule$getShinySession()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getStore">}\href{../../tidymodules/html/TidyModule.html#method-getStore}{\code{tidymodules::TidyModule$getStore()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="initialize">}\href{../../tidymodules/html/TidyModule.html#method-initialize}{\code{tidymodules::TidyModule$initialize()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="iport">}\href{../../tidymodules/html/TidyModule.html#method-iport}{\code{tidymodules::TidyModule$iport()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="isGlobal">}\href{../../tidymodules/html/TidyModule.html#method-isGlobal}{\code{tidymodules::TidyModule$isGlobal()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="isStored">}\href{../../tidymodules/html/TidyModule.html#method-isStored}{\code{tidymodules::TidyModule$isStored()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="ns">}\href{../../tidymodules/html/TidyModule.html#method-ns}{\code{tidymodules::TidyModule$ns()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="oport">}\href{../../tidymodules/html/TidyModule.html#method-oport}{\code{tidymodules::TidyModule$oport()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="print">}\href{../../tidymodules/html/TidyModule.html#method-print}{\code{tidymodules::TidyModule$print()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="render">}\href{../../tidymodules/html/TidyModule.html#method-render}{\code{tidymodules::TidyModule$render()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="reset">}\href{../../tidymodules/html/TidyModule.html#method-reset}{\code{tidymodules::TidyModule$reset()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="updateInputPort">}\href{../../tidymodules/html/TidyModule.html#method-updateInputPort}{\code{tidymodules::TidyModule$updateInputPort()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="updateInputPorts">}\href{../../tidymodules/html/TidyModule.html#method-updateInputPorts}{\code{tidymodules::TidyModule$updateInputPorts()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="updateOutputPort">}\href{../../tidymodules/html/TidyModule.html#method-updateOutputPort}{\code{tidymodules::TidyModule$updateOutputPort()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="updateOutputPorts">}\href{../../tidymodules/html/TidyModule.html#method-updateOutputPorts}{\code{tidymodules::TidyModule$updateOutputPorts()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="use">}\href{../../tidymodules/html/TidyModule.html#method-use}{\code{tidymodules::TidyModule$use()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="view">}\href{../../tidymodules/html/TidyModule.html#method-view}{\code{tidymodules::TidyModule$view()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="addInputPort"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-addInputPort'><code>tidymodules::TidyModule$addInputPort()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="addOutputPort"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-addOutputPort'><code>tidymodules::TidyModule$addOutputPort()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="assignPort"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-assignPort'><code>tidymodules::TidyModule$assignPort()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="callModule"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-callModule'><code>tidymodules::TidyModule$callModule()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="countInputPort"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-countInputPort'><code>tidymodules::TidyModule$countInputPort()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="countOutputPort"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-countOutputPort'><code>tidymodules::TidyModule$countOutputPort()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="deepClone"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-deepClone'><code>tidymodules::TidyModule$deepClone()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="definePort"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-definePort'><code>tidymodules::TidyModule$definePort()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="doServer"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-doServer'><code>tidymodules::TidyModule$doServer()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="execInput"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-execInput'><code>tidymodules::TidyModule$execInput()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="execOutput"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-execOutput'><code>tidymodules::TidyModule$execOutput()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getGlobalSession"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getGlobalSession'><code>tidymodules::TidyModule$getGlobalSession()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getInput"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getInput'><code>tidymodules::TidyModule$getInput()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getInputPort"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getInputPort'><code>tidymodules::TidyModule$getInputPort()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getInputPorts"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getInputPorts'><code>tidymodules::TidyModule$getInputPorts()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getOutput"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getOutput'><code>tidymodules::TidyModule$getOutput()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getOutputPort"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getOutputPort'><code>tidymodules::TidyModule$getOutputPort()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getOutputPorts"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getOutputPorts'><code>tidymodules::TidyModule$getOutputPorts()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getPortDef"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getPortDef'><code>tidymodules::TidyModule$getPortDef()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getPortName"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getPortName'><code>tidymodules::TidyModule$getPortName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getSession"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getSession'><code>tidymodules::TidyModule$getSession()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getSessionId"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getSessionId'><code>tidymodules::TidyModule$getSessionId()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getShinyInput"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getShinyInput'><code>tidymodules::TidyModule$getShinyInput()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getShinyOutput"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getShinyOutput'><code>tidymodules::TidyModule$getShinyOutput()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getShinySession"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getShinySession'><code>tidymodules::TidyModule$getShinySession()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="getStore"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-getStore'><code>tidymodules::TidyModule$getStore()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="initialize"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-initialize'><code>tidymodules::TidyModule$initialize()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="iport"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-iport'><code>tidymodules::TidyModule$iport()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="isGlobal"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-isGlobal'><code>tidymodules::TidyModule$isGlobal()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="isStored"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-isStored'><code>tidymodules::TidyModule$isStored()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="ns"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-ns'><code>tidymodules::TidyModule$ns()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="oport"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-oport'><code>tidymodules::TidyModule$oport()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="print"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-print'><code>tidymodules::TidyModule$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="render"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-render'><code>tidymodules::TidyModule$render()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="reset"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-reset'><code>tidymodules::TidyModule$reset()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="updateInputPort"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-updateInputPort'><code>tidymodules::TidyModule$updateInputPort()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="updateInputPorts"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-updateInputPorts'><code>tidymodules::TidyModule$updateInputPorts()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="updateOutputPort"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-updateOutputPort'><code>tidymodules::TidyModule$updateOutputPort()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="updateOutputPorts"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-updateOutputPorts'><code>tidymodules::TidyModule$updateOutputPorts()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="use"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-use'><code>tidymodules::TidyModule$use()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="tidymodules" data-topic="TidyModule" data-id="view"><a href='../../tidymodules/html/TidyModule.html#method-TidyModule-view'><code>tidymodules::TidyModule$view()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ui"></a>}}
-\if{latex}{\out{\hypertarget{method-ui}{}}}
+\if{html}{\out{<a id="method-Store-ui"></a>}}
+\if{latex}{\out{\hypertarget{method-Store-ui}{}}}
 \subsection{Method \code{ui()}}{
 Store's ui function.
 \subsection{Usage}{
@@ -81,8 +81,8 @@ UI elements.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-server"></a>}}
-\if{latex}{\out{\hypertarget{method-server}{}}}
+\if{html}{\out{<a id="method-Store-server"></a>}}
+\if{latex}{\out{\hypertarget{method-Store-server}{}}}
 \subsection{Method \code{server()}}{
 Store's server function.
 \subsection{Usage}{
@@ -102,8 +102,8 @@ Store's server function.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Store-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Store-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

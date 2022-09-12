@@ -49,59 +49,59 @@ m
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{TidyModule$new()}}
-\item \href{#method-ns}{\code{TidyModule$ns()}}
-\item \href{#method-getSessionId}{\code{TidyModule$getSessionId()}}
-\item \href{#method-render}{\code{TidyModule$render()}}
-\item \href{#method-ui}{\code{TidyModule$ui()}}
-\item \href{#method-server}{\code{TidyModule$server()}}
-\item \href{#method-view}{\code{TidyModule$view()}}
-\item \href{#method-definePort}{\code{TidyModule$definePort()}}
-\item \href{#method-assignPort}{\code{TidyModule$assignPort()}}
-\item \href{#method-addInputPort}{\code{TidyModule$addInputPort()}}
-\item \href{#method-updateInputPort}{\code{TidyModule$updateInputPort()}}
-\item \href{#method-updateInputPorts}{\code{TidyModule$updateInputPorts()}}
-\item \href{#method-getInputPort}{\code{TidyModule$getInputPort()}}
-\item \href{#method-iport}{\code{TidyModule$iport()}}
-\item \href{#method-getInputPorts}{\code{TidyModule$getInputPorts()}}
-\item \href{#method-getInput}{\code{TidyModule$getInput()}}
-\item \href{#method-execInput}{\code{TidyModule$execInput()}}
-\item \href{#method-updateOutputPort}{\code{TidyModule$updateOutputPort()}}
-\item \href{#method-updateOutputPorts}{\code{TidyModule$updateOutputPorts()}}
-\item \href{#method-addOutputPort}{\code{TidyModule$addOutputPort()}}
-\item \href{#method-getPortName}{\code{TidyModule$getPortName()}}
-\item \href{#method-getOutputPort}{\code{TidyModule$getOutputPort()}}
-\item \href{#method-oport}{\code{TidyModule$oport()}}
-\item \href{#method-getOutputPorts}{\code{TidyModule$getOutputPorts()}}
-\item \href{#method-getOutput}{\code{TidyModule$getOutput()}}
-\item \href{#method-execOutput}{\code{TidyModule$execOutput()}}
-\item \href{#method-getStore}{\code{TidyModule$getStore()}}
-\item \href{#method-countInputPort}{\code{TidyModule$countInputPort()}}
-\item \href{#method-countOutputPort}{\code{TidyModule$countOutputPort()}}
-\item \href{#method-use}{\code{TidyModule$use()}}
-\item \href{#method-callModule}{\code{TidyModule$callModule()}}
-\item \href{#method-isStored}{\code{TidyModule$isStored()}}
-\item \href{#method-isGlobal}{\code{TidyModule$isGlobal()}}
-\item \href{#method-getSession}{\code{TidyModule$getSession()}}
-\item \href{#method-getGlobalSession}{\code{TidyModule$getGlobalSession()}}
-\item \href{#method-doServer}{\code{TidyModule$doServer()}}
-\item \href{#method-getPortDef}{\code{TidyModule$getPortDef()}}
-\item \href{#method-print}{\code{TidyModule$print()}}
-\item \href{#method-deepClone}{\code{TidyModule$deepClone()}}
-\item \href{#method-reset}{\code{TidyModule$reset()}}
-\item \href{#method-getShinyInput}{\code{TidyModule$getShinyInput()}}
-\item \href{#method-getShinyOutput}{\code{TidyModule$getShinyOutput()}}
-\item \href{#method-getShinySession}{\code{TidyModule$getShinySession()}}
-\item \href{#method-clone}{\code{TidyModule$clone()}}
+\item \href{#method-TidyModule-new}{\code{TidyModule$new()}}
+\item \href{#method-TidyModule-ns}{\code{TidyModule$ns()}}
+\item \href{#method-TidyModule-getSessionId}{\code{TidyModule$getSessionId()}}
+\item \href{#method-TidyModule-render}{\code{TidyModule$render()}}
+\item \href{#method-TidyModule-ui}{\code{TidyModule$ui()}}
+\item \href{#method-TidyModule-server}{\code{TidyModule$server()}}
+\item \href{#method-TidyModule-view}{\code{TidyModule$view()}}
+\item \href{#method-TidyModule-definePort}{\code{TidyModule$definePort()}}
+\item \href{#method-TidyModule-assignPort}{\code{TidyModule$assignPort()}}
+\item \href{#method-TidyModule-addInputPort}{\code{TidyModule$addInputPort()}}
+\item \href{#method-TidyModule-updateInputPort}{\code{TidyModule$updateInputPort()}}
+\item \href{#method-TidyModule-updateInputPorts}{\code{TidyModule$updateInputPorts()}}
+\item \href{#method-TidyModule-getInputPort}{\code{TidyModule$getInputPort()}}
+\item \href{#method-TidyModule-iport}{\code{TidyModule$iport()}}
+\item \href{#method-TidyModule-getInputPorts}{\code{TidyModule$getInputPorts()}}
+\item \href{#method-TidyModule-getInput}{\code{TidyModule$getInput()}}
+\item \href{#method-TidyModule-execInput}{\code{TidyModule$execInput()}}
+\item \href{#method-TidyModule-updateOutputPort}{\code{TidyModule$updateOutputPort()}}
+\item \href{#method-TidyModule-updateOutputPorts}{\code{TidyModule$updateOutputPorts()}}
+\item \href{#method-TidyModule-addOutputPort}{\code{TidyModule$addOutputPort()}}
+\item \href{#method-TidyModule-getPortName}{\code{TidyModule$getPortName()}}
+\item \href{#method-TidyModule-getOutputPort}{\code{TidyModule$getOutputPort()}}
+\item \href{#method-TidyModule-oport}{\code{TidyModule$oport()}}
+\item \href{#method-TidyModule-getOutputPorts}{\code{TidyModule$getOutputPorts()}}
+\item \href{#method-TidyModule-getOutput}{\code{TidyModule$getOutput()}}
+\item \href{#method-TidyModule-execOutput}{\code{TidyModule$execOutput()}}
+\item \href{#method-TidyModule-getStore}{\code{TidyModule$getStore()}}
+\item \href{#method-TidyModule-countInputPort}{\code{TidyModule$countInputPort()}}
+\item \href{#method-TidyModule-countOutputPort}{\code{TidyModule$countOutputPort()}}
+\item \href{#method-TidyModule-use}{\code{TidyModule$use()}}
+\item \href{#method-TidyModule-callModule}{\code{TidyModule$callModule()}}
+\item \href{#method-TidyModule-isStored}{\code{TidyModule$isStored()}}
+\item \href{#method-TidyModule-isGlobal}{\code{TidyModule$isGlobal()}}
+\item \href{#method-TidyModule-getSession}{\code{TidyModule$getSession()}}
+\item \href{#method-TidyModule-getGlobalSession}{\code{TidyModule$getGlobalSession()}}
+\item \href{#method-TidyModule-doServer}{\code{TidyModule$doServer()}}
+\item \href{#method-TidyModule-getPortDef}{\code{TidyModule$getPortDef()}}
+\item \href{#method-TidyModule-print}{\code{TidyModule$print()}}
+\item \href{#method-TidyModule-deepClone}{\code{TidyModule$deepClone()}}
+\item \href{#method-TidyModule-reset}{\code{TidyModule$reset()}}
+\item \href{#method-TidyModule-getShinyInput}{\code{TidyModule$getShinyInput()}}
+\item \href{#method-TidyModule-getShinyOutput}{\code{TidyModule$getShinyOutput()}}
+\item \href{#method-TidyModule-getShinySession}{\code{TidyModule$getShinySession()}}
+\item \href{#method-TidyModule-clone}{\code{TidyModule$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-TidyModule-new"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new tidymodules module.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TidyModule$new(id = NULL, inherit = TRUE, group = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$new(id = NULL, inherit = TRUE, group = NULL, parent = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -112,6 +112,8 @@ Create a new tidymodules module.
 \item{\code{inherit}}{logical value indicating if a nested module should inherits the parent's input ports. Default to TRUE}
 
 \item{\code{group}}{Module group name. Added to module's Id to make it unique. Optional}
+
+\item{\code{parent}}{Parent module. Need to be specified when creating a dynamic nested module. Optional}
 }
 \if{html}{\out{</div>}}
 }
@@ -120,8 +122,8 @@ A new \code{TidyModule} object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ns"></a>}}
-\if{latex}{\out{\hypertarget{method-ns}{}}}
+\if{html}{\out{<a id="method-TidyModule-ns"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-ns}{}}}
 \subsection{Method \code{ns()}}{
 namespace function used to generate unique Id for HTML elements.
 \subsection{Usage}{
@@ -140,8 +142,8 @@ A unique string Id.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getSessionId"></a>}}
-\if{latex}{\out{\hypertarget{method-getSessionId}{}}}
+\if{html}{\out{<a id="method-TidyModule-getSessionId"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getSessionId}{}}}
 \subsection{Method \code{getSessionId()}}{
 Get module session Id. This function rely on a shiny output object to find the right session Id.
 \subsection{Usage}{
@@ -153,8 +155,8 @@ The Session Id of the module.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-render"></a>}}
-\if{latex}{\out{\hypertarget{method-render}{}}}
+\if{html}{\out{<a id="method-TidyModule-render"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-render}{}}}
 \subsection{Method \code{render()}}{
 Alias to the \code{ui} function.
 \subsection{Usage}{
@@ -170,8 +172,8 @@ Alias to the \code{ui} function.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ui"></a>}}
-\if{latex}{\out{\hypertarget{method-ui}{}}}
+\if{html}{\out{<a id="method-TidyModule-ui"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-ui}{}}}
 \subsection{Method \code{ui()}}{
 UI function generating the module HTML elements.
 This function is eventually implemented in the child module to give the module a visual representation.
@@ -192,12 +194,12 @@ Empty tagList()
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-server"></a>}}
-\if{latex}{\out{\hypertarget{method-server}{}}}
+\if{html}{\out{<a id="method-TidyModule-server"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-server}{}}}
 \subsection{Method \code{server()}}{
 server function to be overwritten and called by child module.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TidyModule$server(input, output, session)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$server(input, output, session, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -213,18 +215,18 @@ server function to be overwritten and called by child module.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-view"></a>}}
-\if{latex}{\out{\hypertarget{method-view}{}}}
+\if{html}{\out{<a id="method-TidyModule-view"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-view}{}}}
 \subsection{Method \code{view()}}{
 Preview the module in a gadget.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TidyModule$view()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$view(...)}\if{html}{\out{</div>}}
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-definePort"></a>}}
-\if{latex}{\out{\hypertarget{method-definePort}{}}}
+\if{html}{\out{<a id="method-TidyModule-definePort"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-definePort}{}}}
 \subsection{Method \code{definePort()}}{
 Function wrapper for port definition expression.
 \subsection{Usage}{
@@ -240,8 +242,8 @@ Function wrapper for port definition expression.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-assignPort"></a>}}
-\if{latex}{\out{\hypertarget{method-assignPort}{}}}
+\if{html}{\out{<a id="method-TidyModule-assignPort"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-assignPort}{}}}
 \subsection{Method \code{assignPort()}}{
 Function wrapper for port assignment expression.
 \subsection{Usage}{
@@ -257,8 +259,8 @@ Function wrapper for port assignment expression.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addInputPort"></a>}}
-\if{latex}{\out{\hypertarget{method-addInputPort}{}}}
+\if{html}{\out{<a id="method-TidyModule-addInputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-addInputPort}{}}}
 \subsection{Method \code{addInputPort()}}{
 Add input port function. To be called within \code{definePort} function
 \subsection{Usage}{
@@ -291,8 +293,8 @@ Add input port function. To be called within \code{definePort} function
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-updateInputPort"></a>}}
-\if{latex}{\out{\hypertarget{method-updateInputPort}{}}}
+\if{html}{\out{<a id="method-TidyModule-updateInputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-updateInputPort}{}}}
 \subsection{Method \code{updateInputPort()}}{
 Function for filling an input port.
 Called within the \code{assignPort} function
@@ -311,8 +313,8 @@ Called within the \code{assignPort} function
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-updateInputPorts"></a>}}
-\if{latex}{\out{\hypertarget{method-updateInputPorts}{}}}
+\if{html}{\out{<a id="method-TidyModule-updateInputPorts"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-updateInputPorts}{}}}
 \subsection{Method \code{updateInputPorts()}}{
 This function add a set of input ports to the module.
 \subsection{Usage}{
@@ -330,8 +332,8 @@ This function add a set of input ports to the module.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getInputPort"></a>}}
-\if{latex}{\out{\hypertarget{method-getInputPort}{}}}
+\if{html}{\out{<a id="method-TidyModule-getInputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getInputPort}{}}}
 \subsection{Method \code{getInputPort()}}{
 Get an input port from the module.
 \subsection{Usage}{
@@ -350,8 +352,8 @@ A module input port. A reactivevalues object with name, description, sample, is_
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-iport"></a>}}
-\if{latex}{\out{\hypertarget{method-iport}{}}}
+\if{html}{\out{<a id="method-TidyModule-iport"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-iport}{}}}
 \subsection{Method \code{iport()}}{
 Alias to the \code{getInputPort()} function.
 \subsection{Usage}{
@@ -370,8 +372,8 @@ A module input port. A reactivevalues object with name, description, sample, is_
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getInputPorts"></a>}}
-\if{latex}{\out{\hypertarget{method-getInputPorts}{}}}
+\if{html}{\out{<a id="method-TidyModule-getInputPorts"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getInputPorts}{}}}
 \subsection{Method \code{getInputPorts()}}{
 Get all the input ports as a reactivevalues object.
 \subsection{Usage}{
@@ -383,8 +385,8 @@ A reactivevalues object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getInput"></a>}}
-\if{latex}{\out{\hypertarget{method-getInput}{}}}
+\if{html}{\out{<a id="method-TidyModule-getInput"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getInput}{}}}
 \subsection{Method \code{getInput()}}{
 Get a input port slot.
 \subsection{Usage}{
@@ -405,8 +407,8 @@ A reactive function.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-execInput"></a>}}
-\if{latex}{\out{\hypertarget{method-execInput}{}}}
+\if{html}{\out{<a id="method-TidyModule-execInput"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-execInput}{}}}
 \subsection{Method \code{execInput()}}{
 Execute an input port slot, that is, the reactive function stored in the port.
 The \code{require} argument which is \code{TRUE} by default allows you disable checking if the port is Truthy.
@@ -429,8 +431,8 @@ Output of the reacive function execution.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-updateOutputPort"></a>}}
-\if{latex}{\out{\hypertarget{method-updateOutputPort}{}}}
+\if{html}{\out{<a id="method-TidyModule-updateOutputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-updateOutputPort}{}}}
 \subsection{Method \code{updateOutputPort()}}{
 Function for filling an output port.
 Called within the \code{assignPort} function
@@ -449,8 +451,8 @@ Called within the \code{assignPort} function
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-updateOutputPorts"></a>}}
-\if{latex}{\out{\hypertarget{method-updateOutputPorts}{}}}
+\if{html}{\out{<a id="method-TidyModule-updateOutputPorts"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-updateOutputPorts}{}}}
 \subsection{Method \code{updateOutputPorts()}}{
 This function add a set of output ports to the module.
 \subsection{Usage}{
@@ -468,8 +470,8 @@ This function add a set of output ports to the module.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addOutputPort"></a>}}
-\if{latex}{\out{\hypertarget{method-addOutputPort}{}}}
+\if{html}{\out{<a id="method-TidyModule-addOutputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-addOutputPort}{}}}
 \subsection{Method \code{addOutputPort()}}{
 Add output port function. To be called within \code{definePort} function
 \subsection{Usage}{
@@ -499,8 +501,8 @@ Add output port function. To be called within \code{definePort} function
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getPortName"></a>}}
-\if{latex}{\out{\hypertarget{method-getPortName}{}}}
+\if{html}{\out{<a id="method-TidyModule-getPortName"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getPortName}{}}}
 \subsection{Method \code{getPortName()}}{
 Utility function that returns a port name from the Id.
 \subsection{Usage}{
@@ -521,8 +523,8 @@ Port name.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getOutputPort"></a>}}
-\if{latex}{\out{\hypertarget{method-getOutputPort}{}}}
+\if{html}{\out{<a id="method-TidyModule-getOutputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getOutputPort}{}}}
 \subsection{Method \code{getOutputPort()}}{
 Get an output port from the module.
 \subsection{Usage}{
@@ -541,8 +543,8 @@ A module output port. A reactivevalues object with name, description, sample, is
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-oport"></a>}}
-\if{latex}{\out{\hypertarget{method-oport}{}}}
+\if{html}{\out{<a id="method-TidyModule-oport"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-oport}{}}}
 \subsection{Method \code{oport()}}{
 Alias to the \code{getOutputPort()} function.
 \subsection{Usage}{
@@ -561,8 +563,8 @@ A module output port. A reactivevalues object with name, description, sample, is
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getOutputPorts"></a>}}
-\if{latex}{\out{\hypertarget{method-getOutputPorts}{}}}
+\if{html}{\out{<a id="method-TidyModule-getOutputPorts"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getOutputPorts}{}}}
 \subsection{Method \code{getOutputPorts()}}{
 Get all the output ports as a reactivevalues object.
 \subsection{Usage}{
@@ -574,8 +576,8 @@ A reactivevalues object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getOutput"></a>}}
-\if{latex}{\out{\hypertarget{method-getOutput}{}}}
+\if{html}{\out{<a id="method-TidyModule-getOutput"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getOutput}{}}}
 \subsection{Method \code{getOutput()}}{
 Get a output port slot.
 \subsection{Usage}{
@@ -596,8 +598,8 @@ A reactive function.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-execOutput"></a>}}
-\if{latex}{\out{\hypertarget{method-execOutput}{}}}
+\if{html}{\out{<a id="method-TidyModule-execOutput"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-execOutput}{}}}
 \subsection{Method \code{execOutput()}}{
 Execute an output port slot, that is, the reactive function stored in the port.
 The \code{require} argument which is \code{TRUE} by default allows you disable checking if the port is Truthy.
@@ -620,8 +622,8 @@ Output of the reacive function execution.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getStore"></a>}}
-\if{latex}{\out{\hypertarget{method-getStore}{}}}
+\if{html}{\out{<a id="method-TidyModule-getStore"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getStore}{}}}
 \subsection{Method \code{getStore()}}{
 Function for retrieving the central ModStore.
 \subsection{Usage}{
@@ -633,8 +635,8 @@ The \code{ModStore} object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-countInputPort"></a>}}
-\if{latex}{\out{\hypertarget{method-countInputPort}{}}}
+\if{html}{\out{<a id="method-TidyModule-countInputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-countInputPort}{}}}
 \subsection{Method \code{countInputPort()}}{
 Utility function that counts the number of input ports.
 \subsection{Usage}{
@@ -646,8 +648,8 @@ The input ports count.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-countOutputPort"></a>}}
-\if{latex}{\out{\hypertarget{method-countOutputPort}{}}}
+\if{html}{\out{<a id="method-TidyModule-countOutputPort"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-countOutputPort}{}}}
 \subsection{Method \code{countOutputPort()}}{
 Utility function that counts the number of output ports.
 \subsection{Usage}{
@@ -659,8 +661,8 @@ The output ports count.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-use"></a>}}
-\if{latex}{\out{\hypertarget{method-use}{}}}
+\if{html}{\out{<a id="method-TidyModule-use"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-use}{}}}
 \subsection{Method \code{use()}}{
 Alias to the \code{callModule} function.
 \subsection{Usage}{
@@ -676,8 +678,8 @@ Alias to the \code{callModule} function.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-callModule"></a>}}
-\if{latex}{\out{\hypertarget{method-callModule}{}}}
+\if{html}{\out{<a id="method-TidyModule-callModule"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-callModule}{}}}
 \subsection{Method \code{callModule()}}{
 callModule function. Similar to shiny callModule. Used to inject the server logic into the application.
 This function don't need the user to provide a namespace Id as a module already knows its identity.
@@ -696,8 +698,8 @@ Note that the module reference \code{self} might not be the one injected.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isStored"></a>}}
-\if{latex}{\out{\hypertarget{method-isStored}{}}}
+\if{html}{\out{<a id="method-TidyModule-isStored"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-isStored}{}}}
 \subsection{Method \code{isStored()}}{
 Function to check if the module is store in the current session.
 \subsection{Usage}{
@@ -709,8 +711,8 @@ logical value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isGlobal"></a>}}
-\if{latex}{\out{\hypertarget{method-isGlobal}{}}}
+\if{html}{\out{<a id="method-TidyModule-isGlobal"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-isGlobal}{}}}
 \subsection{Method \code{isGlobal()}}{
 Check if the session attached to the module is the \code{global_session}.
 \subsection{Usage}{
@@ -722,8 +724,8 @@ logical value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getSession"></a>}}
-\if{latex}{\out{\hypertarget{method-getSession}{}}}
+\if{html}{\out{<a id="method-TidyModule-getSession"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getSession}{}}}
 \subsection{Method \code{getSession()}}{
 Get the current session.
 \subsection{Usage}{
@@ -743,8 +745,8 @@ edges = list of connection edges
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getGlobalSession"></a>}}
-\if{latex}{\out{\hypertarget{method-getGlobalSession}{}}}
+\if{html}{\out{<a id="method-TidyModule-getGlobalSession"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getGlobalSession}{}}}
 \subsection{Method \code{getGlobalSession()}}{
 Get the global session.
 \subsection{Usage}{
@@ -764,8 +766,8 @@ edges = empty data.frame
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-doServer"></a>}}
-\if{latex}{\out{\hypertarget{method-doServer}{}}}
+\if{html}{\out{<a id="method-TidyModule-doServer"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-doServer}{}}}
 \subsection{Method \code{doServer()}}{
 Function interfacing with shiny's callModule.
 \subsection{Usage}{
@@ -781,8 +783,8 @@ Function interfacing with shiny's callModule.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getPortDef"></a>}}
-\if{latex}{\out{\hypertarget{method-getPortDef}{}}}
+\if{html}{\out{<a id="method-TidyModule-getPortDef"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getPortDef}{}}}
 \subsection{Method \code{getPortDef()}}{
 Utility function to retrieve a port definition in the form of a list.
 This is a useful function to learn about a specific port.
@@ -804,8 +806,8 @@ List of the port definition.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-TidyModule-print"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-print}{}}}
 \subsection{Method \code{print()}}{
 Module printing function.
 Print the structure of a module.
@@ -825,8 +827,8 @@ m
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-deepClone"></a>}}
-\if{latex}{\out{\hypertarget{method-deepClone}{}}}
+\if{html}{\out{<a id="method-TidyModule-deepClone"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-deepClone}{}}}
 \subsection{Method \code{deepClone()}}{
 Module cloning function.
 Take care of ports (cloning reactive objects) and nested modules.
@@ -851,8 +853,8 @@ A cloned module.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-reset"></a>}}
-\if{latex}{\out{\hypertarget{method-reset}{}}}
+\if{html}{\out{<a id="method-TidyModule-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-reset}{}}}
 \subsection{Method \code{reset()}}{
 This function reset the ports.
 \subsection{Usage}{
@@ -872,8 +874,8 @@ This function reset the ports.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getShinyInput"></a>}}
-\if{latex}{\out{\hypertarget{method-getShinyInput}{}}}
+\if{html}{\out{<a id="method-TidyModule-getShinyInput"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getShinyInput}{}}}
 \subsection{Method \code{getShinyInput()}}{
 Retrieve the shiny input.
 \subsection{Usage}{
@@ -885,8 +887,8 @@ Shiny input object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getShinyOutput"></a>}}
-\if{latex}{\out{\hypertarget{method-getShinyOutput}{}}}
+\if{html}{\out{<a id="method-TidyModule-getShinyOutput"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getShinyOutput}{}}}
 \subsection{Method \code{getShinyOutput()}}{
 Retrieve the shiny output.
 \subsection{Usage}{
@@ -898,8 +900,8 @@ Shiny output object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getShinySession"></a>}}
-\if{latex}{\out{\hypertarget{method-getShinySession}{}}}
+\if{html}{\out{<a id="method-TidyModule-getShinySession"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-getShinySession}{}}}
 \subsection{Method \code{getShinySession()}}{
 Retrieve the shiny output.
 \subsection{Usage}{
@@ -911,8 +913,8 @@ Shiny session object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-TidyModule-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -31,23 +31,23 @@ s$isStored(m)
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ModStore$new()}}
-\item \href{#method-isStored}{\code{ModStore$isStored()}}
-\item \href{#method-getGlobalSession}{\code{ModStore$getGlobalSession()}}
-\item \href{#method-getSession}{\code{ModStore$getSession()}}
-\item \href{#method-getSessions}{\code{ModStore$getSessions()}}
-\item \href{#method-getMods}{\code{ModStore$getMods()}}
-\item \href{#method-getEdges}{\code{ModStore$getEdges()}}
-\item \href{#method-addEdge}{\code{ModStore$addEdge()}}
-\item \href{#method-addMod}{\code{ModStore$addMod()}}
-\item \href{#method-delMod}{\code{ModStore$delMod()}}
-\item \href{#method-print}{\code{ModStore$print()}}
-\item \href{#method-clone}{\code{ModStore$clone()}}
+\item \href{#method-ModStore-new}{\code{ModStore$new()}}
+\item \href{#method-ModStore-isStored}{\code{ModStore$isStored()}}
+\item \href{#method-ModStore-getGlobalSession}{\code{ModStore$getGlobalSession()}}
+\item \href{#method-ModStore-getSession}{\code{ModStore$getSession()}}
+\item \href{#method-ModStore-getSessions}{\code{ModStore$getSessions()}}
+\item \href{#method-ModStore-getMods}{\code{ModStore$getMods()}}
+\item \href{#method-ModStore-getEdges}{\code{ModStore$getEdges()}}
+\item \href{#method-ModStore-addEdge}{\code{ModStore$addEdge()}}
+\item \href{#method-ModStore-addMod}{\code{ModStore$addMod()}}
+\item \href{#method-ModStore-delMod}{\code{ModStore$delMod()}}
+\item \href{#method-ModStore-print}{\code{ModStore$print()}}
+\item \href{#method-ModStore-clone}{\code{ModStore$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ModStore-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new ModStore object.
 Should be called once by the TidyModule class.
@@ -72,8 +72,8 @@ s <- m$getStore()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isStored"></a>}}
-\if{latex}{\out{\hypertarget{method-isStored}{}}}
+\if{html}{\out{<a id="method-ModStore-isStored"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-isStored}{}}}
 \subsection{Method \code{isStored()}}{
 Check if a module is stored in the current session.
 \subsection{Usage}{
@@ -100,8 +100,8 @@ s$isStored(m)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getGlobalSession"></a>}}
-\if{latex}{\out{\hypertarget{method-getGlobalSession}{}}}
+\if{html}{\out{<a id="method-ModStore-getGlobalSession"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-getGlobalSession}{}}}
 \subsection{Method \code{getGlobalSession()}}{
 Retrieve the global session 'global_session'.
 This is the session that exists outside the application server function
@@ -111,8 +111,8 @@ This is the session that exists outside the application server function
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getSession"></a>}}
-\if{latex}{\out{\hypertarget{method-getSession}{}}}
+\if{html}{\out{<a id="method-ModStore-getSession"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-getSession}{}}}
 \subsection{Method \code{getSession()}}{
 Retrieve a module session.
 This could be the global session or a user session.
@@ -129,8 +129,8 @@ This could be the global session or a user session.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getSessions"></a>}}
-\if{latex}{\out{\hypertarget{method-getSessions}{}}}
+\if{html}{\out{<a id="method-ModStore-getSessions"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-getSessions}{}}}
 \subsection{Method \code{getSessions()}}{
 Retrieve all sessions.
 \subsection{Usage}{
@@ -139,8 +139,8 @@ Retrieve all sessions.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getMods"></a>}}
-\if{latex}{\out{\hypertarget{method-getMods}{}}}
+\if{html}{\out{<a id="method-ModStore-getMods"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-getMods}{}}}
 \subsection{Method \code{getMods()}}{
 Retrieve all modules.
 \subsection{Usage}{
@@ -156,8 +156,8 @@ Retrieve all modules.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getEdges"></a>}}
-\if{latex}{\out{\hypertarget{method-getEdges}{}}}
+\if{html}{\out{<a id="method-ModStore-getEdges"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-getEdges}{}}}
 \subsection{Method \code{getEdges()}}{
 Retrieve modules connections.
 \subsection{Usage}{
@@ -173,8 +173,8 @@ Retrieve modules connections.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addEdge"></a>}}
-\if{latex}{\out{\hypertarget{method-addEdge}{}}}
+\if{html}{\out{<a id="method-ModStore-addEdge"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-addEdge}{}}}
 \subsection{Method \code{addEdge()}}{
 Add modules connections into ModStore.
 An edge is either a connection between a reactive object and a module
@@ -198,8 +198,8 @@ or between two modules.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addMod"></a>}}
-\if{latex}{\out{\hypertarget{method-addMod}{}}}
+\if{html}{\out{<a id="method-ModStore-addMod"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-addMod}{}}}
 \subsection{Method \code{addMod()}}{
 Add module into the ModStore.
 \subsection{Usage}{
@@ -215,8 +215,8 @@ Add module into the ModStore.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-delMod"></a>}}
-\if{latex}{\out{\hypertarget{method-delMod}{}}}
+\if{html}{\out{<a id="method-ModStore-delMod"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-delMod}{}}}
 \subsection{Method \code{delMod()}}{
 Delete a module from the ModStore.
 \subsection{Usage}{
@@ -232,8 +232,8 @@ Delete a module from the ModStore.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-ModStore-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-print}{}}}
 \subsection{Method \code{print()}}{
 Print the ModStore object.
 \subsection{Usage}{
@@ -242,8 +242,8 @@ Print the ModStore object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ModStore-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

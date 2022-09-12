@@ -43,8 +43,9 @@ TidyModule <- R6::R6Class(
     #' @param id Unique Id to assign to the module. Default to a generated Id using module's class and order of initialization.
     #' @param inherit logical value indicating if a nested module should inherits the parent's input ports. Default to TRUE
     #' @param group Module group name. Added to module's Id to make it unique. Optional 
+    #' @param parent Parent module. Need to be specified when creating a dynamic nested module. Optional
     #' @return A new `TidyModule` object.
-    initialize = function(id = NULL, inherit = TRUE, group = NULL) {
+    initialize = function(id = NULL, inherit = TRUE, group = NULL, parent = NULL) {
       
       #### Initialize ModStore #######
       if(is.null(private$shared$store))
@@ -60,7 +61,7 @@ TidyModule <- R6::R6Class(
       onStop(function(){ 
         # reset session module count and edge table when app stop 
         ses$count <- 0
-        ses$edges <- data.frame()
+        ses$edges <- private$emtpy_edges
       })
       
       self$name <- ifelse(
@@ -98,6 +99,11 @@ TidyModule <- R6::R6Class(
       # case 3 : Dynamically created module in an observe function of server()
       if(is.null(self$parent_mod) || !is(self$parent_mod,"TidyModule"))
         self$parent_mod<-parent.env(parent.env(parent.frame(3)))$self
+      
+      # case 4 : When case 3 doesn't work, check if parent module is specified.
+      if(!is.null(parent) && is(parent,"TidyModule") &&
+         ( is.null(self$parent_mod) || !is(self$parent_mod,"TidyModule") )
+      ) self$parent_mod<-parent
       
       # At the end we save the parent ns & server arguments if any
       if(!is.null(self$parent_mod) && 
@@ -169,7 +175,8 @@ TidyModule <- R6::R6Class(
     #' @param session shiny session.
     server = function(input, 
                       output, 
-                      session){
+                      session,
+                      ...){
       # Need to isolate this block to avoid unecessary triggers
       isolate({
         private$shiny_session <- session
@@ -179,16 +186,14 @@ TidyModule <- R6::R6Class(
     },
     #' @description
     #' Preview the module in a gadget.
-    view = function(){
+    view = function(...){
       s <- function(input, output, session){
-        callModules()
-        self$server(input, output, session)
+        self$server(input, output, session,...)
       }
       
       app <- shinyApp(ui = miniUI::miniPage(self$ui()), server = s)
-      viewer <- dialogViewer(paste0("Preview of ",self$module_ns))
-      #viewer <- paneViewer(300)
-      #viewer <- browserViewer()
+      # viewer <- dialogViewer(paste0("Preview of ",self$module_ns))
+      viewer <- paneViewer()
       runGadget(app, viewer = viewer, stopOnCancel = TRUE)
     },
     #' @description
@@ -454,9 +459,7 @@ TidyModule <- R6::R6Class(
         isolate({
           currentSession <- UtilityModule$new()$getSession()
           globalSession <- UtilityModule$new()$getGlobalSession()
-          # currentSession <- mod$getSession()
-          # globalSession <- self$getGlobalSession()
-          currentSession$edges <- data.frame()
+          currentSession$edges <- private$emtpy_edges
           currentSession$count <- globalSession$count
           cloneMod <- is.null(currentSession$collection[[self$module_ns]])
         })
@@ -516,7 +519,7 @@ TidyModule <- R6::R6Class(
     #' Function interfacing with shiny's callModule.
     #' @param ... arguments passed to the `server` function of the module.
     doServer = function(...){
-      callModule(self$server,self$id,...)
+      moduleServer(self$id,self$server,...)
     },
     #' @description
     #' Utility function to retrieve a port definition in the form of a list.
@@ -662,6 +665,20 @@ TidyModule <- R6::R6Class(
     shiny_input = NULL,
     shiny_output = NULL,
     shiny_session = NULL,
+    emtpy_edges = data.frame(
+      from  = NA,
+      fclass = NA,
+      fport = NA,
+      ftype = NA,
+      fname = NA,
+      to    = NA,
+      tclass = NA,
+      tport = NA,
+      ttype = NA,
+      tname = NA,
+      mode  = NA,
+      comment = NA
+    )[numeric(0), ],
     initFields = function(){
       self$i <- reactiveValues()
       self$o <- reactiveValues()
@@ -907,8 +924,8 @@ TidyModule <- R6::R6Class(
                    port$name,
                    " => ",
                    ifelse(port$parent,
-                    ifelse(is.reactive(pport$port) || pport$port,"OK","Empty"),  
-                    ifelse(is.reactive(port$port) || port$port,"OK","Empty")
+                    ifelse(is.reactive(pport$port) || is.reactivevalues(pport$port),"OK","Empty"),  
+                    ifelse(is.reactive(port$port) || is.reactivevalues(port$port),"OK","Empty")
                    ),
                    "\n"
             )

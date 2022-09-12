@@ -85,6 +85,10 @@ PlotGenerator <- R6::R6Class(
         shiny::updateSelectInput(session,"mapping",choices = options)
       })
       
+      observe({
+        cat(paste0("\n\n\n",input$add,"\n\n\n"))
+      })
+      
       observeEvent(input$add,{
         
         reactive_mapping <- self$getInput("mappings")
@@ -109,7 +113,9 @@ PlotGenerator <- R6::R6Class(
         
         # dynamically create the selected charting module
         # Note that these are nested modules (module namespace includes Doug_)
-        mod     <- mod$new(paste0(author,"_",input$add))
+        # Also note that the parent module "self" need to be specified when dynamically
+        # creating a nested module
+        mod     <- mod$new(paste0(author,"_",input$add), parent = self)
         
         # feed a static version of the data/mapping to the module
         if(input$disconect_data)
