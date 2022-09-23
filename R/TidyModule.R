@@ -519,7 +519,7 @@ TidyModule <- R6::R6Class(
     #' Function interfacing with shiny's callModule.
     #' @param ... arguments passed to the `server` function of the module.
     doServer = function(...){
-      moduleServer(self$id,self$server,...)
+      callModule(self$server,self$id,...)
     },
     #' @description
     #' Utility function to retrieve a port definition in the form of a list.
