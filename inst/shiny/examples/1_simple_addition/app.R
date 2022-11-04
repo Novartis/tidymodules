@@ -2,17 +2,28 @@ library(shiny)
 
 # SM -----------> Shiny module
 
-source(system.file(package = "tidymodules", "shiny/examples/1_simple_addition/AdditionSM.R"))
+source(
+  system.file(
+    package = "tidymodules", 
+    "shiny/examples/1_simple_addition/AdditionSM.R")
+)
 
 add_html_1 <- AdditionSM_UI("Addition_1")
 add_html_2 <- AdditionSM_UI("Addition_2")
 
 SM_UI <- shiny::basicPage(
   h2("Shiny module : Simple Addition"),
-  sliderInput("first_number", label = "Enter your first number", min = 1, max = 100, value = 1), br(),
+  sliderInput(
+    "first_number", 
+    label = "Enter your first number", 
+    min = 1, 
+    max = 100, 
+    value = 1), 
+  br(),
   add_html_1, br(),
   add_html_2, br(),
-  "Total: ", textOutput("total_result")
+  "Total: ", 
+  textOutput("total_result")
 )
 
 SM_Server <- function(input, output, session) {
@@ -32,7 +43,11 @@ SM_Server <- function(input, output, session) {
 
 library(tidymodules)
 
-source(system.file(package = "tidymodules", "shiny/examples/1_simple_addition/Addition.R"))
+source(
+  system.file(
+    package = "tidymodules", 
+    "shiny/examples/1_simple_addition/Addition.R")
+)
 
 
 Addition$new()
@@ -40,7 +55,12 @@ Addition$new()
 
 TM_UI <- shiny::basicPage(
   h2("tidymodules : Simple Addition"),
-  sliderInput("first_number", label = "Enter your first number", min = 1, max = 100, value = 1), br(),
+  sliderInput(
+    "first_number", 
+    label = "Enter your first number", 
+    min = 1, 
+    max = 100, 
+    value = 1), br(),
   mod(1)$ui(), br(),
   mod(2)$ui(), br(),
   "Total: ", textOutput("total_result")

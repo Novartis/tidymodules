@@ -99,7 +99,7 @@ add_module <- function(name,
   # Retrieve content from package snippet
   file_content <- snippr::snippets_read(path = system.file("rstudio/r.snippets", package = "tidymodules"))$tm.mod.new
   file_content <- unlist(strsplit(file_content, "\\n"))
-  for (l in 1:length(file_content)) {
+  for (l in seq_len(length(file_content))) {
     # remove $ escapes \\
     file_content[l] <- sub("\\$", "$", file_content[l], fixed = TRUE)
     # remove tabs

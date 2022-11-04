@@ -105,7 +105,7 @@ Store <- R6::R6Class(
           )
         )
 
-        rownames(d) <- 1:nrow(d)
+        rownames(d) <- seq_len(nrow(d))
 
         d
       })

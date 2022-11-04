@@ -640,7 +640,7 @@ TidyModule <- R6::R6Class(
             length(copy[[at]]) > 0 &&
             !at %in% c("port_names", "i", "o")) { # Check list for modules
             l <- self[[at]]
-            for (k in 1:length(l)) {
+            for (k in seq_len(length(l))) {
               if (is(l[[k]], "TidyModule")) {
                 l[[k]] <- l[[k]]$deepClone(o, i, s)
                 l[[k]]$parent_mod <- copy

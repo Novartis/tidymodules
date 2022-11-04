@@ -356,13 +356,6 @@ port_map <- function(lp, rp, f = FALSE) {
   return(multi_port_map(l, r, t = "input"))
 }
 
-# #' Forward input/input multi-port pipe
-# #'
-# #' @rdname pipes
-# #' @export %:o:%
-# "%:o:%" <- function(l,r) { return(multi_port_map(l,r,t="output")); }
-
-
 ns_export <- function(pnames) {
   paste0(sprintf("export(\"%s\")", pnames), collapse = "\n")
 }

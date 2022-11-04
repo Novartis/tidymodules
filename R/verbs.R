@@ -59,7 +59,7 @@ combine_ports <- function(...) {
   r <- NULL
   if (length(args)) {
     if (is.null(names(args))) {
-      names(args) <- 1:length(args)
+      names(args) <- seq_len(length(args))
     }
     r <- do.call(reactiveValues, args)
   } else {
@@ -109,9 +109,13 @@ race_ports <- function(...) {
   }
 
   p <- length(racers) + 1
-  r <- reactiveVal(label = "race", value = reactive({ }))
+  r <- reactiveVal(
+    label = "race", 
+    value = reactive({ 
+    })
+  )
 
-  lapply(1:length(racers), function(r) {
+  lapply(seq_len(length(racers)), function(r) {
     reac <- racers[[r]]
     observeEvent(
       {

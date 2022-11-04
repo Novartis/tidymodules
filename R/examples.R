@@ -16,7 +16,7 @@
 showExamples <- function(id = NULL, server = F, options = NULL) {
   examples <- list.dirs(system.file(package = "tidymodules", "shiny/examples"), recursive = F)
   if (is.null(id)) {
-    names(examples) <- 1:length(examples)
+    names(examples) <- seq_len(length(examples))
     basename(examples)
   } else {
     if (!is.numeric(id)) {

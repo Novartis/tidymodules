@@ -7,17 +7,31 @@ AdditionSM_UI <- function(ns_id) {
   ns <- NS(ns_id)
 
   div(
-    style = "width:30%;background:lightgrey;border: solid;border-color: grey;padding: 20px;",
-    "Module input : ", textOutput(ns("left")),
-    " + ", sliderInput(ns("right"), label = "Number to add", min = 1, max = 100, value = 1),
-    " = ", textOutput(ns("total"))
+    style = paste0(
+      "width:30%;",
+      "background:lightgrey;",
+      "border: solid;",
+      "border-color: grey;",
+      "padding: 20px;"),
+    "Module input : ",
+    textOutput(ns("left")),
+    " + ",
+    sliderInput(
+      ns("right"),
+      label = "Number to add",
+      min = 1,
+      max = 100,
+      value = 1),
+    " = ",
+    textOutput(ns("total"))
   )
 }
 
 #' Server function of the Shiny Addition module
 #'
 #' @description
-#' Server logic of the Shiny Addition module. Take a number as input and add the number selected by the user via a slider.
+#' Server logic of the Shiny Addition module. 
+#' Add an input number to a number selected by the user with a slider.
 #'
 AdditionSM_Server <- function(input, output, session, number) {
   sum_numbers <- reactive({

@@ -43,10 +43,23 @@ Addition <- R6::R6Class(
     #' @return UI elements.
     ui = function() {
       div(
-        style = "width:30%;background:lightgrey;border: solid;border-color: grey;padding: 20px;",
-        "Module input : ", textOutput(self$ns("left")),
-        " + ", sliderInput(self$ns("right"), label = "Number to add", min = 1, max = 100, value = 1),
-        " = ", textOutput(self$ns("total"))
+        style = paste0(
+          "width:30%;",
+          "background:lightgrey;",
+          "border: solid;",
+          "border-color: grey;",
+          "padding: 20px;"),
+        "Module input : ",
+        textOutput(self$ns("left")),
+        " + ",
+        sliderInput(
+          self$ns("right"),
+          label = "Number to add",
+          min = 1,
+          max = 100,
+          value = 1),
+        " = ",
+        textOutput(self$ns("total"))
       )
     },
     #' @description
