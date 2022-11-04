@@ -11,7 +11,7 @@
 #'
 #'
 #' @import tidymodules
-#' @noRd 
+#' @noRd
 Counter <- R6::R6Class(
   classname = "Counter",
   inherit = TidyModule,
@@ -20,29 +20,29 @@ Counter <- R6::R6Class(
     #' Module's initialization function.
     #' @param ... options
     #' @return An instance of Counter
-    initialize = function(...){
+    initialize = function(...) {
       # Don't remove the line below
       super$initialize(...)
-      
+
       # Ports definition starts here...
       self$definePort({
-        
         self$addInputPort(
           name = "reset",
           description = "An integer of class 'shinyActionButtonValue'",
-          sample = 1)
-        
+          sample = 1
+        )
+
         self$addOutputPort(
           name = "counter",
           description = "An integer representing the current counter value",
-          sample = 3)
+          sample = 3
+        )
       })
-      
     },
     #' @description
     #' Module's ui function.
     #' @return HTML tags list.
-    ui = function(label = "Counter"){
+    ui = function(label = "Counter") {
       tagList(
         actionButton(self$ns("button"), label = label),
         verbatimTextOutput(self$ns("out"))
@@ -53,24 +53,24 @@ Counter <- R6::R6Class(
     #' @param input Shiny input
     #' @param output Shiny output
     #' @param session Shiny session
-    server = function(input, output, session){
+    server = function(input, output, session) {
       # Don't remove the line below
-      super$server(input,output,session)
-      
+      super$server(input, output, session)
+
       # Module server logic starts here ...
-      count <- reactiveVal(0)
+      self$react$count <- reactiveVal(0)
       observeEvent(input$button, {
-        count(count() + 1)
+        self$react$count(self$react$count() + 1)
       })
-      observeEvent(self$execInput("reset"),{
-        count(0)
+      observeEvent(self$execInput("reset"), {
+        self$react$count(0)
       })
       output$out <- renderText({
-        count()
+        self$react$count()
       })
-      
+
       self$assignPort({
-        self$updateOutputPort("counter",count)
+        self$updateOutputPort("counter", self$react$count)
       })
     }
   )

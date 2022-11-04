@@ -16,7 +16,7 @@ counter <- function(input, output, session, reset) {
   observeEvent(input$button, {
     count(count() + 1)
   })
-  observeEvent(reset(),{
+  observeEvent(reset(), {
     count(0)
   })
   output$out <- renderText({

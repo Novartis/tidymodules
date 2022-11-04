@@ -43,6 +43,8 @@ m
 \item{\code{o}}{reactive list of output ports.}
 
 \item{\code{port_names}}{list of input and output port names.}
+
+\item{\code{react}}{list of reactive objects used by the module.}
 }
 \if{html}{\out{</div>}}
 }
@@ -101,7 +103,13 @@ m
 \subsection{Method \code{new()}}{
 Create a new tidymodules module.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TidyModule$new(id = NULL, inherit = TRUE, group = NULL, parent = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$new(
+  id = NULL,
+  inherit = TRUE,
+  group = NULL,
+  parent = NULL,
+  collision = FALSE
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -114,6 +122,9 @@ Create a new tidymodules module.
 \item{\code{group}}{Module group name. Added to module's Id to make it unique. Optional}
 
 \item{\code{parent}}{Parent module. Need to be specified when creating a dynamic nested module. Optional}
+
+\item{\code{collision}}{Allow module id collision. Default to false.
+Id collision happens when you try to creating the same module (same Id) twice at the same time.  Optional}
 }
 \if{html}{\out{</div>}}
 }
@@ -210,6 +221,8 @@ server function to be overwritten and called by child module.
 \item{\code{output}}{shiny output.}
 
 \item{\code{session}}{shiny session.}
+
+\item{\code{...}}{extra arguments to passed to the server function.}
 }
 \if{html}{\out{</div>}}
 }
@@ -223,6 +236,13 @@ Preview the module in a gadget.
 \if{html}{\out{<div class="r">}}\preformatted{TidyModule$view(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{extra arguments to passed to the server function.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TidyModule-definePort"></a>}}

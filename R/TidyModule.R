@@ -7,7 +7,7 @@
 #'
 #' @import R6
 #' @import shiny
-#' 
+#'
 #' @export
 TidyModule <- R6::R6Class(
   "TidyModule",
@@ -36,127 +36,144 @@ TidyModule <- R6::R6Class(
     o = NULL,
     #' @field port_names list of input and output port names.
     port_names = NULL,
-    # o = NULL,
-    # i = NULL,
+    #' @field react list of reactive objects used by the module.
+    react = list(),
     #' @description
     #' Create a new tidymodules module.
     #' @param id Unique Id to assign to the module. Default to a generated Id using module's class and order of initialization.
     #' @param inherit logical value indicating if a nested module should inherits the parent's input ports. Default to TRUE
-    #' @param group Module group name. Added to module's Id to make it unique. Optional 
+    #' @param group Module group name. Added to module's Id to make it unique. Optional
     #' @param parent Parent module. Need to be specified when creating a dynamic nested module. Optional
+    #' @param collision Allow module id collision. Default to false.
+    #' Id collision happens when you try to creating the same module (same Id) twice at the same time.  Optional
     #' @return A new `TidyModule` object.
-    initialize = function(id = NULL, inherit = TRUE, group = NULL, parent = NULL) {
-      
+    initialize = function(id = NULL, inherit = TRUE, group = NULL, parent = NULL, collision = FALSE) {
       #### Initialize ModStore #######
-      if(is.null(private$shared$store))
+      if (is.null(private$shared$store)) {
         private$shared$store <- ModStore$new()
-      
+      }
+
       self$pass_ports <- inherit
-      
+
       ses <- self$getSession()
       isolate({
-        ses$count <- ses$count+1
+        ses$count <- ses$count + 1
         self$order <- ses$count
       })
-      onStop(function(){ 
-        # reset session module count and edge table when app stop 
+      onStop(function() {
+        # reset session module count and edge table when app stop
         ses$count <- 0
         ses$edges <- private$emtpy_edges
       })
-      
+
       self$name <- ifelse(
         is.null(id),
-        paste0(class(self)[[1]],"-",isolate({ses$count }))
-        ,private$sanitizeID(id,"Id"))
-      
-      if(!is.null(group)){
-        g <- private$sanitizeID(group,"Group")
-        self$id <- paste0(g,"-",self$name)
+        paste0(class(self)[[1]], "-", isolate({
+          ses$count
+        })),
+        private$sanitizeID(id, "Id")
+      )
+
+      if (!is.null(group)) {
+        g <- private$sanitizeID(group, "Group")
+        self$id <- paste0(g, "-", self$name)
         self$group <- g
-      }else{
+      } else {
         self$id <- self$name
       }
-      
+
       ################# Handle nested module here ################
       ############### Find and set the parent module #############
-      # case 1 : nested module directly initialized in attribute definition of parent
+
+      # case 1 : if parent module is specified.
+      if (!is.null(parent) && is(parent, "TidyModule")) {
+        self$parent_mod <- parent
+      }
+
+
+      # case 2 : nested module directly initialized in attribute definition of parent
       # This type of initialization should trigger an error
       # Because the parent module need to be initialized first
       # TODO : Find a way to prevent this....
-      
+
       # if(class(sys.frame(9)$inherit) == "R6ClassGenerator")
       #   stop(paste0("Error in definition of module ",sys.frame(9)$classname,
       #              "! Nested module ",self$id," should be defined either in initialize() or server() of parent!"))
-      
-      # case 2 : 
+
+      # case 3 :
       # for n = 2:3  => nested module initialized in initialze() or server() functions of parent
       # for n = 4:10 => same as before but support nested functions or module inheritance
-      for(n in 2:10){
-        self$parent_mod<-parent.env(parent.frame(n))$self
-        if(!is.null(self$parent_mod) && is(self$parent_mod,"TidyModule"))
-          break
+      if (is.null(self$parent_mod)) {
+        for (n in 2:10) {
+          self$parent_mod <- parent.env(parent.frame(n))$self
+          if (!is.null(self$parent_mod) && is(self$parent_mod, "TidyModule")) {
+            break
+          }
+        }
       }
-      # case 3 : Dynamically created module in an observe function of server()
-      if(is.null(self$parent_mod) || !is(self$parent_mod,"TidyModule"))
-        self$parent_mod<-parent.env(parent.env(parent.frame(3)))$self
-      
-      # case 4 : When case 3 doesn't work, check if parent module is specified.
-      if(!is.null(parent) && is(parent,"TidyModule") &&
-         ( is.null(self$parent_mod) || !is(self$parent_mod,"TidyModule") )
-      ) self$parent_mod<-parent
-      
+      # case 4 : Dynamically created module in an observe function of server()
+      if (is.null(self$parent_mod) || !is(self$parent_mod, "TidyModule")) {
+        self$parent_mod <- parent.env(parent.env(parent.frame(3)))$self
+      }
+
       # At the end we save the parent ns & server arguments if any
-      if(!is.null(self$parent_mod) && 
-         is(self$parent_mod,"TidyModule")){
+      if (!is.null(self$parent_mod) &&
+        is(self$parent_mod, "TidyModule")) {
         self$parent_ns <- self$parent_mod$module_ns
-      }else{
+      } else {
         self$parent_mod <- NULL
       }
-      
+
       self$module_ns <- ifelse(
         is.null(self$parent_ns),
         self$id,
-        paste0(self$parent_ns,"-",self$id))
-      
+        paste0(self$parent_ns, "-", self$id)
+      )
+
       ####   Capture ShinySession    #######
       private$shiny_session <- shiny::getDefaultReactiveDomain()
-      
+
       self$created <- Sys.time()
-      
+
       # check that the module namespace is unique in the current session
-      if(self$isStored() && 
-         as.character(mod(self$module_ns)$created) == as.character(self$created))
-        stop(paste0("Module namespace collision!\n",
-                    "Make sure that the namespace Id ",self$module_ns," is only used once."))
-      
+      if (self$isStored() &&
+        as.character(mod(self$module_ns)$created) == as.character(self$created) &&
+        !collision) {
+        stop(paste0(
+          "Module namespace collision!\n",
+          "Make sure that the namespace Id ", self$module_ns, " is only used once."
+        ))
+      }
+
       private$shared$store$addMod(self)
       private$initFields()
-      
+
       # Only transfer parent ports in dynamic mode
       # i.e. when the child module is initialized on the server
-      if(!self$isGlobal() &&
-         !is.null(self$parent_mod) && 
-         is(self$parent_mod,"TidyModule") &&
-         self$pass_ports)
+      if (!self$isGlobal() &&
+        !is.null(self$parent_mod) &&
+        is(self$parent_mod, "TidyModule") &&
+        self$pass_ports) {
         self$parent_mod %:i:% self
+      }
     },
     #' @description
     #' namespace function used to generate unique Id for HTML elements.
     #' @param id Id of HTML element / shiny input.
     #' @return A unique string Id.
-    ns = function(id){
+    ns = function(id) {
       NS(self$module_ns, id)
     },
     #' @description
     #' Get module session Id. This function rely on a shiny output object to find the right session Id.
     #' @return The Session Id of the module.
-    getSessionId = function(){
+    getSessionId = function() {
       return(getSessionId(private$shiny_session))
     },
     #' @description
     #' Alias to the `ui` function.
     #' @param ... arguments passed to the ui function.
-    render = function(...){
+    render = function(...) {
       self$ui(...)
     },
     #' @description
@@ -165,7 +182,7 @@ TidyModule <- R6::R6Class(
     #' Please note that a module can have many visual representations.
     #' @param ... arguments passed to ui
     #' @return Empty tagList()
-    ui = function(...){
+    ui = function(...) {
       return(tagList())
     },
     #' @description
@@ -173,10 +190,11 @@ TidyModule <- R6::R6Class(
     #' @param input shiny input.
     #' @param output shiny output.
     #' @param session shiny session.
-    server = function(input, 
-                      output, 
+    #' @param ... extra arguments to passed to the server function.
+    server = function(input,
+                      output,
                       session,
-                      ...){
+                      ...) {
       # Need to isolate this block to avoid unecessary triggers
       isolate({
         private$shiny_session <- session
@@ -186,11 +204,12 @@ TidyModule <- R6::R6Class(
     },
     #' @description
     #' Preview the module in a gadget.
-    view = function(...){
-      s <- function(input, output, session){
-        self$server(input, output, session,...)
+    #' @param ... extra arguments to passed to the server function.
+    view = function(...) {
+      s <- function(input, output, session) {
+        self$server(input, output, session, ...)
       }
-      
+
       app <- shinyApp(ui = miniUI::miniPage(self$ui()), server = s)
       # viewer <- dialogViewer(paste0("Preview of ",self$module_ns))
       viewer <- paneViewer()
@@ -199,21 +218,22 @@ TidyModule <- R6::R6Class(
     #' @description
     #' Function wrapper for port definition expression.
     #' @param x expression
-    definePort = function(x){
+    definePort = function(x) {
       isolate(x)
     },
     #' @description
     #' Function wrapper for port assignment expression.
     #' @param x expression
-    assignPort = function(x){
+    assignPort = function(x) {
       # TODO: There must be a better way to do that
       # Only add observe in non-reactive context
-      if(is.null(shiny:::.getReactiveEnvironment()$.currentContext))
+      if (is.null(shiny:::.getReactiveEnvironment()$.currentContext)) {
         observe({
           isolate(x)
         })
-      else
+      } else {
         isolate(x)
+      }
     },
     #' @description
     #' Add input port function. To be called within `definePort` function
@@ -223,13 +243,12 @@ TidyModule <- R6::R6Class(
     #' @param is_parent Is the port inherited from the parent module.
     #' @param inherit Should the port be passed to nested module. default to TRUE.
     #' @param input This argument should be ignored. Only here for backward compatibility.
-    addInputPort = function(
-      name = NULL,
-      description = NULL,
-      sample = NULL,
-      input = FALSE,
-      is_parent = FALSE,
-      inherit = TRUE){
+    addInputPort = function(name = NULL,
+                            description = NULL,
+                            sample = NULL,
+                            input = FALSE,
+                            is_parent = FALSE,
+                            inherit = TRUE) {
       private$addPort(
         type = "input",
         name = name,
@@ -244,38 +263,36 @@ TidyModule <- R6::R6Class(
     #' Called within the `assignPort` function
     #' @param id Port name or Id .
     #' @param input The reacive object.
-    updateInputPort = function(
-      id = NULL,
-      input = NULL){
-      private$updatePort(id = id,port = input, type = "input")
+    updateInputPort = function(id = NULL,
+                               input = NULL) {
+      private$updatePort(id = id, port = input, type = "input")
     },
     #' @description
     #' This function add a set of input ports to the module.
     #' @param inputs reactivevalues with the input ports.
     #' @param is_parent Are the ports from a parent module. Default to FALSE.
-    updateInputPorts = function(
-      inputs = NULL,
-      is_parent = FALSE){
+    updateInputPorts = function(inputs = NULL,
+                                is_parent = FALSE) {
       private$updatePorts(ports = inputs, type = "input", is_parent = is_parent)
     },
     #' @description
     #' Get an input port from the module.
     #' @param id Name or Id of the port.
     #' @return A module input port. A reactivevalues object with name, description, sample, is_parent and port elements.
-    getInputPort = function(id = 1){
-      return(private$getPort(id,"input"))
+    getInputPort = function(id = 1) {
+      return(private$getPort(id, "input"))
     },
     #' @description
     #' Alias to the `getInputPort()` function.
     #' @param id Name or Id of the port.
     #' @return A module input port. A reactivevalues object with name, description, sample, is_parent and port elements.
-    iport = function(id = 1){
+    iport = function(id = 1) {
       return(self$getInputPort(id))
     },
     #' @description
     #' Get all the input ports as a reactivevalues object.
     #' @return A reactivevalues object.
-    getInputPorts = function(){
+    getInputPorts = function() {
       return(private$getPorts("input"))
     },
     #' @description
@@ -283,21 +300,24 @@ TidyModule <- R6::R6Class(
     #' @param id Name or Id of the port.
     #' @param w boolean to enable module session check. default to TRUE.
     #' @return A reactive function.
-    getInput = function(id = 1, w = TRUE){
-      if(w && self$isGlobal() && !UtilityModule$new()$isGlobal()){
-        cmd <- paste0('mod("',self$module_ns,'")$getInput(',ifelse(is.character(id),paste0('"',id,'"'),id),')')
+    getInput = function(id = 1, w = TRUE) {
+      if (w && self$isGlobal() && !UtilityModule$new()$isGlobal()) {
+        cmd <- paste0('mod("', self$module_ns, '")$getInput(', ifelse(is.character(id), paste0('"', id, '"'), id), ")")
         warning(paste(
           "You are trying to access a global session module port from a user session.",
           "Is this intended? If not, use the code below instead.",
-          cmd, sep= "\n"))
+          cmd,
+          sep = "\n"
+        ))
       }
-      
+
       r <- private$get(id)
       # special handling for inherited input ports
       # since they are wraped in a reactive
-      if(private$getPort(id)$parent)
+      if (private$getPort(id)$parent) {
         r <- r()
-      
+      }
+
       return(r)
     },
     #' @description
@@ -307,11 +327,12 @@ TidyModule <- R6::R6Class(
     #' @param id Name or Id of the port.
     #' @param require Check that the port is available.
     #' @return Output of the reacive function execution.
-    execInput = function(id = 1, require = TRUE){
+    execInput = function(id = 1, require = TRUE) {
       mod <- getMod(self$module_ns)
       r <- mod$getInput(id)
-      if(require)
+      if (require) {
         req(r)
+      }
       return(r())
     },
     #' @description
@@ -319,18 +340,16 @@ TidyModule <- R6::R6Class(
     #' Called within the `assignPort` function
     #' @param id Port name or Id .
     #' @param output The reacive object.
-    updateOutputPort = function(
-      id = NULL,
-      output = NULL){
-      private$updatePort(id = id,port = output, type = "output")
+    updateOutputPort = function(id = NULL,
+                                output = NULL) {
+      private$updatePort(id = id, port = output, type = "output")
     },
     #' @description
     #' This function add a set of output ports to the module.
     #' @param outputs reactivevalues with the output ports.
     #' @param is_parent Are the ports from a parent module. Default to FALSE.
-    updateOutputPorts = function(
-      outputs = NULL,
-      is_parent = FALSE){
+    updateOutputPorts = function(outputs = NULL,
+                                 is_parent = FALSE) {
       private$updatePorts(ports = outputs, type = "output", is_parent = is_parent)
     },
     #' @description
@@ -340,12 +359,11 @@ TidyModule <- R6::R6Class(
     #' @param sample sample dataset returned by this port. Mandatory!
     #' @param is_parent Is the port inherited from the parent module.
     #' @param output This argument should be ignored. Only here for backward compatibility.
-    addOutputPort = function(
-      name = NULL,
-      description = NULL,
-      sample = NULL,
-      output = FALSE,
-      is_parent = FALSE){
+    addOutputPort = function(name = NULL,
+                             description = NULL,
+                             sample = NULL,
+                             output = FALSE,
+                             is_parent = FALSE) {
       private$addPort(
         type = "output",
         name = name,
@@ -359,28 +377,28 @@ TidyModule <- R6::R6Class(
     #' @param id Port Id
     #' @param type Port type, input or output.
     #' @return Port name.
-    getPortName = function(id = NULL, type = "input"){
-      port <- private$getPort(id,type)
+    getPortName = function(id = NULL, type = "input") {
+      port <- private$getPort(id, type)
       return(port$name)
     },
     #' @description
     #' Get an output port from the module.
     #' @param id Name or Id of the port.
     #' @return A module output port. A reactivevalues object with name, description, sample, is_parent and port elements.
-    getOutputPort = function(id = 1){
-      return(private$getPort(id,"output"))
+    getOutputPort = function(id = 1) {
+      return(private$getPort(id, "output"))
     },
     #' @description
     #' Alias to the `getOutputPort()` function.
     #' @param id Name or Id of the port.
     #' @return A module output port. A reactivevalues object with name, description, sample, is_parent and port elements.
-    oport = function(id = 1){
+    oport = function(id = 1) {
       return(self$getOutputPort(id))
     },
     #' @description
     #' Get all the output ports as a reactivevalues object.
     #' @return A reactivevalues object.
-    getOutputPorts = function(){
+    getOutputPorts = function() {
       return(private$getPorts("output"))
     },
     #' @description
@@ -388,15 +406,17 @@ TidyModule <- R6::R6Class(
     #' @param id Name or Id of the port.
     #' @param w boolean to enable module session check. default to TRUE.
     #' @return A reactive function.
-    getOutput = function(id = 1, w = TRUE){
-      if(w && self$isGlobal() && !UtilityModule$new()$isGlobal()){
-        cmd <- paste0('mod("',self$module_ns,'")$getOutput(',ifelse(is.character(id),paste0('"',id,'"'),id),')')
+    getOutput = function(id = 1, w = TRUE) {
+      if (w && self$isGlobal() && !UtilityModule$new()$isGlobal()) {
+        cmd <- paste0('mod("', self$module_ns, '")$getOutput(', ifelse(is.character(id), paste0('"', id, '"'), id), ")")
         warning(paste(
           "You are trying to access a global session module port from a user session.",
           "Is this intended? If not, use the code below instead.",
-          cmd, sep= "\n"))
+          cmd,
+          sep = "\n"
+        ))
       }
-      
+
       return(private$get(id, "output"))
     },
     #' @description
@@ -406,35 +426,36 @@ TidyModule <- R6::R6Class(
     #' @param id Name or Id of the port.
     #' @param require Check that the port is available.
     #' @return Output of the reacive function execution.
-    execOutput = function(id = 1, require = TRUE){
+    execOutput = function(id = 1, require = TRUE) {
       mod <- getMod(self$module_ns)
       r <- mod$getOutput(id)
-      if(require)
+      if (require) {
         req(r)
+      }
       return(r())
     },
     #' @description
     #' Function for retrieving the central ModStore.
     #' @return The `ModStore` object.
-    getStore = function(){
+    getStore = function() {
       return(private$shared$store)
     },
     #' @description
     #' Utility function that counts the number of input ports.
     #' @return The input ports count.
-    countInputPort = function(){
+    countInputPort = function() {
       return(private$countPort("input"))
     },
     #' @description
     #' Utility function that counts the number of output ports.
     #' @return The output ports count.
-    countOutputPort = function(){
+    countOutputPort = function() {
       return(private$countPort("output"))
-    },    
+    },
     #' @description
     #' Alias to the `callModule` function.
     #' @param ... arguments passed to the `server` function of the module.
-    use = function(...){
+    use = function(...) {
       self$callModule(...)
     },
     #' @description
@@ -443,19 +464,20 @@ TidyModule <- R6::R6Class(
     #' Options provided as arguments will be passed to the server function of the module.
     #' Note that the module reference `self` might not be the one injected.
     #' @param ... arguments passed to the `server` function of the module.
-    callModule = function(...){
+    callModule = function(...) {
       # arguments from server environment
       output <- parent.frame()$output
       input <- parent.frame()$output
       session <- parent.frame()$session
-      if(is.null(session))
+      if (is.null(session)) {
         session <- shiny::getDefaultReactiveDomain()
-      
+      }
+
       disable_cache <- getCacheOption()
-      
-      if(!self$isGlobal()){
+
+      if (!self$isGlobal()) {
         self$doServer(...)
-      }else{
+      } else {
         isolate({
           currentSession <- UtilityModule$new()$getSession()
           globalSession <- UtilityModule$new()$getGlobalSession()
@@ -463,11 +485,11 @@ TidyModule <- R6::R6Class(
           currentSession$count <- globalSession$count
           cloneMod <- is.null(currentSession$collection[[self$module_ns]])
         })
-        
-        if(cloneMod || disable_cache){
-          mod <- self$deepClone(output,input,session)
+
+        if (cloneMod || disable_cache) {
+          mod <- self$deepClone(output, input, session)
           mod$doServer(...)
-        }else{
+        } else {
           getMod(self$module_ns)$doServer(...)
         }
       }
@@ -475,17 +497,18 @@ TidyModule <- R6::R6Class(
     #' @description
     #' Function to check if the module is store in the current session.
     #' @return logical value.
-    isStored = function(){
+    isStored = function() {
       return(self$getStore()$isStored(self))
     },
     #' @description
     #' Check if the session attached to the module is the `global_session`.
     #' @return logical value.
-    isGlobal = function(){
-      if(self$getSessionId() == "global_session")
+    isGlobal = function() {
+      if (self$getSessionId() == "global_session") {
         return(TRUE)
-      else
+      } else {
         return(FALSE)
+      }
     },
     #' @description
     #' Get the current session.
@@ -498,7 +521,7 @@ TidyModule <- R6::R6Class(
     #' updated = session update time
     #' collection = list of session modules
     #' edges = list of connection edges
-    getSession = function(){
+    getSession = function() {
       return(self$getStore()$getSession(self))
     },
     #' @description
@@ -512,14 +535,14 @@ TidyModule <- R6::R6Class(
     #' updated = session update time
     #' collection = list of session modules
     #' edges = empty data.frame
-    getGlobalSession = function(){
+    getGlobalSession = function() {
       return(self$getStore()$getGlobalSession())
     },
     #' @description
     #' Function interfacing with shiny's callModule.
     #' @param ... arguments passed to the `server` function of the module.
-    doServer = function(...){
-      callModule(self$server,self$id,...)
+    doServer = function(...) {
+      callModule(self$server, self$id, ...)
     },
     #' @description
     #' Utility function to retrieve a port definition in the form of a list.
@@ -527,34 +550,35 @@ TidyModule <- R6::R6Class(
     #' @param type Port type, input or output.
     #' @param id Name or Id of port.
     #' @return List of the port definition.
-    getPortDef = function(type = NULL, id = 1){
+    getPortDef = function(type = NULL, id = 1) {
       port <- NULL
-      if(is.null(type) || !type %in% c("input","output"))
+      if (is.null(type) || !type %in% c("input", "output")) {
         stop("type must be one of input/output")
-      
+      }
+
       isolate({
-        port <- private$getPort(id,type)
+        port <- private$getPort(id, type)
         reactiveValuesToList(port)
       })
-      
     },
     #' @description
     #' Module printing function.
     #' Print the structure of a module.
-    #' @examples 
+    #' @examples
     #' MyModule <- R6::R6Class("MyModule", inherit = tidymodules::TidyModule)
     #' m <- MyModule$new()
     #' m
-    print = function(){
+    print = function() {
       isolate({
-        cat(paste0("Module Namespace ",self$module_ns,"\n"))
-        if(!is.null(self$group))
-          cat(paste0("Module Group ",self$group,"\n"))
-        cat(paste0("Module Session ",self$getSessionId(),"\n"))
-        cat(paste0("- Class ",paste0(class(self),collapse = " << "),"\n"))
-        cat(paste0("- Input [",self$countInputPort(),"]\n"))
+        cat(paste0("Module Namespace ", self$module_ns, "\n"))
+        if (!is.null(self$group)) {
+          cat(paste0("Module Group ", self$group, "\n"))
+        }
+        cat(paste0("Module Session ", self$getSessionId(), "\n"))
+        cat(paste0("- Class ", paste0(class(self), collapse = " << "), "\n"))
+        cat(paste0("- Input [", self$countInputPort(), "]\n"))
         private$printPorts("input")
-        cat(paste0("- Output [",self$countOutputPort(),"]\n"))
+        cat(paste0("- Output [", self$countOutputPort(), "]\n"))
         private$printPorts("output")
       })
     },
@@ -565,66 +589,73 @@ TidyModule <- R6::R6Class(
     #' @param o Optional shiny output.
     #' @param i Optional shiny input
     #' @param s Optional shiny input
-    #' @return A cloned module. 
-    deepClone = function(o = NULL, i = NULL, s = NULL){
+    #' @return A cloned module.
+    deepClone = function(o = NULL, i = NULL, s = NULL) {
       isolate({
         copy <- self$clone()
-        copy$reset(o,i,s)
-        
-        for(type in c("input","output")){
-          if(private$countPort(type) > 0)
-            for(idx in 1:private$countPort(type)){
-              po <- private$getPort(idx,type)
+        copy$reset(o, i, s)
+
+        for (type in c("input", "output")) {
+          if (private$countPort(type) > 0) {
+            for (idx in 1:private$countPort(type)) {
+              po <- private$getPort(idx, type)
               # Don't add port inherited from parent module
               # They will be added by parent, see below...
-              if(po$parent)
+              if (po$parent) {
                 next
-              if(type == "input")
+              }
+              if (type == "input") {
                 copy$addInputPort(
                   name = po$name,
                   description = po$description,
                   sample = po$sample,
-                  inherit = po$inherit)
-              else
+                  inherit = po$inherit
+                )
+              } else {
                 copy$addOutputPort(
                   name = po$name,
                   description = po$description,
-                  sample = po$sample)
+                  sample = po$sample
+                )
+              }
             }
+          }
         }
-        
+
         copy$created <- Sys.time()
         self$getStore()$addMod(copy)
-        
+
         # Now deep clone the module attributes (also check list) that are TidyModules, i.e. nested modules
-        for(at in names(self)){
-          if(is(self[[at]],"TidyModule") &&
-             at != "parent_mod"){ # When module attribute is a nested module
-            copy[[at]] <- self[[at]]$deepClone(o,i,s)
+        for (at in names(self)) {
+          if (is(self[[at]], "TidyModule") &&
+            at != "parent_mod") { # When module attribute is a nested module
+            copy[[at]] <- self[[at]]$deepClone(o, i, s)
             copy[[at]]$parent_mod <- copy
             self$getStore()$addMod(copy[[at]])
             # Now add ports to child if any
-            if(copy[[at]]$pass_ports)
+            if (copy[[at]]$pass_ports) {
               copy %:i:% copy[[at]]
-          } else if(is.list(self[[at]]) &&
-                    length(copy[[at]]) > 0 && 
-                    !at %in% c("port_names","i","o")){ # Check list for modules
+            }
+          } else if (is.list(self[[at]]) &&
+            length(copy[[at]]) > 0 &&
+            !at %in% c("port_names", "i", "o")) { # Check list for modules
             l <- self[[at]]
-            for(k in 1:length(l)){
-              if(is(l[[k]],"TidyModule")){
-                l[[k]] <- l[[k]]$deepClone(o,i,s)
+            for (k in 1:length(l)) {
+              if (is(l[[k]], "TidyModule")) {
+                l[[k]] <- l[[k]]$deepClone(o, i, s)
                 l[[k]]$parent_mod <- copy
                 self$getStore()$addMod(l[[k]])
                 # Now add ports to child if any
-                if(l[[k]]$pass_ports)
+                if (l[[k]]$pass_ports) {
                   copy %:i:% l[[k]]
+                }
               }
             }
             copy[[at]] <- l
           }
         }
       })
-      
+
       return(copy)
     },
     #' @description
@@ -632,79 +663,88 @@ TidyModule <- R6::R6Class(
     #' @param o Optional shiny output.
     #' @param i Optional shiny input
     #' @param s Optional shiny input
-    reset = function(o = NULL, i = NULL, s = NULL){
+    reset = function(o = NULL, i = NULL, s = NULL) {
       private$initFields()
-      if(!is.null(o))
+      if (!is.null(o)) {
         private$shiny_output <- o
-      if(!is.null(i))
+      }
+      if (!is.null(i)) {
         private$shiny_input <- i
-      if(!is.null(s))
+      }
+      if (!is.null(s)) {
         private$shiny_session <- s
+      }
     },
     #' @description
     #' Retrieve the shiny input.
     #' @return Shiny input object.
-    getShinyInput = function(){
+    getShinyInput = function() {
       return(private$shiny_input)
     },
     #' @description
     #' Retrieve the shiny output.
     #' @return Shiny output object.
-    getShinyOutput = function(){
+    getShinyOutput = function() {
       return(private$shiny_output)
     },
     #' @description
     #' Retrieve the shiny output.
     #' @return Shiny session object.
-    getShinySession = function(){
+    getShinySession = function() {
       return(private$shiny_session)
     }
   ),
   private = list(
-    shared = { e <- new.env(); e$store <- NULL ; e },
+    shared = {
+      e <- new.env()
+      e$store <- NULL
+      e
+    },
     shiny_input = NULL,
     shiny_output = NULL,
     shiny_session = NULL,
     emtpy_edges = data.frame(
-      from  = NA,
+      from = NA,
       fclass = NA,
       fport = NA,
       ftype = NA,
       fname = NA,
-      to    = NA,
+      to = NA,
       tclass = NA,
       tport = NA,
       ttype = NA,
       tname = NA,
-      mode  = NA,
+      mode = NA,
       comment = NA
     )[numeric(0), ],
-    initFields = function(){
+    initFields = function() {
       self$i <- reactiveValues()
       self$o <- reactiveValues()
       self$port_names <- reactiveValues()
     },
-    sanitizeID = function(id,type){
-      if(!grepl("[a-z][\\w-]*",id,ignore.case = TRUE,perl = TRUE) ||
-         grepl('[>~!@\\$%\\^&\\*\\(\\)\\+=,./\';:"\\?><\\[\\]\\\\{}\\|`#]',id,ignore.case = TRUE,perl = TRUE))
-        stop(paste(paste0("The provided ",type," must begin with a letter `[A-Za-z]` and may be followed by any number of letters, digits `[0-9]`, hyphens `-`, underscores `_`."),
-        "You should not use the following characters as they have a special meaning on the UI ( CSS / jQuery ).",
-        "> ~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #",sep = "\n"))
-      
+    sanitizeID = function(id, type) {
+      if (!grepl("[a-z][\\w-]*", id, ignore.case = TRUE, perl = TRUE) ||
+        grepl('[>~!@\\$%\\^&\\*\\(\\)\\+=,./\';:"\\?><\\[\\]\\\\{}\\|`#]', id, ignore.case = TRUE, perl = TRUE)) {
+        stop(paste(paste0("The provided ", type, " must begin with a letter `[A-Za-z]` and may be followed by any number of letters, digits `[0-9]`, hyphens `-`, underscores `_`."),
+          "You should not use the following characters as they have a special meaning on the UI ( CSS / jQuery ).",
+          "> ~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #",
+          sep = "\n"
+        ))
+      }
+
       return(id)
     },
-    countPort = function(type = "input"){
-      key = ifelse(type == "input", "i" , "o")
+    countPort = function(type = "input") {
+      key <- ifelse(type == "input", "i", "o")
       return(length(names(self[[key]])))
     },
-    addPort = function(
-      type = "input",
-      name = NULL,
-      description = paste0("Short description for this module's ",type),
-      sample = NULL,
-      port = FALSE,
-      is_parent = FALSE,
-      inherit = TRUE){
+    addPort = function(type = "input",
+                       name = NULL,
+                       description = paste0("Short description for this module's ", type),
+                       sample = NULL,
+                       port = FALSE,
+                       is_parent = FALSE,
+                       inherit = TRUE) {
       stopifnot(!is.null(name) && !is.null(sample))
       rv <- reactiveValues(
         name = name,
@@ -713,59 +753,59 @@ TidyModule <- R6::R6Class(
         parent = is_parent,
         inherit = inherit
       )
-      
-      p = port
-      
-      attr(rv,"tidymodules")  <- TRUE
-      attr(rv,"tidymodules_port_def")         <- TRUE
-      attr(rv,"tidymodules_port_type")        <- type
-      attr(rv,"tidymodules_port_id")          <- private$countPort(type)+1
-      attr(rv,"tidymodules_port_name")        <- name
-      attr(rv,"tidymodules_port_description") <- description
-      attr(rv,"tidymodules_port_sample")      <- sample
-      attr(rv,"tidymodules_is_parent")        <- is_parent
-      attr(rv,"tidymodules_inherit")          <- inherit
-      attr(rv,"tidymodules_module_ns")        <- self$module_ns
-      
+
+      p <- port
+
+      attr(rv, "tidymodules") <- TRUE
+      attr(rv, "tidymodules_port_def") <- TRUE
+      attr(rv, "tidymodules_port_type") <- type
+      attr(rv, "tidymodules_port_id") <- private$countPort(type) + 1
+      attr(rv, "tidymodules_port_name") <- name
+      attr(rv, "tidymodules_port_description") <- description
+      attr(rv, "tidymodules_port_sample") <- sample
+      attr(rv, "tidymodules_is_parent") <- is_parent
+      attr(rv, "tidymodules_inherit") <- inherit
+      attr(rv, "tidymodules_module_ns") <- self$module_ns
+
       # Only add attributes to port at definition
-      if(is.logical(p)){
-        attr(p,"tidymodules")  <- TRUE
-        attr(p,"tidymodules_port_slot")        <- TRUE
-        attr(p,"tidymodules_port_type")        <- type
-        attr(p,"tidymodules_port_id")          <- private$countPort(type)+1
-        attr(p,"tidymodules_port_name")        <- name
-        attr(p,"tidymodules_port_description") <- description
-        attr(p,"tidymodules_port_sample")      <- sample
-        attr(p,"tidymodules_is_parent")        <- is_parent
-        attr(p,"tidymodules_inherit")          <- inherit
-        attr(p,"tidymodules_module_ns")        <- self$module_ns
+      if (is.logical(p)) {
+        attr(p, "tidymodules") <- TRUE
+        attr(p, "tidymodules_port_slot") <- TRUE
+        attr(p, "tidymodules_port_type") <- type
+        attr(p, "tidymodules_port_id") <- private$countPort(type) + 1
+        attr(p, "tidymodules_port_name") <- name
+        attr(p, "tidymodules_port_description") <- description
+        attr(p, "tidymodules_port_sample") <- sample
+        attr(p, "tidymodules_is_parent") <- is_parent
+        attr(p, "tidymodules_inherit") <- inherit
+        attr(p, "tidymodules_module_ns") <- self$module_ns
       }
       rv[["port"]] <- p
-      
-      key = ifelse(type == "input", "i" , "o")
+
+      key <- ifelse(type == "input", "i", "o")
       existing_port <- self[[key]][[name]]
-      if(!is.null(existing_port) && is.reactivevalues(existing_port)){
-        warning(paste0("Skip adding ",type," port '",name,"' to ",self$module_ns,
-                       " ! Port already defined ",
-                       ifelse(existing_port$parent,
-                              paste0("and inherited from parent ",self$parent_ns),
-                              "!"
-                       )
-                )
-        )
-      }else{
+      if (!is.null(existing_port) && is.reactivevalues(existing_port)) {
+        warning(paste0(
+          "Skip adding ", type, " port '", name, "' to ", self$module_ns,
+          " ! Port already defined ",
+          ifelse(existing_port$parent,
+            paste0("and inherited from parent ", self$parent_ns),
+            "!"
+          )
+        ))
+      } else {
         self[[key]][[name]] <- rv
         nv <- self$port_names[[type]]
-        self$port_names[[type]] <- c(nv,name)
+        self$port_names[[type]] <- c(nv, name)
       }
     },
-     updatePort = function(id = NULL, port = NULL, type = "input"){
+    updatePort = function(id = NULL, port = NULL, type = "input") {
       stopifnot((!is.null(id)))
-      
-      if(!is.null(port)){
-        if(is.reactivevalues(port)){
-          if(!is.null(attr(port,"tidymodules_operation")) &&
-             attr(port,"tidymodules_operation") == "combine"){
+
+      if (!is.null(port)) {
+        if (is.reactivevalues(port)) {
+          if (!is.null(attr(port, "tidymodules_operation")) &&
+            attr(port, "tidymodules_operation") == "combine") {
             # We need to modify the combined reactive list here to remove the port sctructure
             isolate({
               p <- reactiveValues()
@@ -774,90 +814,99 @@ TidyModule <- R6::R6Class(
               }
               port <- p
             })
-          } else if(!is.null(attr(port,"tidymodules_port_def")) &&
-                    attr(port,"tidymodules_port_def")){
+          } else if (!is.null(attr(port, "tidymodules_port_def")) &&
+            attr(port, "tidymodules_port_def")) {
             port <- port$port
-          }else{
-            stop(paste0(deparse(substitute(port))," is reactive list (reactiveValues). Provide a reactive function instead."))            
+          } else {
+            stop(paste0(deparse(substitute(port)), " is reactive list (reactiveValues). Provide a reactive function instead."))
           }
-        }else if(!is.reactive(port)){
-          stop(paste0(deparse(substitute(port))," is not reactive"))
+        } else if (!is.reactive(port)) {
+          stop(paste0(deparse(substitute(port)), " is not reactive"))
         }
-        
-        key = ifelse(type == "input", "i" , "o")
-        if(is.numeric(id)){
-          if(!id %in% seq(1,private$countPort(type))){
-            stop(paste0("Port Update Failure: Numeric ",type," port [",id,"] not found in Module definition"))
-          }else{
-            id<-self$port_names[[type]][id]
+
+        key <- ifelse(type == "input", "i", "o")
+        if (is.numeric(id)) {
+          if (!id %in% seq(1, private$countPort(type))) {
+            stop(paste0("Port Update Failure: Numeric ", type, " port [", id, "] not found in Module definition"))
+          } else {
+            id <- self$port_names[[type]][id]
           }
         }
-        if(is.character(id) && !id %in% names(self[[key]])){
-          stop(paste0("Port Update Failure: Character ",type," port [",id,"] not found in Module definition"))
+        if (is.character(id) && !id %in% names(self[[key]])) {
+          stop(paste0("Port Update Failure: Character ", type, " port [", id, "] not found in Module definition"))
         }
-        
+
         # Attach module information to the output port
         # This will facilitate storage of module edges
         isolate({
           # Don't allow update of inherited port
-          if(self[[key]][[id]][["parent"]])
-            stop(paste0("Updating ",type," port '",id,"' inherited from parent ",self$parent_ns," is not permitted!"))
+          if (self[[key]][[id]][["parent"]]) {
+            stop(paste0("Updating ", type, " port '", id, "' inherited from parent ", self$parent_ns, " is not permitted!"))
+          }
           attrs <- attributes(self[[key]][[id]][["port"]])
-          if(type == "output")
-            for(a in names(attrs))
-              if(grepl("tidymodules",a))
-                attr(port,a) <- attrs[[a]]
-        
+          if (type == "output") {
+            for (a in names(attrs)) {
+              if (grepl("tidymodules", a)) {
+                attr(port, a) <- attrs[[a]]
+              }
+            }
+          }
+
           self[[key]][[id]][["port"]] <- port
         })
       }
     },
-     updatePorts = function(ports = NULL, type = "input", is_parent = FALSE){
+    updatePorts = function(ports = NULL, type = "input", is_parent = FALSE) {
       stopifnot(!is.null(ports))
-      if(!is.reactivevalues(ports))
-        stop(paste0(deparse(substitute(ports))," is not a reactive list"))
-      
-      key = ifelse(type == "input", "i" , "o")
-      
+      if (!is.reactivevalues(ports)) {
+        stop(paste0(deparse(substitute(ports)), " is not a reactive list"))
+      }
+
+      key <- ifelse(type == "input", "i", "o")
+
       isolate({
-        for(p in names(ports)){
-          if(p %in%  self$port_names[[type]]){
-            stop(paste0("Adding port name ",p," to module ",self$module_ns," failed, it already exist in ",type," port definition."))
-          }else{
+        for (p in names(ports)) {
+          if (p %in% self$port_names[[type]]) {
+            stop(paste0("Adding port name ", p, " to module ", self$module_ns, " failed, it already exist in ", type, " port definition."))
+          } else {
             port <- ports[[p]]
             rport <- port$port
             # couple of functions for managing inherited ports
-            getParentReactive <- function(p){
-              parent_mod_ns <- attr(p,"tidymodules_module_ns")
+            getParentReactive <- function(p) {
+              parent_mod_ns <- attr(p, "tidymodules_module_ns")
               r <- reactive({
                 force(p)
                 force(self)
                 force(parent_mod_ns)
-                
+
                 m <- self$parent_mod
-                if(!is.null(parent_mod_ns)){
+                if (!is.null(parent_mod_ns)) {
                   m <- mod(parent_mod_ns)
-                }else{
-                  warning(paste0("Couldn't find parent module while passing input ports to ",self$module_ns))
+                } else {
+                  warning(paste0("Couldn't find parent module while passing input ports to ", self$module_ns))
                 }
-                
-                if(type == "input")
+
+                if (type == "input") {
                   m$getInput(p$name)
-                else
+                } else {
                   m$getOutput(p$name)
+                }
               })
-              
+
               # copy tm attributes
               attrs <- attributes(p$port)
-              for(a in names(attrs))
-                if(grepl("tidymodules",a))
-                  attr(r,a) <- attrs[[a]]
-              
+              for (a in names(attrs)) {
+                if (grepl("tidymodules", a)) {
+                  attr(r, a) <- attrs[[a]]
+                }
+              }
+
               r
             }
-            if(is_parent)
+            if (is_parent) {
               rport <- getParentReactive(port)
-            if(!(is_parent && !port$inherit))
+            }
+            if (!(is_parent && !port$inherit)) {
               private$addPort(
                 type = type,
                 name = port$name,
@@ -867,76 +916,82 @@ TidyModule <- R6::R6Class(
                 is_parent = is_parent,
                 inherit = port$inherit
               )
+            }
           }
         }
       })
     },
-    get = function(id = 1,type = "input"){
+    get = function(id = 1, type = "input") {
       data.port <- private$getPort(id, type)
       req(data.port)
 
       return(data.port[["port"]])
     },
-    getPort = function(id = 1,type = "input"){
-      key = ifelse(type == "input", "i" , "o")
-      if(private$countPort(type) == 0){
-        warning(paste0("Module ",self$module_ns," has no ",type," ports"))
+    getPort = function(id = 1, type = "input") {
+      key <- ifelse(type == "input", "i", "o")
+      if (private$countPort(type) == 0) {
+        warning(paste0("Module ", self$module_ns, " has no ", type, " ports"))
         return(NULL)
       }
-      if(is.numeric(id)){
-        if(!id %in% seq(1,private$countPort(type))){
-          warning(paste0("Numeric ",type," port [",id,"] not found in Module definition"))
+      if (is.numeric(id)) {
+        if (!id %in% seq(1, private$countPort(type))) {
+          warning(paste0("Numeric ", type, " port [", id, "] not found in Module definition"))
           return(NULL)
-        }else{
-          id<-self$port_names[[type]][id]
+        } else {
+          id <- self$port_names[[type]][id]
         }
       }
-      if(is.character(id) && !id %in% names(self[[key]])){
-        warning(paste0("Character ",type," port [",id,"] not found in Module definition"))
+      if (is.character(id) && !id %in% names(self[[key]])) {
+        warning(paste0("Character ", type, " port [", id, "] not found in Module definition"))
         return(NULL)
       }
       return(self[[key]][[id]])
     },
-    getPorts = function(type = "input"){
-      key = ifelse(type == "input", "i" , "o")
-      if(private$countPort(type) == 0)
+    getPorts = function(type = "input") {
+      key <- ifelse(type == "input", "i", "o")
+      if (private$countPort(type) == 0) {
         return(NULL)
+      }
 
       return(self[[key]])
     },
-    printPorts = function(type = "input"){
-      if(private$countPort(type)>0)
+    printPorts = function(type = "input") {
+      if (private$countPort(type) > 0) {
         for (p in 1:private$countPort(type)) {
-          port <- private$getPort(p,type)
+          port <- private$getPort(p, type)
           pport <- NULL
-          if(port$parent){
-            if(type == "input")
+          if (port$parent) {
+            if (type == "input") {
               pport <- self$parent_mod$getInputPort(port$name)
-            else
+            } else {
               pport <- self$parent_mod$getOutputPort(port$name)
+            }
           }
           cat(
-            paste0("(",p,") ",
-                   ifelse(
-                     port$parent,
-                     "(Inherit) ",
-                     ""),
-                   port$name,
-                   " => ",
-                   ifelse(port$parent,
-                    ifelse(is.reactive(pport$port) || is.reactivevalues(pport$port),"OK","Empty"),  
-                    ifelse(is.reactive(port$port) || is.reactivevalues(port$port),"OK","Empty")
-                   ),
-                   "\n"
+            paste0(
+              "(", p, ") ",
+              ifelse(
+                port$parent,
+                "(Inherit) ",
+                ""
+              ),
+              port$name,
+              " => ",
+              ifelse(port$parent,
+                ifelse(is.reactive(pport$port) || is.reactivevalues(pport$port), "OK", "Empty"),
+                ifelse(is.reactive(port$port) || is.reactivevalues(port$port), "OK", "Empty")
+              ),
+              "\n"
             )
           )
         }
+      }
     },
-    trimParentNS = function(){
-      if(!is.null(self$parent_ns)){
+    trimParentNS = function() {
+      if (!is.null(self$parent_ns)) {
         return(
           sub(
-            paste0(self$parent_ns,"-"),
+            paste0(self$parent_ns, "-"),
             "",
             self$module_ns
           )

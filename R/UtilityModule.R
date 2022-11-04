@@ -19,10 +19,11 @@ UtilityModule <- R6::R6Class(
     #' @description
     #' Initialize function.
     #' @return `UtilityModule` object.
-    initialize = function(){
-      if(is.null(private$shared$store))
+    initialize = function() {
+      if (is.null(private$shared$store)) {
         private$shared$store <- ModStore$new()
-      
+      }
+
       #### Set Shiny Session Here  #######
       private$shiny_session <- shiny::getDefaultReactiveDomain()
     }

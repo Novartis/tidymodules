@@ -1,20 +1,18 @@
 
 ColorPicker <- R6::R6Class(
-  "ColorPicker", 
+  "ColorPicker",
   inherit = Panel,
   public = list(
-    initialize = function(...){
-
+    initialize = function(...) {
       super$initialize(...)
-      
+
       self$definePort({
         self$addOutputPort(
           name = "scheme",
           description = "string defining color scheme",
-          sample = list( scheme = "Dark2", reverse = FALSE, transparency = 1))
+          sample = list(scheme = "Dark2", reverse = FALSE, transparency = 1)
+        )
       })
-      
-      
     },
     ui = function(label = "Coloring") {
       super$ui(
@@ -26,27 +24,26 @@ ColorPicker <- R6::R6Class(
         )
       )
     },
-    server = function(input, output, session){
-      
-      super$server(input,output,session)
-      
+    server = function(input, output, session) {
+      super$server(input, output, session)
+
       observe({
         msg <- paste("Color scheme was selected", input$scheme)
         cat(msg, "\n")
       })
-      
-      input_values <- reactive({
+
+      self$react$input_values <- reactive({
         reactiveValuesToList(input)
       })
-      
+
       self$assignPort({
         self$updateOutputPort(
           id = "scheme",
-          output = input_values)
+          output = self$react$input_values
+        )
       })
-      
+
       return(input)
     }
   )
 )
-

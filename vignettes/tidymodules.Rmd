@@ -52,7 +52,7 @@ To find out the port structure, simply print the module object on the console. T
 ```{r}
 library(shiny)
 library(tidymodules)
-source(system.file(package = "tidymodules","shiny/examples/1_simple_addition/Addition.R"))
+source(system.file(package = "tidymodules", "shiny/examples/1_simple_addition/Addition.R"))
 Addition$new()
 ```
 
@@ -77,7 +77,7 @@ Example 1: Simple addition [<i class="fas fa-rocket"></i>](https://tidymodules.s
 ```{r, eval=FALSE}
 library(tidymodules)
 # source tidymodules Addition module definition
-source(system.file(package = "tidymodules","shiny/examples/1_simple_addition/Addition.R"))
+source(system.file(package = "tidymodules", "shiny/examples/1_simple_addition/Addition.R"))
 ```
 
 ### Instantiate module objects
@@ -97,12 +97,12 @@ In the app `ui()`, we call the `ui()` method of each module object.
 ui <- fixedPage(
   h2("tidymodules : Addition example"),
   shiny::fluidRow(
-    sliderInput("first_number",label = "Enter your first number",min = 1,max = 100,value = 1),br(),
-    
+    sliderInput("first_number", label = "Enter your first number", min = 1, max = 100, value = 1), br(),
+
     # Calling module ui() methods
-    mod(1)$ui(),br(),
-    mod(2)$ui(),br(),
-    "Total: ",textOutput("total_result")
+    mod(1)$ui(), br(),
+    mod(2)$ui(), br(),
+    "Total: ", textOutput("total_result")
   )
 )
 ```
@@ -114,7 +114,6 @@ server <- function(input, output, session) {
   # call the server() functions for all existing tidymodules modules in the global environment
   callModules()
 }
-
 ```
 
 ### Establish cross-module communication via 'tidy' pipe operators
@@ -124,16 +123,16 @@ The module communication is established through the pipe operators: `first %>1% 
 server <- function(input, output, session) {
   # call the server() functions for all existing tidymodules modules in the global environment
   callModules()
-  
-  first<-reactive({
+
+  first <- reactive({
     req(input$first_number)
   })
-  
-  # Setting up module commmunication 
+
+  # Setting up module commmunication
   observe({
     first %>1% mod(1) %1>1% mod(2)
   })
-  
+
   output$total_result <- renderText({
     result <- mod(2)$getOutput(1)
     result()

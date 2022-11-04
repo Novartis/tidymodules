@@ -1,6 +1,6 @@
 
 ScatterPlot <- R6::R6Class(
-  "ScatterPlot", 
+  "ScatterPlot",
   inherit = BasePlot,
   public = list(
     chart = function(data, cols) {
@@ -11,8 +11,5 @@ ScatterPlot <- R6::R6Class(
           scale_color_manual(values = c("black", "#66D65C"), guide = "none")
       }))
     }
-    
   )
 )
-
-

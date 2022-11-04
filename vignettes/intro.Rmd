@@ -37,16 +37,17 @@ library(R6)
 R6 classes are created using the [`R6::R6Class()` function](https://r6.r-lib.org/reference/R6Class.html), which is the only function from the R6 package that is typically used. The following is a simple example of defining an R6 class:
 ```{r, eval=TRUE}
 Calculator <- R6::R6Class(
-  classname = "Calculator", 
+  classname = "Calculator",
   public = list(
     value = NA,
     initialize = function(value) {
       self$value <- value
     },
     add = function(x = 1) {
-      self$value <- self$value + x 
+      self$value <- self$value + x
       invisible(self)
-    })
+    }
+  )
 )
 ```
 The first argument `classname` by convention uses `UpperCamelCase`. The second argument `public` encapsulates a list of methods (functions) and fields (objects) that make up the public interface of the object. By convention methods and fields use `snake_case`. Methods can access the methods and fields of the current object using `self$`. One should always assign the result of `R6Class()` into a variable with the same names as the `classname` because `R6Class()` returns an R6 object that defines the class. 
@@ -73,7 +74,7 @@ calculator1$value
 
 You can also add methods after class creation as illustrated below for the existing `Calculator` R6 class, although new methods and fields are only available to new objects.
 ```{r}
-Calculator$set("public", "subtract", function(x=1) {
+Calculator$set("public", "subtract", function(x = 1) {
   self$value <- self$value - x
   invisible(self)
 })
@@ -111,12 +112,12 @@ TidyModule <- R6::R6Class(
       # details omitted
     },
     # Other methods such
-    ui = function(){
+    ui = function() {
       return(shiny::tagList())
     },
-    server = function(input, 
-                      output, 
-                      session){
+    server = function(input,
+                      output,
+                      session) {
       # Need to isolate this block to avoid unecessary triggers
       shiny::isolate({
         private$shiny_session <- session
@@ -124,22 +125,20 @@ TidyModule <- R6::R6Class(
         private$shiny_output <- output
       })
     },
-    definePort = function(x){
+    definePort = function(x) {
       shiny::isolate(x)
     },
-    assignPort = function(x){
+    assignPort = function(x) {
       shiny::observe({
         shiny::isolate(x)
       })
     },
-    # Other public methods omitted 
+    # Other public methods omitted
   ),
-  private = list(  
+  private = list(
     # Details omitted
   )
 )
-      
-
 ```
 
 
@@ -156,46 +155,48 @@ RandomNumMod <- R6::R6Class(
   "RandomNumGenerator",
   inherit = tidymodules::TidyModule,
   public = list(
-    initialize = function(id = NULL){
+    initialize = function(id = NULL) {
       super$initialize(id)
-     
+
       self$definePort({
         self$addInputPort(
           name = "seed",
           description = "random number seed",
-          sample = 123)
-       
+          sample = 123
+        )
+
         self$addOutputPort(
           name = "number",
           description = "Random number",
-          sample = 123)
+          sample = 123
+        )
       })
     },
-    ui = function(){
+    ui = function() {
       tagList(
         verbatimTextOutput(self$ns("text"))
       )
     },
-    server = function(input, output, session){
-     
-      super$server(input,output,session)
-     
+    server = function(input, output, session) {
+      super$server(input, output, session)
+
       result <- reactive({
         s <- self$getInput("seed")
         set.seed(s())
-        floor(runif(1)*1e5)
+        floor(runif(1) * 1e5)
       })
-     
+
       output$text <- renderPrint({
         s <- self$getInput("seed")
         print(paste0("seed = ", s()))
         print(paste0("number = ", result()))
       })
-     
+
       self$assignPort({
         self$updateOutputPort(
           id = "number",
-          output = result)
+          output = result
+        )
       })
       return(result)
     }
@@ -208,7 +209,7 @@ Cross-communication between two `{tm}` modules is established using several flav
 ## Calling app
 randomNumMod1 <- RandomNumMod$new()
 randomNumMod2 <- RandomNumMod$new()
- 
+
 ui <- tagList(
   fluidPage(
     randomNumMod1$ui(),
@@ -216,17 +217,16 @@ ui <- tagList(
   )
 )
 server <- function(input, output, session) {
- 
   randomNumMod1$callModule()
   randomNumMod2$callModule()
- 
+
   seed_1 <- reactive(123)
- 
+
   observe({
     seed_1 %>1% randomNumMod1 %1>1% randomNumMod2
   })
 }
- 
+
 shinyApp(ui = ui, server = server)
 ```
 
