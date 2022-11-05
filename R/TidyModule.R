@@ -156,6 +156,27 @@ TidyModule <- R6::R6Class(
         self$pass_ports) {
         self$parent_mod %:i:% self
       }
+      # Handle debug mode
+      if(
+        !is.null(getOption("TM_DEBUG")) && 
+        !is.na(as.logical(getOption("TM_DEBUG")))
+        ){
+        private$debug <- as.logical(getOption("TM_DEBUG"))
+      }
+      # Rewrite ui function and add a debug button
+      if(private$debug){
+        unlockBinding("ui",self$.__enclos_env__$self)
+        ui_function <- self$ui
+        self$ui <- function(...){
+          tags$div(
+            tagList(
+              actionButton(self$ns("debug"),label = "", icon = icon("bug")),
+              ui_function(...)
+            )
+          )
+        }
+        lockBinding("ui",self$.__enclos_env__$self)
+      }
     },
     #' @description
     #' namespace function used to generate unique Id for HTML elements.
@@ -201,6 +222,11 @@ TidyModule <- R6::R6Class(
         private$shiny_input <- input
         private$shiny_output <- output
       })
+      # Handle debug
+      if(private$debug)
+        observeEvent(input$debug,{
+          browser()
+        })
     },
     #' @description
     #' Preview the module in a gadget.
@@ -717,6 +743,7 @@ TidyModule <- R6::R6Class(
       mode = NA,
       comment = NA
     )[numeric(0), ],
+    debug = FALSE,
     initFields = function() {
       self$i <- reactiveValues()
       self$o <- reactiveValues()
