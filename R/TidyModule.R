@@ -168,12 +168,27 @@ TidyModule <- R6::R6Class(
         unlockBinding("ui",self$.__enclos_env__$self)
         ui_function <- self$ui
         self$ui <- function(...){
-          tags$div(
-            tagList(
-              actionButton(self$ns("debug"),label = "", icon = icon("bug")),
-              ui_function(...)
+          data <- ui_function(...)
+          debug <- actionButton(
+            self$ns("debug"),
+            label = "", 
+            icon = icon("bug","fa-small",style = "color:red;"), 
+            class = "btn-sm",
+            title = capture.output(self$print()))
+          # Don't break tab-panel
+          if(!is.null(data$attribs$class) &&
+             data$attribs$class == "tab-pane"){
+            data$children <- c(list(debug),data$children)
+            data$attribs$style <- ifelse(
+              is.null(data$attribs$style),
+              "outline: 1px solid red;",
+              paste0(data$attribs$style,";outline: 1px solid red;")
             )
-          )
+            
+          }else
+            data <- tags$div(tagList(debug,data),style ="outline: 1px solid red;")
+          
+          data
         }
         lockBinding("ui",self$.__enclos_env__$self)
       }

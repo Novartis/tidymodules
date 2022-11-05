@@ -19,8 +19,6 @@ Helper function to launch the tidymodules examples.
 \examples{
 
 if (interactive()) {
-
- showExamples(1)
-
+  showExamples(1)
 }
 }

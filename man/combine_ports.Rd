@@ -24,8 +24,8 @@ MyModule$new("Mod3")
 callModules()
 observe({
   combine_ports(
-  input_1 = mod(1)$getOutput(1),
-  input_2 = mod(2)$getOutput(1)
+    input_1 = mod(1)$getOutput(1),
+    input_2 = mod(2)$getOutput(1)
   ) \%>1\% mod(3)
 })
 }

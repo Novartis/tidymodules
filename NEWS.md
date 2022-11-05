@@ -1,14 +1,20 @@
 # tidymodules 0.1.4
 
-- "collision" option : By default {tidymodules} doesn't allow the creation of the same module (with same id) at the same time. It fails with a collision error. This option which is FALSE by default, allows the user to disable collision check. This could be useful when users create module in an observer that get triggered twice at the same time.
+- ```collision``` option : By default {tidymodules} doesn't allow the creation of two modules with same id at the same time (same timestamp). It fails with a collision error. This option which is ```FALSE``` by default, allows the user to disable collision check. This could be useful when users create module in an observer that get triggered twice at the same time.
 
-- react attribute : Now all {tm} modules have a react attribute list to conveniently store server reactive objects (reactive / reactiveVal / reactiveValues). This list help store module reactive objects and facilitate their access from anywhere within the module object. Users need to use self$react$[reactive_id] as a variable name when initializing the objects. Update all examples with "react".
+- ```react``` attribute : Now all {tm} modules have a react attribute which is a list to conveniently store server reactive objects (reactive / reactiveVal / reactiveValues). This list help store module reactive objects and facilitate their access from anywhere within the module object. Users need to use ```self$react$[reactive_id]``` as a variable name when initializing the objects. All {tm} examples updated with ```react```.
 
-- Fix issue with parent module look-up function. Now the code takes the parent option provided by the user as main source of truth.
+- Debug mode with ```TM_DEBUG``` option : display a debug button and highlight module UI. Clicking the button allows to explore module environment in debug mode. try this ```options(TM_DEBUG=TRUE)```.
+
+- Fix issue with parent module look-up function. Now the code takes the parent option provided by the user as the source of truth.
 
 - Fix bug in calculating port length and pipe operators
 
-- Apply styler and fix issued found with lintr
+- Apply styler and fix some issues found with lintr
+
+# tidymodules 0.1.1 -> 0.1.3
+
+- Mainly bug fixes and some improvements here and there in the code
 
 # tidymodules 0.1.0.9007
 

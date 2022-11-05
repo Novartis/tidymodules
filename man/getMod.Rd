@@ -20,7 +20,7 @@ using module namespace/id and/or group
 MyModule <- R6::R6Class("MyModule", inherit = tidymodules::TidyModule)
 MyModule$new("MyFirst")
 MyModule$new("MySecond")
-MyModule$new("MyThird",group = "B")
+MyModule$new("MyThird", group = "B")
 
 # MyFirst
 getMod(1)
@@ -32,6 +32,6 @@ getMod(2)
 # MyThird
 getMod(2)
 getMod("B-MyThird")
-getMod(1,group="B")
+getMod(1, group = "B")
 
 }
