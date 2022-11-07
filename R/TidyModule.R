@@ -161,16 +161,16 @@ TidyModule <- R6::R6Class(
         !is.null(getOption("TM_DEBUG")) && 
         !is.na(as.logical(getOption("TM_DEBUG")))
         ){
-        private$debug <- as.logical(getOption("TM_DEBUG"))
+        private$debug <- paste0("debug-",10e7*runif(1))
       }
       # Rewrite ui function and add a debug button
-      if(private$debug){
+      if(!is.null(private$debug)){
         unlockBinding("ui",self$.__enclos_env__$self)
         ui_function <- self$ui
         self$ui <- function(...){
           data <- ui_function(...)
           debug <- actionButton(
-            self$ns("debug"),
+            self$ns(private$debug),
             label = "", 
             icon = icon("bug","fa-small",style = "color:red;"), 
             class = "btn-sm",
@@ -238,10 +238,10 @@ TidyModule <- R6::R6Class(
         private$shiny_output <- output
       })
       # Handle debug
-      if(private$debug)
-        observeEvent(input$debug,{
+      if(!is.null(private$debug))
+        observeEvent(input[[private$debug]],{
           browser()
-        })
+        },ignoreInit = TRUE)
     },
     #' @description
     #' Preview the module in a gadget.
@@ -758,7 +758,7 @@ TidyModule <- R6::R6Class(
       mode = NA,
       comment = NA
     )[numeric(0), ],
-    debug = FALSE,
+    debug = NULL,
     initFields = function() {
       self$i <- reactiveValues()
       self$o <- reactiveValues()
