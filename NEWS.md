@@ -1,9 +1,13 @@
 
 # tidymodules 0.1.5
 
-- ```obser``` attribute : Now all {tm} modules have an obser attribute which is a list of all server observers. This is a convenient location to explore existing observer and helps in garbage collection. Users need to use ```self$obser$[observer_id]``` as a variable name when initializing the objects. All {tm} examples updated with ```obser```.
+- ```obser``` attribute : Now all {tm} modules have an obser attribute which is a list of all server observers. This is a convenient location to explore existing observers and helps in garbage collection. Users need to use ```self$obser$[observer_id]``` as a variable name when initializing the observers. All {tm} examples updated with ```obser```.
 
-- ```destroy``` method : This function destroy the module, that is, remove module references from the ```ModStore``` (session module and edges) and destroy module observers using the ```obser``` attribute mentioned above. Note : This functionality rely on module developers to systematically store observer references under the  ```obser``` attribute.
+- ```destroy``` method : This function destroys the module, it removes all the module's references from the ```ModStore``` (session module and edges) and destroy module observers stored in the ```obser``` attribute mentioned above. Note : This functionality rely on module developers to systematically store observers  in the  ```obser``` list.
+
+- ```suspend``` method : This function suspends module's observers stored in the ```obser``` attribute mentioned above. Note : This functionality rely on module developers to systematically store observers  in the  ```obser``` list.
+
+- ```resume``` method : This function resumes module's observers stored in the ```obser``` attribute mentioned above. Note : This functionality rely on module developers to systematically store observers  in the  ```obser``` list.
 
 # tidymodules 0.1.4
 

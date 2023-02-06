@@ -719,13 +719,27 @@ TidyModule <- R6::R6Class(
       }
     },
     #' @description
-    #' This function destroy the module by removing it from the `ModStore`
+    #' This function destroys the module by removing it from the `ModStore`
     #' and by destroying all its observers. Please note that this function 
     #' works properly only if the observers created and used by the module are 
     #' added to `self$obser`.
     destroy = function(){
       private$shared$store$delMod(self)
       lapply(self$obser,function(x) x$destroy())
+    },
+    #' @description
+    #' This function suspends the module's observers. 
+    #' Please note that this function works properly only if the observers 
+    #' created and used by the module are added to `self$obser`.
+    suspend = function(){
+      lapply(self$obser,function(x) x$suspend())
+    },
+    #' @description
+    #' This function resumes the module's observers. 
+    #' Please note that this function works properly only if the observers 
+    #' created and used by the module are added to `self$obser`.
+    resume = function(){
+      lapply(self$obser,function(x) x$resume())
     },
     #' @description
     #' Retrieve the shiny input.
