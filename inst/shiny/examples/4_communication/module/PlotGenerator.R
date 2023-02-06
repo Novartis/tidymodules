@@ -65,13 +65,13 @@ PlotGenerator <- R6::R6Class(
       # Mandatory
       super$server(input, output, session)
 
-      observe({
+      self$obser$updateData <- observe({
         t <- self$getInput("tables")
         shiny::req(t)
         shiny::updateSelectInput(session, "data", choices = names(t), selected = "raw")
       })
 
-      observe({
+      self$obser$updateMapping <- observe({
         mPort <- self$getInput("mappings")
         req(mPort)
         options <- names(mPort())
@@ -81,11 +81,11 @@ PlotGenerator <- R6::R6Class(
         shiny::updateSelectInput(session, "mapping", choices = options)
       })
 
-      observe({
+      self$obser$logAddClick <- observe({
         cat(paste0("\n\n\n", input$add, "\n\n\n"))
       })
 
-      observeEvent(input$add, {
+      self$obser$add <- observeEvent(input$add, {
         reactive_mapping <- self$getInput("mappings")
         reactive_table <- self$getInput("tables")
 

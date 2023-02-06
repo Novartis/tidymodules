@@ -55,7 +55,7 @@ DataFilter <- R6::R6Class(
       })
 
       DTproxy <- DT::dataTableProxy("dtOutput", session = session)
-      shiny::observeEvent(input$clearRows, {
+      self$obser$clearRows <- observeEvent(input$clearRows, {
         DT::selectRows(DTproxy, NULL)
       })
 

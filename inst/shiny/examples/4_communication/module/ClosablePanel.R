@@ -9,8 +9,8 @@ ClosablePanel <- R6::R6Class(
         header,
         tags$span(
           style = "float: right;cursor: pointer;",
-          id = self$ns("close"),
-          shiny::icon("times", verify_fa = FALSE)
+          id = self$ns("close_span"),
+          actionButton(self$ns("close"),icon = shiny::icon("times", "fa-sm", verify_fa = FALSE), label = "")
         )
       )
       content <- tagList(
@@ -19,7 +19,7 @@ ClosablePanel <- R6::R6Class(
           tags$script(
             type = "text/javascript",
             paste0(
-              "setTimeout(function(){ $('#", self$ns("close"), "').click(function(){
+              "setTimeout(function(){ $('#", self$ns("close_span"), "').click(function(){
                 $('#", self$module_ns, "').parent().parent().remove()
                }) }, 500);"
             )
@@ -32,6 +32,16 @@ ClosablePanel <- R6::R6Class(
         header = header,
         content
       )
+    },
+    # server logic
+    server = function(input,output,session) {
+      # Mandatory
+      super$server(input, output, session)
+      
+      self$obser$close <- observe({
+        req(input$close)
+        self$destroy()
+      })
     }
   )
 )

@@ -27,7 +27,7 @@ ColorPicker <- R6::R6Class(
     server = function(input, output, session) {
       super$server(input, output, session)
 
-      observe({
+      self$obser$log <- observe({
         msg <- paste("Color scheme was selected", input$scheme)
         cat(msg, "\n")
       })

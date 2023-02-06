@@ -59,10 +59,10 @@ Counter <- R6::R6Class(
 
       # Module server logic starts here ...
       self$react$count <- reactiveVal(0)
-      observeEvent(input$button, {
+      self$obser$add <- observeEvent(input$button, {
         self$react$count(self$react$count() + 1)
       })
-      observeEvent(self$execInput("reset"), {
+      self$obser$reset <- observeEvent(self$execInput("reset"), {
         self$react$count(0)
       })
       output$out <- renderText({

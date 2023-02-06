@@ -39,7 +39,7 @@ ColSelector <- R6::R6Class(
         mapping = list()
       )
 
-      observe({
+      self$obser$reset <- observe({
         dataPort <- self$getInput("data")
         req(dataPort)
         d <- dataPort()
@@ -53,7 +53,7 @@ ColSelector <- R6::R6Class(
         )
       })
 
-      observeEvent(input$add, {
+      self$obser$add <- observeEvent(input$add, {
         d <- self$getInput("data")()
         req(!is.null(d))
         insertUI(
@@ -75,7 +75,7 @@ ColSelector <- R6::R6Class(
         self$react$cols$current <- self$react$cols$current + 1
       })
 
-      observe({
+      self$obser$mappingKey <- observe({
         key <- paste0("mapping-", self$react$cols$current - 1)
         observeEvent(input[[key]], {
           self$react$cols$mapping[[key]] <- input[[key]]

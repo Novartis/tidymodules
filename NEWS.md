@@ -1,3 +1,10 @@
+
+# tidymodules 0.1.5
+
+- ```obser``` attribute : Now all {tm} modules have an obser attribute which is a list of all server observers. This is a convenient location to explore existing observer and helps in garbage collection. Users need to use ```self$obser$[observer_id]``` as a variable name when initializing the objects. All {tm} examples updated with ```obser```.
+
+- ```destroy``` method : This function destroy the module, that is, remove module references from the ```ModStore``` (session module and edges) and destroy module observers using the ```obser``` attribute mentioned above. Note : This functionality rely on module developers to systematically store observer references under the  ```obser``` attribute.
+
 # tidymodules 0.1.4
 
 - ```collision``` option : By default {tidymodules} doesn't allow the creation of two modules with same id at the same time (same timestamp). It fails with a collision error. This option which is ```FALSE``` by default, allows the user to disable collision check. This could be useful when users create module in an observer that get triggered twice at the same time.

@@ -211,6 +211,18 @@ ModStore <- R6::R6Class(
       })
     },
     #' @description
+    #' Remove module edges
+    #' @param m TidyModule object.
+    delEdges = function(m){
+      isolate({
+        s <- private$getS(m)
+        ns <- as.character(m$module_ns)
+        if (length(s$edges) != 0) {
+          s$edges <- s$edges %>% filter(from != ns &  to != ns)
+        }
+      })
+    },
+    #' @description
     #' Add module into the ModStore.
     #' @param m TidyModule object.
     addMod = function(m) {
@@ -245,7 +257,26 @@ ModStore <- R6::R6Class(
     #' Delete a module from the ModStore.
     #' @param m TidyModule object.
     delMod = function(m) {
-      # TODO : Implement this function
+      isolate({
+        s <- private$getS(m)
+        ns <- as.character(m$module_ns)
+        s$collection[[ns]] <- NULL
+        if (!is.null(m$group)) {
+          g <- as.character(m$group)
+          if (!is.null(s$g_collection[[g]]))
+            s$g_collection[[g]][[ns]] <- NULL
+        }
+        if (!is.null(m$parent_ns)) {
+          p <- as.character(m$parent_ns)
+          if (!is.null(s$n_collection[[p]]))
+            s$n_collection[[p]][[ns]] <- NULL
+        }
+        s$ns <- s$ns[-grep(as.character(m$module_ns),s$ns)]
+        # delete edges 
+        self$delEdges(m)
+        # track update time
+        s$updated <- Sys.time()
+      })
     },
     #' @description
     #' Print the ModStore object.

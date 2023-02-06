@@ -38,6 +38,8 @@ TidyModule <- R6::R6Class(
     port_names = NULL,
     #' @field react list of reactive objects used by the module.
     react = list(),
+    #' @field obser list of observers used by the module.
+    obser = list(),
     #' @description
     #' Create a new tidymodules module.
     #' @param id Unique Id to assign to the module. Default to a generated Id using module's class and order of initialization.
@@ -715,6 +717,15 @@ TidyModule <- R6::R6Class(
       if (!is.null(s)) {
         private$shiny_session <- s
       }
+    },
+    #' @description
+    #' This function destroy the module by removing it from the `ModStore`
+    #' and by destroying all its observers. Please note that this function 
+    #' works properly only if the observers created and used by the module are 
+    #' added to `self$obser`.
+    destroy = function(){
+      private$shared$store$delMod(self)
+      lapply(self$obser,function(x) x$destroy())
     },
     #' @description
     #' Retrieve the shiny input.
