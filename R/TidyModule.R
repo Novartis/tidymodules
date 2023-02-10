@@ -40,6 +40,8 @@ TidyModule <- R6::R6Class(
     react = list(),
     #' @field obser list of observers used by the module.
     obser = list(),
+    #' @field suspended boolean indicating whether the module observers are suspended.
+    suspended = FALSE,
     #' @description
     #' Create a new tidymodules module.
     #' @param id Unique Id to assign to the module. Default to a generated Id using module's class and order of initialization.
@@ -733,6 +735,7 @@ TidyModule <- R6::R6Class(
     #' created and used by the module are added to `self$obser`.
     suspend = function(){
       lapply(self$obser,function(x) x$suspend())
+      self$suspended <- TRUE
     },
     #' @description
     #' This function resumes the module's observers. 
@@ -740,6 +743,7 @@ TidyModule <- R6::R6Class(
     #' created and used by the module are added to `self$obser`.
     resume = function(){
       lapply(self$obser,function(x) x$resume())
+      self$suspended <- FALSE
     },
     #' @description
     #' Retrieve the shiny input.
