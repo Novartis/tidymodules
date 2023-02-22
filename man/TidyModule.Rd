@@ -45,6 +45,10 @@ m
 \item{\code{port_names}}{list of input and output port names.}
 
 \item{\code{react}}{list of reactive objects used by the module.}
+
+\item{\code{obser}}{list of observers used by the module.}
+
+\item{\code{suspended}}{boolean indicating whether the module observers are suspended.}
 }
 \if{html}{\out{</div>}}
 }
@@ -91,6 +95,9 @@ m
 \item \href{#method-TidyModule-print}{\code{TidyModule$print()}}
 \item \href{#method-TidyModule-deepClone}{\code{TidyModule$deepClone()}}
 \item \href{#method-TidyModule-reset}{\code{TidyModule$reset()}}
+\item \href{#method-TidyModule-destroy}{\code{TidyModule$destroy()}}
+\item \href{#method-TidyModule-suspend}{\code{TidyModule$suspend()}}
+\item \href{#method-TidyModule-resume}{\code{TidyModule$resume()}}
 \item \href{#method-TidyModule-getShinyInput}{\code{TidyModule$getShinyInput()}}
 \item \href{#method-TidyModule-getShinyOutput}{\code{TidyModule$getShinyOutput()}}
 \item \href{#method-TidyModule-getShinySession}{\code{TidyModule$getShinySession()}}
@@ -892,6 +899,51 @@ This function reset the ports.
 }
 \if{html}{\out{</div>}}
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TidyModule-destroy"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-destroy}{}}}
+\subsection{Method \code{destroy()}}{
+This function destroys the module by removing it from the \code{ModStore}
+and by destroying all its observers. Please note that this function
+works properly only if the observers created and used by the module are
+added to \code{self$obser}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$destroy(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{optional logical indicating whether to destroy the
+child modules as well. default to FALSE.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TidyModule-suspend"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-suspend}{}}}
+\subsection{Method \code{suspend()}}{
+This function suspends the module's observers.
+Please note that this function works properly only if the observers
+created and used by the module are added to \code{self$obser}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$suspend()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TidyModule-resume"></a>}}
+\if{latex}{\out{\hypertarget{method-TidyModule-resume}{}}}
+\subsection{Method \code{resume()}}{
+This function resumes the module's observers.
+Please note that this function works properly only if the observers
+created and used by the module are added to \code{self$obser}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TidyModule$resume()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TidyModule-getShinyInput"></a>}}

@@ -39,6 +39,7 @@ s$isStored(m)
 \item \href{#method-ModStore-getMods}{\code{ModStore$getMods()}}
 \item \href{#method-ModStore-getEdges}{\code{ModStore$getEdges()}}
 \item \href{#method-ModStore-addEdge}{\code{ModStore$addEdge()}}
+\item \href{#method-ModStore-delEdges}{\code{ModStore$delEdges()}}
 \item \href{#method-ModStore-addMod}{\code{ModStore$addMod()}}
 \item \href{#method-ModStore-delMod}{\code{ModStore$delMod()}}
 \item \href{#method-ModStore-print}{\code{ModStore$print()}}
@@ -193,6 +194,23 @@ or between two modules.
 \item{\code{mode}}{The type of edge, default to 'direct'.}
 
 \item{\code{comment}}{Any additional comment.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ModStore-delEdges"></a>}}
+\if{latex}{\out{\hypertarget{method-ModStore-delEdges}{}}}
+\subsection{Method \code{delEdges()}}{
+Remove module edges
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ModStore$delEdges(m)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{m}}{TidyModule object.}
 }
 \if{html}{\out{</div>}}
 }

@@ -1,3 +1,6 @@
+# tidymodules 0.1.6
+
+- ```deep``` option : optional argument passed to the module ```destroy``` method. Allows the destruction of child module. ```FALSE``` by default. 
 
 # tidymodules 0.1.5
 

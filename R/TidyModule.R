@@ -51,7 +51,7 @@ TidyModule <- R6::R6Class(
     #' @param collision Allow module id collision. Default to false.
     #' Id collision happens when you try to creating the same module (same Id) twice at the same time.  Optional
     #' @return A new `TidyModule` object.
-    initialize = function(id = NULL, inherit = TRUE, group = NULL, parent = NULL, collision = FALSE) {
+     initialize = function(id = NULL, inherit = TRUE, group = NULL, parent = NULL, collision = FALSE) {
       #### Initialize ModStore #######
       if (is.null(private$shared$store)) {
         private$shared$store <- ModStore$new()
@@ -190,7 +190,7 @@ TidyModule <- R6::R6Class(
             )
             
           }else
-            data <- tags$div(tagList(debug,data),style ="outline: 1px solid red;")
+            data <- tags$div(tagList(debug, data),style ="outline: 1px solid red;")
           
           data
         }
@@ -243,7 +243,7 @@ TidyModule <- R6::R6Class(
       })
       # Handle debug
       if(!is.null(private$debug))
-        observeEvent(input[[private$debug]],{
+        self$obser$tm_debug <- observeEvent(input[[private$debug]],{
           browser()
         },ignoreInit = TRUE)
     },
@@ -725,9 +725,17 @@ TidyModule <- R6::R6Class(
     #' and by destroying all its observers. Please note that this function 
     #' works properly only if the observers created and used by the module are 
     #' added to `self$obser`.
-    destroy = function(){
+    #' @param deep optional logical indicating whether to destroy the
+    #' child modules as well. default to FALSE.
+    destroy = function(deep = FALSE){
       private$shared$store$delMod(self)
       lapply(self$obser,function(x) x$destroy())
+      if(deep){
+        for(m in self$getSession()$collection)
+          # Child module namespace always starts with parent's namespace 
+          if(grepl(paste0("^",self$module_ns),m$module_ns))
+            m$destroy()
+      }
     },
     #' @description
     #' This function suspends the module's observers. 

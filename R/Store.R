@@ -61,7 +61,7 @@ Store <- R6::R6Class(
       # Mandatory
       super$server(input, output, session)
 
-      session_df <- reactive({
+      self$react$session_df <- reactive({
         s <- self$getStore()
         d <- data.frame(aid = NULL, path = NULL, sid = NULL, created = NULL, mod_cnt = NULL, edge_cnt = NULL)
 
@@ -86,7 +86,7 @@ Store <- R6::R6Class(
         d
       })
 
-      mods_df <- reactive({
+      self$react$mods_df <- reactive({
         s <- self$getStore()
         d <- do.call(
           rbind,
@@ -110,7 +110,7 @@ Store <- R6::R6Class(
         d
       })
 
-      edges_df <- reactive({
+      self$react$edges_df <- reactive({
         s <- self$getStore()
         e <- s$getEdges(self)
         req(nrow(e) != 0)
@@ -119,20 +119,20 @@ Store <- R6::R6Class(
       })
 
       output$sessions <- DT::renderDataTable({
-        session_df()
+        self$react$session_df()
       })
 
       output$edges <- DT::renderDataTable({
-        edges_df()
+        self$react$edges_df()
       })
 
       output$mods <- DT::renderDataTable({
-        d <- mods_df()
+        self$react$mods_df()
       })
 
       output$portD <- visNetwork::renderVisNetwork({
-        edges <- edges_df()
-        nodes <- mods_df()
+        edges <- self$react$edges_df()
+        nodes <- self$react$mods_df()
 
         e <- edges %>%
           mutate(

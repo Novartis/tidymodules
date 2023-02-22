@@ -12,6 +12,7 @@ tidymodules offers a robust framework for developing shiny modules based on R6 c
 Useful links:
 \itemize{
   \item \url{https://github.com/Novartis/tidymodules}
+  \item \url{http://opensource.nibr.com/tidymodules/}
   \item Report bugs at \url{https://github.com/Novartis/tidymodules/issues}
 }
 
