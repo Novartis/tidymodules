@@ -163,7 +163,8 @@ TidyModule <- R6::R6Class(
       # Handle debug mode
       if(
         !is.null(getOption("TM_DEBUG")) && 
-        !is.na(as.logical(getOption("TM_DEBUG")))
+        !is.na(as.logical(getOption("TM_DEBUG"))) &&
+        as.logical(getOption("TM_DEBUG"))
         ){
         private$debug <- paste0("debug-",10e7*runif(1))
       }
