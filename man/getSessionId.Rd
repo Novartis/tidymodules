@@ -7,7 +7,7 @@
 getSessionId(session = getDefaultReactiveDomain())
 }
 \arguments{
-\item{out}{A shiny output as provide by the shiny server function.}
+\item{session}{A shiny session as provide by the shiny server function.}
 }
 \value{
 A session ID

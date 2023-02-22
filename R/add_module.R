@@ -233,6 +233,7 @@ cat_info <- function(...) {
   )
 }
 
+#' @importFrom fs path_file
 cat_exists <- function(where) {
   cat_red_bullet(
     sprintf(

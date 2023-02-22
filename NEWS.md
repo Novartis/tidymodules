@@ -1,6 +1,9 @@
 # tidymodules 0.1.6
 
-- ```deep``` option : optional argument passed to the module ```destroy``` method. Allows the destruction of child module. ```FALSE``` by default. 
+- ```deep``` option : optional argument passed to the module ```destroy``` method. Allows the destruction of child module. ```FALSE``` by default.
+- Pipes updates : new ```%c>%```, copy all inputs; updated ```%:i:%``` and ```%:pi:%``` pipes. 
+- Clear some check warnings/notes
+- Fix other issues
 
 # tidymodules 0.1.5
 

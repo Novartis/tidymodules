@@ -108,16 +108,18 @@ make_single_pipe <- function(p = NULL, f = FALSE, rev = FALSE) {
 
 #' multi_port_map
 #'
-#' Pipe function for sequentially mapping left module outputs to
+#' Pipe function for sequentially mapping/copying left module ports to
 #' right module inputs
 #'
 #' @param l_mod Left module.
 #' @param r_mod Right module.
-#' @param f fast boolean. Used with the '>>' or '<<' signs to return the item at the opposite of the arrow.
+#' @param f fast boolean. If TRUE return the right module.
 #' @param t mapping type. Default to NULL. Could also be 'input' for mapping input to input.
+#' @param is_parent Is the left module a parent module? Default to FALSE.
+#' @param is_copy boolean. Default FALSE. Force the copy of the output ports.
 #'
 #' @keywords internal
-multi_port_map <- function(l_mod, r_mod, f = FALSE, t = NULL) {
+multi_port_map <- function(l_mod, r_mod, f = FALSE, t = NULL, is_parent = FALSE, is_copy = FALSE) {
   if (!is(l_mod, "TidyModule")) {
     stop(paste0(deparse(substitute(l_mod)), " is not a Module"))
   }
@@ -139,7 +141,7 @@ multi_port_map <- function(l_mod, r_mod, f = FALSE, t = NULL) {
   }
   if (!is.null(t)) {
     if (t == "input" && !is.null(outs)) {
-      r_mod$updateInputPorts(outs, is_parent = TRUE)
+      r_mod$updateInputPorts(outs, is_parent = is_parent)
       for (n in names(outs)) {
         if (outs[[n]]$inherit) {
           (r_mod$getStore())$addEdge(
@@ -150,24 +152,37 @@ multi_port_map <- function(l_mod, r_mod, f = FALSE, t = NULL) {
       }
     }
   } else {
-    if (length(outs) != length(ins)) {
-      stop(paste0(
-        "Modules ports length error: ",
-        deparse(substitute(l_mod)), " [", length(names(outs)), "] / ",
-        deparse(substitute(r_mod)), " [", length(names(ins)), "]"
-      ))
+    if(is_copy){
+      r_mod$updateInputPorts(outs, is_parent = is_parent)
+      for (n in names(outs)) {
+        if (outs[[n]]$inherit) {
+          (r_mod$getStore())$addEdge(
+            from = list(type = "output", m = l_mod, port = n),
+            to =   list(type = "input", m = r_mod, port = n)
+          )
+        }
+      }
+    } else {
+      if (length(outs) != length(ins)) {
+        stop(paste0(
+          "Modules ports length error: ",
+          deparse(substitute(l_mod)), " [", length(names(outs)), "] / ",
+          deparse(substitute(r_mod)), " [", length(names(ins)), "]"
+        ))
+      }
+      
+      for (n in names(outs)) {
+        r_mod$updateInputPort(
+          id = n,
+          input = l_mod$getOutputPort(id = n)
+        )
+        (r_mod$getStore())$addEdge(
+          from = list(type = "output", m = l_mod, port = n),
+          to = list(type = "input", m = r_mod, port = n)
+        )
+      }
     }
 
-    for (n in names(outs)) {
-      r_mod$updateInputPort(
-        id = n,
-        input = l_mod$getOutputPort(id = n)
-      )
-      (r_mod$getStore())$addEdge(
-        from = list(type = "output", m = l_mod, port = n),
-        to = list(type = "input", m = r_mod, port = n)
-      )
-    }
   }
 
 
@@ -315,6 +330,7 @@ port_map <- function(lp, rp, f = FALSE) {
 #' @title Multi-port mapping function
 #'
 #' @description This pipe maps all the left output ports to the right input ports.
+#' The right module input ports should match the number of the left output ports.
 #'
 #' @param l left module.
 #' @param r right module.
@@ -324,6 +340,22 @@ port_map <- function(lp, rp, f = FALSE) {
 #' @export
 "%:>:%" <- function(l, r) {
   return(multi_port_map(l, r))
+}
+
+#'
+#' @title Multi-port mapping function
+#'
+#' @description This pipe copy all the left output ports to the right input ports.
+#' This is a copy not a mapping. The right module input ports will be created.
+#'
+#' @param l left module.
+#' @param r right module.
+#'
+#' @return The right module
+#'
+#' @export
+"%:c>:%" <- function(l, r) {
+  return(multi_port_map(l, r, is_copy = TRUE))
 }
 
 #'
@@ -344,7 +376,7 @@ port_map <- function(lp, rp, f = FALSE) {
 #'
 #' @title Multi-port mapping function
 #'
-#' @description This pipe maps all the left input ports to the right input ports.
+#' @description This pipe copy all the left input ports to the right input ports.
 #'
 #' @param l left module.
 #' @param r right module.
@@ -355,6 +387,22 @@ port_map <- function(lp, rp, f = FALSE) {
 "%:i:%" <- function(l, r) {
   return(multi_port_map(l, r, t = "input"))
 }
+
+#'
+#' @title Multi-port mapping function
+#'
+#' @description This pipe copy all the left input ports to the right input ports in a parent to child mode.
+#'
+#' @param l parent module.
+#' @param r child module.
+#'
+#' @return The child module.
+#'
+#' @export
+"%:pi:%" <- function(l, r) {
+  return(multi_port_map(l, r, t = "input", is_parent = TRUE))
+}
+
 
 ns_export <- function(pnames) {
   paste0(sprintf("export(\"%s\")", pnames), collapse = "\n")

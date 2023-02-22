@@ -4,19 +4,30 @@
 \alias{multi_port_map}
 \title{multi_port_map}
 \usage{
-multi_port_map(l_mod, r_mod, f = FALSE, t = NULL)
+multi_port_map(
+  l_mod,
+  r_mod,
+  f = FALSE,
+  t = NULL,
+  is_parent = FALSE,
+  is_copy = FALSE
+)
 }
 \arguments{
 \item{l_mod}{Left module.}
 
 \item{r_mod}{Right module.}
 
-\item{f}{fast boolean. Used with the '>>' or '<<' signs to return the item at the opposite of the arrow.}
+\item{f}{fast boolean. If TRUE return the right module.}
 
 \item{t}{mapping type. Default to NULL. Could also be 'input' for mapping input to input.}
+
+\item{is_parent}{Is the left module a parent module? Default to FALSE.}
+
+\item{is_copy}{boolean. Default FALSE. Force the copy of the output ports.}
 }
 \description{
-Pipe function for sequentially mapping left module outputs to
+Pipe function for sequentially mapping/copying left module ports to
 right module inputs
 }
 \keyword{internal}

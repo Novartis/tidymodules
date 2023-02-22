@@ -6,8 +6,11 @@
 \usage{
 listModules(verbose = FALSE, global = FALSE)
 }
+\arguments{
+\item{verbose}{Display module description as well}
+
+\item{global}{use the global session? Default to FALSE}
+}
 \description{
 This function list module objects found in the current session
-
-#' @param verbose Display module description as well
 }

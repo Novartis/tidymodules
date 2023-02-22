@@ -22,7 +22,7 @@ map_ports <- function(leftModule = NULL, leftPort = 1,
     stop("Right port ID 'rightPort' should be numeric")
   }
 
-  fct <- mkDoublePipe(leftPort, rightPort, rev = reverse)
+  fct <- make_double_pipe(leftPort, rightPort, rev = reverse)
   fct(leftModule, rightModule)
 }
 

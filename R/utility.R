@@ -129,14 +129,18 @@ oport <- function(id = 1, p = 1, g = NULL) {
 #'
 #' @description This function list module objects found in the current session
 #'
-#' #' @param verbose Display module description as well
+#' @param verbose Display module description as well
+#' @param global use the global session? Default to FALSE
 #'
 #' @importFrom  cli cat_bullet cat_boxx
+#' @importFrom  utils capture.output
 #' @import shiny
 #'
 #' @export
 listModules <- function(verbose = FALSE, global = FALSE) {
   currentSession <- UtilityModule$new()$getSession()
+  if(global)
+    currentSession <-  UtilityModule$new()$getGlobalSession()
   isolate({
     if (length(currentSession$collection) == 0) {
       cat_bullet(paste0("No module found!"),
@@ -310,7 +314,7 @@ NULL
 #' This function is the main function used by tidymodules to find the current session Id.
 #' It takes an optional ShinySession object as argument. If null, default to the global_session.
 #'
-#' @param out A shiny output as provide by the shiny server function.
+#' @param session A shiny session as provide by the shiny server function.
 #'
 #' @return A session ID
 #'

@@ -32,7 +32,8 @@ Roxygen: list(markdown = TRUE)
 URL: https://github.com/Novartis/tidymodules,
     http://opensource.nibr.com/tidymodules/
 BugReports: https://github.com/Novartis/tidymodules/issues
-Suggests: 
+Suggests:
+    rstudioapi, 
     testthat,
     knitr,
     rmarkdown,

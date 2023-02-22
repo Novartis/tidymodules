@@ -158,7 +158,7 @@ TidyModule <- R6::R6Class(
         !is.null(self$parent_mod) &&
         is(self$parent_mod, "TidyModule") &&
         self$pass_ports) {
-        self$parent_mod %:i:% self
+        self$parent_mod %:pi:% self
       }
       # Handle debug mode
       if(
@@ -680,7 +680,7 @@ TidyModule <- R6::R6Class(
             self$getStore()$addMod(copy[[at]])
             # Now add ports to child if any
             if (copy[[at]]$pass_ports) {
-              copy %:i:% copy[[at]]
+              copy %:pi:% copy[[at]]
             }
           } else if (is.list(self[[at]]) &&
             length(copy[[at]]) > 0 &&
@@ -693,7 +693,7 @@ TidyModule <- R6::R6Class(
                 self$getStore()$addMod(l[[k]])
                 # Now add ports to child if any
                 if (l[[k]]$pass_ports) {
-                  copy %:i:% l[[k]]
+                  copy %:pi:% l[[k]]
                 }
               }
             }

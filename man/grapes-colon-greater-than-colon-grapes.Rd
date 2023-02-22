@@ -16,4 +16,5 @@ The right module
 }
 \description{
 This pipe maps all the left output ports to the right input ports.
+The right module input ports should match the number of the left output ports.
 }

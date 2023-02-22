@@ -24,8 +24,8 @@ add_tm_snippets <- function(force = FALSE) {
 
   # retrieve current and new snippets
   current_all_snippets <- snippets_get(path = path)
-  current_non_tm_snippets <- current_all_snippets %>% discard(grepl("^tm\\.", names(.), perl = TRUE))
-  current_tm_snippets <- current_all_snippets %>% keep(grepl("^tm\\.", names(.), perl = TRUE))
+  current_non_tm_snippets <- current_all_snippets[!grepl("^tm\\.", names(current_all_snippets), perl = TRUE)]
+  current_tm_snippets <- current_all_snippets[grepl("^tm\\.", names(current_all_snippets), perl = TRUE)]
   new_tm_snippets <- snippets_read(path = system.file("rstudio/r.snippets", package = "tidymodules"))
   # calculate differences
   del_snippets <- setdiff(names(current_tm_snippets), names(new_tm_snippets))

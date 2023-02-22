@@ -43,7 +43,7 @@ showExamples <- function(id = NULL, server = F, options = NULL) {
 #'
 #' @description Utility function for managing package dependencies for tidymodules examples
 #'
-#' @param p character verctor of package names
+#' @param packages character vector of package names
 #'
 #' @export
 #'

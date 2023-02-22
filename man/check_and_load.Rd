@@ -7,7 +7,7 @@
 check_and_load(packages)
 }
 \arguments{
-\item{p}{character verctor of package names}
+\item{packages}{character vector of package names}
 }
 \description{
 Utility function for managing package dependencies for tidymodules examples
