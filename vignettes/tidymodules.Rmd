@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Overview
+## Overview <img src="../man/figures/logo.svg"  style="float:right; height:139px;" />
 
 This vignette aims to provide a high level introduction to tidymodules. We recommend reading this article for anyone who is new to tidymodules, especially those tidymodules module "consumers", who use existing module classes as a "black-box" in their Shiny app development. This article includes the following topics:
 
