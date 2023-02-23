@@ -11,3 +11,5 @@ $run_dev.*
 ^_pkgdown\.yml$
 ^pkgdown$
 ^docs$ 
+^docs$
+^\.github$

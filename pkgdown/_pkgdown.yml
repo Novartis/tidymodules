@@ -39,6 +39,7 @@ reference:
   - '`showExamples`'
   - '`getSessionId`'
   - '`callModules`'
+  - '`listModules`'
   - '`add_module`'
   - '`add_tm_snippets`'
   - '`check_and_load`'
@@ -70,5 +71,10 @@ reference:
   - '`%x<<y%`'
   - '`%:>:%`'
   - '`%:>>:%`'
+  - '`%:c>:%`'
   - '`%:i:%`'
+  - '`%:pi:%`'
+- title: internal
+  contents:
+  - '`UtilityModule`'
 
