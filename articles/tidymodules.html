@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidymodules</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.6</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/tidymodules.html">Get started</a>
 </li>
@@ -57,7 +53,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -86,8 +82,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/Novartis/tidymodules/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/Novartis/tidymodules/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -105,198 +101,267 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to tidymodules</h1>
-                        <h4 class="author">Xiao Ni, Mustapha Larbaoui</h4>
+                        <h4 data-toc-skip class="author">Xiao Ni,
+Mustapha Larbaoui</h4>
             
-            <h4 class="date">2020-06-20</h4>
+            <h4 data-toc-skip class="date">2023-02-23</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/Novartis/tidymodules/blob/master/vignettes/tidymodules.Rmd"><code>vignettes/tidymodules.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Novartis/tidymodules/blob/HEAD/vignettes/tidymodules.Rmd" class="external-link"><code>vignettes/tidymodules.Rmd</code></a></small>
       <div class="hidden name"><code>tidymodules.Rmd</code></div>
 
     </div>
 
     
     
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
-<p>This vignette aims to provide a high level introduction to tidymodules. We recommend reading this article for anyone who is new to tidymodules, especially those tidymodules module “consumers”, who use existing module classes as a “black-box” in their Shiny app development. This article includes the following topics:</p>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>This vignette aims to provide a high level introduction to
+tidymodules. We recommend reading this article for anyone who is new to
+tidymodules, especially those tidymodules module “consumers”, who use
+existing module classes as a “black-box” in their Shiny app development.
+This article includes the following topics:</p>
 <ul>
-<li>TidyModule ports: key infrastructure for managing cross-module communication</li>
-<li>How to use tidymodules modules as a Shiny app developer and tidymodules consumer</li>
+<li>TidyModule ports: key infrastructure for managing cross-module
+communication</li>
+<li>How to use tidymodules modules as a Shiny app developer and
+tidymodules consumer</li>
 <li>Existing examples</li>
 </ul>
-<p>If you would like to develop new tidymodules modules, please refer to the vignettes under “Articles”.</p>
+<p>If you would like to develop new tidymodules modules, please refer to
+the vignettes under “Articles”.</p>
 </div>
-<div id="tidymodule-structure-ports" class="section level2">
-<h2 class="hasAnchor">
-<a href="#tidymodule-structure-ports" class="anchor"></a>TidyModule structure: ports</h2>
-<div id="introducing-ports" class="section level3">
-<h3 class="hasAnchor">
-<a href="#introducing-ports" class="anchor"></a>Introducing ports</h3>
-<p>In conventional Shiny modules, communication between modules is realized through the following</p>
+<div class="section level2">
+<h2 id="tidymodule-structure-ports">TidyModule structure: ports<a class="anchor" aria-label="anchor" href="#tidymodule-structure-ports"></a>
+</h2>
+<div class="section level3">
+<h3 id="introducing-ports">Introducing ports<a class="anchor" aria-label="anchor" href="#introducing-ports"></a>
+</h3>
+<p>In conventional Shiny modules, communication between modules is
+realized through the following</p>
 <ul>
 <li>
-<strong>Input:</strong> passing reactives as functional parameters into the Shiny <code><a href="https://rdrr.io/pkg/shiny/man/callModule.html">callModule()</a></code> function</li>
+<strong>Input:</strong> passing reactives as functional parameters
+into the Shiny <code><a href="https://shiny.rstudio.com/reference/shiny/latest/callModule.html" class="external-link">callModule()</a></code> function</li>
 <li>
-<strong>Output:</strong> returning reactives in the module <code>server()</code> function.</li>
+<strong>Output:</strong> returning reactives in the module
+<code>server()</code> function.</li>
 </ul>
-<p>It can be challenging to keep track of the arbitrary number of input and output reactives for complex apps with many interacting modules.</p>
-<p>To address this challenge, we introduced input/output ports as fields of the TidyModule class object in tidymodules. The concept is illustrated in the following diagram. In this example, Module1 and Module2 each have input and output ports that hold reactives. The ports defined in each modules provides a data structure that allow TidyModule to establish a communication between them.</p>
+<p>It can be challenging to keep track of the arbitrary number of input
+and output reactives for complex apps with many interacting modules.</p>
+<p>To address this challenge, we introduced input/output ports as fields
+of the TidyModule class object in tidymodules. The concept is
+illustrated in the following diagram. In this example, Module1 and
+Module2 each have input and output ports that hold reactives. The ports
+defined in each modules provides a data structure that allow TidyModule
+to establish a communication between them.</p>
 <p><img src="figures/ports_intro.png"></p>
-<p>The two modules are connected via a tidymodules pipe operator <code><a href="../reference/grapes-x-greater-than-y-grapes.html">%x&gt;y%</a></code> where x and y could be any numbers from 1 to 10. For example,<code><a href="../reference/grapes-x-greater-than-y-grapes.html">%1&gt;1%</a></code> means the left module’s first output port (x = 1) is mapped to the first input port (y = 1) of the right module. Multiple connected tidymodules modules with such directed edges form a directed graph network, which will be further discussed later in this article.</p>
+<p>The two modules are connected via a tidymodules pipe operator
+<code>%x&gt;y%</code> where x and y could be any numbers from 1 to 10.
+For example,<code>%1&gt;1%</code> means the left module’s first output
+port (x = 1) is mapped to the first input port (y = 1) of the right
+module. Multiple connected tidymodules modules with such directed edges
+form a directed graph network, which will be further discussed later in
+this article.</p>
 </div>
-<div id="finding-out-ports-of-a-tidymodules-module" class="section level3">
-<h3 class="hasAnchor">
-<a href="#finding-out-ports-of-a-tidymodules-module" class="anchor"></a>Finding out ports of a tidymodules module</h3>
-<p>To find out the port structure, simply print the module object on the console. The following example shows that the <code>Addition</code> module has one input port named “left” and one output port named “total” that are both empty, i.e. not being assigned an input reactive (input ports) or injected into the server code (output ports).</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">shiny</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidymodules</span>)
-<span class="co">#&gt; Loading required package: R6</span>
-<span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="kw">package</span> <span class="kw">=</span> <span class="st">"tidymodules"</span>,<span class="st">"shiny/examples/1_simple_addition/Addition.R"</span>))
-<span class="no">Addition</span>$<span class="fu">new</span>()
-<span class="co">#&gt; Module Namespace Addition-1</span>
-<span class="co">#&gt; Module Session global_session</span>
-<span class="co">#&gt; - Class Addition &lt;&lt; TidyModule &lt;&lt; R6</span>
-<span class="co">#&gt; - Input [1]</span>
-<span class="co">#&gt; (1) left =&gt; Empty</span>
-<span class="co">#&gt; - Output [1]</span>
-<span class="co">#&gt; (1) total =&gt; Empty</span></pre></body></html></div>
+<div class="section level3">
+<h3 id="finding-out-ports-of-a-tidymodules-module">Finding out ports of a tidymodules module<a class="anchor" aria-label="anchor" href="#finding-out-ports-of-a-tidymodules-module"></a>
+</h3>
+<p>To find out the port structure, simply print the module object on the
+console. The following example shows that the <code>Addition</code>
+module has one input port named “left” and one output port named “total”
+that are both empty, i.e. not being assigned an input reactive (input
+ports) or injected into the server code (output ports).</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Novartis/tidymodules" class="external-link">tidymodules</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"tidymodules"</span>, <span class="st">"shiny/examples/1_simple_addition/Addition.R"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">Addition</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Module Namespace Addition-1</span></span>
+<span><span class="co">#&gt; Module Session global_session</span></span>
+<span><span class="co">#&gt; - Class Addition &lt;&lt; TidyModule &lt;&lt; R6</span></span>
+<span><span class="co">#&gt; - Input [1]</span></span>
+<span><span class="co">#&gt; (1) left =&gt; Empty</span></span>
+<span><span class="co">#&gt; - Output [1]</span></span>
+<span><span class="co">#&gt; (1) total =&gt; Empty</span></span></code></pre></div>
 </div>
 </div>
-<div id="using-tidymodules-modules" class="section level2">
-<h2 class="hasAnchor">
-<a href="#using-tidymodules-modules" class="anchor"></a>Using tidymodules modules</h2>
-<p>The basic workflow of using tidymodules modules in a Shiny app is the following</p>
+<div class="section level2">
+<h2 id="using-tidymodules-modules">Using tidymodules modules<a class="anchor" aria-label="anchor" href="#using-tidymodules-modules"></a>
+</h2>
+<p>The basic workflow of using tidymodules modules in a Shiny app is the
+following</p>
 <ul>
 <li>Load tidymodules module class definition</li>
-<li>Identify module structure such as input/output ports, ui(), and server() functionalities</li>
+<li>Identify module structure such as input/output ports, ui(), and
+server() functionalities</li>
 <li>Instantiate new module objects from tidymodules classes</li>
-<li>Construct app <code>ui()</code> using module <code>ui()</code> methods</li>
-<li>In app <code>server()</code> inject tidymodules module <code>server()</code> logic using <code><a href="../reference/callModules.html">callModules()</a></code> or the <code><a href="https://rdrr.io/pkg/shiny/man/callModule.html">callModule()</a></code> function of the module object, like <code>myMod$callModule()</code>.</li>
-<li>Set up module communication/relationship via tidymodules pipe operators and functions.</li>
+<li>Construct app <code>ui()</code> using module <code>ui()</code>
+methods</li>
+<li>In app <code>server()</code> inject tidymodules module
+<code>server()</code> logic using <code><a href="../reference/callModules.html">callModules()</a></code> or the
+<code><a href="https://shiny.rstudio.com/reference/shiny/latest/callModule.html" class="external-link">callModule()</a></code> function of the module object, like
+<code>myMod$callModule()</code>.</li>
+<li>Set up module communication/relationship via tidymodules pipe
+operators and functions.</li>
 </ul>
-<p>The workflow is illustrated in the following example, which is available at</p>
-<p>Example 1: Simple addition <a href="https://tidymodules.shinyapps.io/1_simple_addition/"><i class="fas fa-rocket"></i></a></p>
-<div id="load-module-definition" class="section level3">
-<h3 class="hasAnchor">
-<a href="#load-module-definition" class="anchor"></a>Load module definition</h3>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidymodules</span>)
-<span class="co"># source tidymodules Addition module definition</span>
-<span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="kw">package</span> <span class="kw">=</span> <span class="st">"tidymodules"</span>,<span class="st">"shiny/examples/1_simple_addition/Addition.R"</span>))</pre></body></html></div>
-</div>
-<div id="instantiate-module-objects" class="section level3">
-<h3 class="hasAnchor">
-<a href="#instantiate-module-objects" class="anchor"></a>Instantiate module objects</h3>
-<p>Notice that the namespace argument in <code>$new()</code> is optional and <code>tidymodules</code> will automatically generate a namespace ID if not provided.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># Instantiate two Addition module objects</span>
-<span class="no">Addition</span>$<span class="fu">new</span>()
-<span class="co">#&gt; Module Namespace Addition-2</span>
-<span class="co">#&gt; Module Session global_session</span>
-<span class="co">#&gt; - Class Addition &lt;&lt; TidyModule &lt;&lt; R6</span>
-<span class="co">#&gt; - Input [1]</span>
-<span class="co">#&gt; (1) left =&gt; Empty</span>
-<span class="co">#&gt; - Output [1]</span>
-<span class="co">#&gt; (1) total =&gt; Empty</span>
-<span class="no">Addition</span>$<span class="fu">new</span>()
-<span class="co">#&gt; Module Namespace Addition-3</span>
-<span class="co">#&gt; Module Session global_session</span>
-<span class="co">#&gt; - Class Addition &lt;&lt; TidyModule &lt;&lt; R6</span>
-<span class="co">#&gt; - Input [1]</span>
-<span class="co">#&gt; (1) left =&gt; Empty</span>
-<span class="co">#&gt; - Output [1]</span>
-<span class="co">#&gt; (1) total =&gt; Empty</span></pre></body></html></div>
-<p>Also notice that it is not necessary to give a name to the <code>Addition$new()</code> object. <code>tidymodules</code> provides <code><a href="../reference/mod.html">mod()</a></code> or <code><a href="../reference/getMod.html">getMod()</a></code> function to help users conveniently retrieve module objects via their numerical ID or namespace ID.</p>
-</div>
-<div id="adding-ui" class="section level3">
-<h3 class="hasAnchor">
-<a href="#adding-ui" class="anchor"></a>Adding <code>ui()</code>
+<p>The workflow is illustrated in the following example, which is
+available at</p>
+<p>Example 1: Simple addition <a href="https://tidymodules.shinyapps.io/1_simple_addition/" class="external-link"><i class="fas fa-rocket"></i></a></p>
+<div class="section level3">
+<h3 id="load-module-definition">Load module definition<a class="anchor" aria-label="anchor" href="#load-module-definition"></a>
 </h3>
-<p>In the app <code>ui()</code>, we call the <code>ui()</code> method of each module object.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">ui</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fixedPage.html">fixedPage</a></span>(
-  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/builder.html">h2</a></span>(<span class="st">"tidymodules : Addition example"</span>),
-  <span class="kw pkg">shiny</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow</a></span>(
-    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span>(<span class="st">"first_number"</span>,<span class="kw">label</span> <span class="kw">=</span> <span class="st">"Enter your first number"</span>,<span class="kw">min</span> <span class="kw">=</span> <span class="fl">1</span>,<span class="kw">max</span> <span class="kw">=</span> <span class="fl">100</span>,<span class="kw">value</span> <span class="kw">=</span> <span class="fl">1</span>),<span class="fu"><a href="https://rdrr.io/pkg/shiny/man/builder.html">br</a></span>(),
-
-    <span class="co"># Calling module ui() methods</span>
-    <span class="fu"><a href="../reference/mod.html">mod</a></span>(<span class="fl">1</span>)$<span class="fu">ui</span>(),<span class="fu"><a href="https://rdrr.io/pkg/shiny/man/builder.html">br</a></span>(),
-    <span class="fu"><a href="../reference/mod.html">mod</a></span>(<span class="fl">2</span>)$<span class="fu">ui</span>(),<span class="fu"><a href="https://rdrr.io/pkg/shiny/man/builder.html">br</a></span>(),
-    <span class="st">"Total: "</span>,<span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span>(<span class="st">"total_result"</span>)
-  )
-)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Novartis/tidymodules" class="external-link">tidymodules</a></span><span class="op">)</span></span>
+<span><span class="co"># source tidymodules Addition module definition</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"tidymodules"</span>, <span class="st">"shiny/examples/1_simple_addition/Addition.R"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="add-module-server-logic-using-callmodules" class="section level3">
-<h3 class="hasAnchor">
-<a href="#add-module-server-logic-using-callmodules" class="anchor"></a>Add module <code>server()</code> logic using <code>callModules()</code>
+<div class="section level3">
+<h3 id="instantiate-module-objects">Instantiate module objects<a class="anchor" aria-label="anchor" href="#instantiate-module-objects"></a>
 </h3>
-<p>Here we use the <code><a href="../reference/callModules.html">callModules()</a></code> function to call the server() methods for the two modules that we created.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">server</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">input</span>, <span class="no">output</span>, <span class="no">session</span>) {
-  <span class="co"># call the server() functions for all existing tidymodules modules in the global environment</span>
-  <span class="fu"><a href="../reference/callModules.html">callModules</a></span>()
-}</pre></body></html></div>
+<p>Notice that the namespace argument in <code>$new()</code> is optional
+and <code>tidymodules</code> will automatically generate a namespace ID
+if not provided.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Instantiate two Addition module objects</span></span>
+<span><span class="va">Addition</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Module Namespace Addition-2</span></span>
+<span><span class="co">#&gt; Module Session global_session</span></span>
+<span><span class="co">#&gt; - Class Addition &lt;&lt; TidyModule &lt;&lt; R6</span></span>
+<span><span class="co">#&gt; - Input [1]</span></span>
+<span><span class="co">#&gt; (1) left =&gt; Empty</span></span>
+<span><span class="co">#&gt; - Output [1]</span></span>
+<span><span class="co">#&gt; (1) total =&gt; Empty</span></span>
+<span><span class="va">Addition</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Module Namespace Addition-3</span></span>
+<span><span class="co">#&gt; Module Session global_session</span></span>
+<span><span class="co">#&gt; - Class Addition &lt;&lt; TidyModule &lt;&lt; R6</span></span>
+<span><span class="co">#&gt; - Input [1]</span></span>
+<span><span class="co">#&gt; (1) left =&gt; Empty</span></span>
+<span><span class="co">#&gt; - Output [1]</span></span>
+<span><span class="co">#&gt; (1) total =&gt; Empty</span></span></code></pre></div>
+<p>Also notice that it is not necessary to give a name to the
+<code>Addition$new()</code> object. <code>tidymodules</code> provides
+<code><a href="../reference/mod.html">mod()</a></code> or <code><a href="../reference/getMod.html">getMod()</a></code> function to help users
+conveniently retrieve module objects via their numerical ID or namespace
+ID.</p>
 </div>
-<div id="establish-cross-module-communication-via-tidy-pipe-operators" class="section level3">
-<h3 class="hasAnchor">
-<a href="#establish-cross-module-communication-via-tidy-pipe-operators" class="anchor"></a>Establish cross-module communication via ‘tidy’ pipe operators</h3>
-<p>The module communication is established through the pipe operators: <code>first %&gt;1% mod(1) %1&gt;1% mod(2)</code>. Note that in <code>first</code> must be a Shiny reactive value or endpoint in order to server as an input to other tidymodules modules.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">server</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">input</span>, <span class="no">output</span>, <span class="no">session</span>) {
-  <span class="co"># call the server() functions for all existing tidymodules modules in the global environment</span>
-  <span class="fu"><a href="../reference/callModules.html">callModules</a></span>()
-
-  <span class="no">first</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span>({
-    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html">req</a></span>(<span class="no">input</span>$<span class="no">first_number</span>)
-  })
-
-  <span class="co"># Setting up module commmunication </span>
-  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html">observe</a></span>({
-    <span class="no">first</span> <span class="kw">%&gt;1%</span> <span class="fu"><a href="../reference/mod.html">mod</a></span>(<span class="fl">1</span>) <span class="kw">%1&gt;1%</span> <span class="fu"><a href="../reference/mod.html">mod</a></span>(<span class="fl">2</span>)
-  })
-
-  <span class="no">output</span>$<span class="no">total_result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderText.html">renderText</a></span>({
-    <span class="no">result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/mod.html">mod</a></span>(<span class="fl">2</span>)$<span class="fu">getOutput</span>(<span class="fl">1</span>)
-    <span class="fu">result</span>()
-  })
-}
-
-<span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span>(<span class="no">ui</span>, <span class="no">server</span>)</pre></body></html></div>
-<p>We also provide utility functions to help identify and connect ports using the port names. For more information about the pipe operators, refer to the functional documentation under “Reference” tab.</p>
+<div class="section level3">
+<h3 id="adding-ui">Adding <code>ui()</code><a class="anchor" aria-label="anchor" href="#adding-ui"></a>
+</h3>
+<p>In the app <code>ui()</code>, we call the <code>ui()</code> method of
+each module object.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fixedPage.html" class="external-link">fixedPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">h2</a></span><span class="op">(</span><span class="st">"tidymodules : Addition example"</span><span class="op">)</span>,</span>
+<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html" class="external-link">fluidRow</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sliderInput.html" class="external-link">sliderInput</a></span><span class="op">(</span><span class="st">"first_number"</span>, label <span class="op">=</span> <span class="st">"Enter your first number"</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">100</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">br</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span></span>
+<span>    <span class="co"># Calling module ui() methods</span></span>
+<span>    <span class="fu"><a href="../reference/mod.html">mod</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">br</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/mod.html">mod</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">br</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="st">"Total: "</span>, <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"total_result"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="module-relational-network" class="section level3">
-<h3 class="hasAnchor">
-<a href="#module-relational-network" class="anchor"></a>Module relational network</h3>
-<p>Tidymodules module objects are mananged by <code>ModStore</code> in tidymodules. For example, in the<br>
-example 2 - Linkled scatter <a href="https://tidymodules.shinyapps.io/2_linked_scatter/"><i class="fas fa-rocket"></i></a> you can find the sessions, module objects, edges and port mapping diagram in the “Help | ModStore” tab.</p>
-<p>Below is the module relationship network digram generated by <code>tidymodules</code> using the <code>visNetwork</code> package.</p>
+<div class="section level3">
+<h3 id="add-module-server-logic-using-callmodules">Add module <code>server()</code> logic using
+<code>callModules()</code><a class="anchor" aria-label="anchor" href="#add-module-server-logic-using-callmodules"></a>
+</h3>
+<p>Here we use the <code><a href="../reference/callModules.html">callModules()</a></code> function to call the
+server() methods for the two modules that we created.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># call the server() functions for all existing tidymodules modules in the global environment</span></span>
+<span>  <span class="fu"><a href="../reference/callModules.html">callModules</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="establish-cross-module-communication-via-tidy-pipe-operators">Establish cross-module communication via ‘tidy’ pipe operators<a class="anchor" aria-label="anchor" href="#establish-cross-module-communication-via-tidy-pipe-operators"></a>
+</h3>
+<p>The module communication is established through the pipe operators:
+<code>first %&gt;1% mod(1) %1&gt;1% mod(2)</code>. Note that in
+<code>first</code> must be a Shiny reactive value or endpoint in order
+to server as an input to other tidymodules modules.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># call the server() functions for all existing tidymodules modules in the global environment</span></span>
+<span>  <span class="fu"><a href="../reference/callModules.html">callModules</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">first</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">first_number</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># Setting up module commmunication</span></span>
+<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">first</span> <span class="op"><a href="../reference/grapes-greater-than-y-grapes.html">%&gt;1%</a></span> <span class="fu"><a href="../reference/mod.html">mod</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-x-greater-than-y-grapes.html">%1&gt;1%</a></span> <span class="fu"><a href="../reference/mod.html">mod</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">total_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mod.html">mod</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">$</span><span class="fu">getOutput</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="fu">result</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p>We also provide utility functions to help identify and connect ports
+using the port names. For more information about the pipe operators,
+refer to the functional documentation under “Reference” tab.</p>
+</div>
+<div class="section level3">
+<h3 id="module-relational-network">Module relational network<a class="anchor" aria-label="anchor" href="#module-relational-network"></a>
+</h3>
+<p>Tidymodules module objects are mananged by <code>ModStore</code> in
+tidymodules. For example, in the<br>
+example 2 - Linkled scatter <a href="https://tidymodules.shinyapps.io/2_linked_scatter/" class="external-link"><i class="fas fa-rocket"></i></a>
+you can find the sessions, module objects, edges and port mapping
+diagram in the “Help | ModStore” tab.</p>
+<p>Below is the module relationship network digram generated by
+<code>tidymodules</code> using the <code>visNetwork</code> package.</p>
 <p><img src="figures/mod_network.png" width="50%"></p>
 </div>
-<div id="inheritance-and-entity-relational-diagram" class="section level3">
-<h3 class="hasAnchor">
-<a href="#inheritance-and-entity-relational-diagram" class="anchor"></a>Inheritance and Entity Relational Diagram</h3>
-<p>For more details about class and ports inheritance, see article <a href="inheritance.html">inheritance</a>. The diagram below illustrates the relation between the classes defined in the example 4 of tidymodules <a href="https://tidymodules.shinyapps.io/4_communication/"><i class="fas fa-rocket"></i></a>.</p>
+<div class="section level3">
+<h3 id="inheritance-and-entity-relational-diagram">Inheritance and Entity Relational Diagram<a class="anchor" aria-label="anchor" href="#inheritance-and-entity-relational-diagram"></a>
+</h3>
+<p>For more details about class and ports inheritance, see article <a href="inheritance.html">inheritance</a>. The diagram below illustrates
+the relation between the classes defined in the example 4 of tidymodules
+<a href="https://tidymodules.shinyapps.io/4_communication/" class="external-link"><i class="fas fa-rocket"></i></a>.</p>
 <p><img src="figures/ERD.png"></p>
 </div>
 </div>
-<div id="other-examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#other-examples" class="anchor"></a>Other examples</h2>
-<p>You can list all Shiny examples that come with the <code>tidymodules</code> package by the <code><a href="../reference/showExamples.html">showExamples()</a></code> function. We recommend going through these examples to help you understand the use patterns.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/showExamples.html">showExamples</a></span>()
-<span class="co">#&gt; [1] "1_simple_addition" "2_linked_scatter"  "3_nested_modules" </span>
-<span class="co">#&gt; [4] "4_communication"   "5_counter"</span></pre></body></html></div>
-<p>We have already used the first example to illustrate the basic usage of tidymodules, below we briefly describe the other examples.</p>
-<div id="example-2-linked-scatter-plot" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-2-linked-scatter-plot" class="anchor"></a>Example 2: linked scatter plot</h3>
-<p>This example illustrates the tidymodules implementation of the classical Shiny module example of <a href="https://shiny.rstudio.com/gallery/module-example.html">two linked scatter plots</a>.</p>
+<div class="section level2">
+<h2 id="other-examples">Other examples<a class="anchor" aria-label="anchor" href="#other-examples"></a>
+</h2>
+<p>You can list all Shiny examples that come with the
+<code>tidymodules</code> package by the <code><a href="../reference/showExamples.html">showExamples()</a></code>
+function. We recommend going through these examples to help you
+understand the use patterns.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/showExamples.html">showExamples</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "1_simple_addition" "2_linked_scatter"  "3_nested_modules" </span></span>
+<span><span class="co">#&gt; [4] "4_communication"   "5_counter"</span></span></code></pre></div>
+<p>We have already used the first example to illustrate the basic usage
+of tidymodules, below we briefly describe the other examples.</p>
+<div class="section level3">
+<h3 id="example-2-linked-scatter-plot">Example 2: linked scatter plot<a class="anchor" aria-label="anchor" href="#example-2-linked-scatter-plot"></a>
+</h3>
+<p>This example illustrates the tidymodules implementation of the
+classical Shiny module example of <a href="https://shiny.rstudio.com/gallery/module-example.html" class="external-link">two linked
+scatter plots</a>.</p>
 </div>
-<div id="example-3-nested-modules" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-3-nested-modules" class="anchor"></a>Example 3: nested modules</h3>
-<p>This example <a href="https://tidymodules.shinyapps.io/3_nested_modules/"><i class="fas fa-rocket"></i></a> illustrates constructing and using nested modules in the <code>tidymodules</code> framework, as well as dynamically creating tidymodules modules.</p>
+<div class="section level3">
+<h3 id="example-3-nested-modules">Example 3: nested modules<a class="anchor" aria-label="anchor" href="#example-3-nested-modules"></a>
+</h3>
+<p>This example <a href="https://tidymodules.shinyapps.io/3_nested_modules/" class="external-link"><i class="fas fa-rocket"></i></a>
+illustrates constructing and using nested modules in the
+<code>tidymodules</code> framework, as well as dynamically creating
+tidymodules modules.</p>
 </div>
-<div id="example-4-module-communication" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-4-module-communication" class="anchor"></a>Example 4: module communication</h3>
-<p>This is a comprehensive example <a href="https://tidymodules.shinyapps.io/4_communication/"><i class="fas fa-rocket"></i></a> to illustrate mutiple advanced features such as</p>
+<div class="section level3">
+<h3 id="example-4-module-communication">Example 4: module communication<a class="anchor" aria-label="anchor" href="#example-4-module-communication"></a>
+</h3>
+<p>This is a comprehensive example <a href="https://tidymodules.shinyapps.io/4_communication/" class="external-link"><i class="fas fa-rocket"></i></a>
+to illustrate mutiple advanced features such as</p>
 <ul>
 <li>Inheritance</li>
 <li>Port operations: <code><a href="../reference/combine_ports.html">combine_ports()</a></code>
@@ -318,11 +383,13 @@ example 2 - Linkled scatter <a href="https://tidymodules.shinyapps.io/2_linked_s
 
 
       <footer><div class="copyright">
-  <p>Developed by Mustapha Larbaoui.</p>
+  <p></p>
+<p>Developed by Mustapha Larbaoui.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -330,6 +397,8 @@ example 2 - Linkled scatter <a href="https://tidymodules.shinyapps.io/2_linked_s
 
   
 
+
+  
 
   </body>
 </html>

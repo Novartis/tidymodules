@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tidymodules</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.6</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="articles/tidymodules.html">Get started</a>
 </li>
@@ -57,7 +53,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -86,8 +82,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/Novartis/tidymodules/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/Novartis/tidymodules/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -103,12 +99,11 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="tidymodules" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#tidymodules" class="anchor"></a>tidymodules <img src="reference/figures/logo.svg" align="right" height="139">
+<div class="section level1">
+<div class="page-header"><h1 id="tidymodules-">tidymodules <img src="reference/figures/logo.svg" align="right" height="139"><a class="anchor" aria-label="anchor" href="#tidymodules-"></a>
 </h1></div>
-
-<p>The <code>{tidymodules}</code> R package is built on top of shiny module using <code>{R6}</code> to provide a new object-oriented programming (OOP) approach for module development, new module interface using input/output ports and a set of tidy operators for handling cross-module communication.</p>
+<p><a href="https://travis-ci.org/Novartis/tidymodules" class="external-link"><img src="https://travis-ci.org/Novartis/tidymodules.svg?branch=master" alt="Travis-CI build status"></a> <a href="https://www.tidyverse.org/lifecycle/#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="lifecycle"></a></p>
+<p>The <a href="https://github.com/Novartis/tidymodules" class="external-link">tidymodules</a> R package is built on top of shiny module using <a href="https://r6.r-lib.org" class="external-link">R6</a> to provide a new object-oriented programming (OOP) approach for module development, new module interface using input/output ports and a set of tidy operators for handling cross-module communication.</p>
 <p>The main features of tidymodules and its comparison with conventional Shiny modules are presented in the table below.</p>
 <table class="table">
 <colgroup>
@@ -140,7 +135,7 @@ Programming style
 </td>
 <td>
 <ul><li>
-<code>{R6}</code> OOP * <br> - Semantic reference
+<a href="https://r6.r-lib.org" class="external-link">R6</a> OOP * <br> - Semantic reference
 </li></ul>
 </td>
 <td>
@@ -212,122 +207,125 @@ NA
 </tbody>
 </table>
 <p>* OOP = Object Oriented Programming</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the most recent version of <code>{tidymodules}</code> from <a href="https://github.com/Novartis/tidymodules">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(devtools)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install_github</span>(<span class="st">"Novartis/tidymodules"</span>)</a></code></pre></div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the most recent version of <a href="https://github.com/Novartis/tidymodules" class="external-link">tidymodules</a> from <a href="https://github.com/Novartis/tidymodules" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">"Novartis/tidymodules"</span>)</span></code></pre></div>
 </div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <p>You can quickly launch an example after installing the R package by running the following.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">tidymodules<span class="op">::</span><span class="kw">showExamples</span>(<span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tidymodules<span class="sc">::</span><span class="fu">showExamples</span>(<span class="dv">4</span>)</span></code></pre></div>
 <p>Some examples have been deployed on shinyapp.io, such as:</p>
 <ul>
-<li>Example 1: <a href="https://tidymodules.shinyapps.io/1_simple_addition/">Simple addition <i class="fas fa-rocket"></i></a>
+<li>Example 1: <a href="https://tidymodules.shinyapps.io/1_simple_addition/" class="external-link">Simple addition <i class="fas fa-rocket"></i></a>
 </li>
-<li>Example 2: <a href="https://tidymodules.shinyapps.io/2_linked_scatter/">Linked scatter <i class="fas fa-rocket"></i></a>
+<li>Example 2: <a href="https://tidymodules.shinyapps.io/2_linked_scatter/" class="external-link">Linked scatter <i class="fas fa-rocket"></i></a>
 </li>
-<li>Example 2: <a href="https://tidymodules.shinyapps.io/3_nested_modules/">Nested module <i class="fas fa-rocket"></i></a>
+<li>Example 2: <a href="https://tidymodules.shinyapps.io/3_nested_modules/" class="external-link">Nested module <i class="fas fa-rocket"></i></a>
 </li>
-<li>Example 4: <a href="https://tidymodules.shinyapps.io/4_communication/">Module communication <i class="fas fa-rocket"></i></a>
+<li>Example 4: <a href="https://tidymodules.shinyapps.io/4_communication/" class="external-link">Module communication <i class="fas fa-rocket"></i></a>
 </li>
 </ul>
 </div>
-<div id="learning-more" class="section level2">
-<h2 class="hasAnchor">
-<a href="#learning-more" class="anchor"></a>Learning More</h2>
-<p>Please review the <a href="https://opensource.nibr.com/tidymodules/articles/tidymodules.html">Get Started</a> page for a high level introduction to <code>{tidymodules}</code> and its usage in developing Shiny apps.</p>
-<p>If you are interested to develop modules using <code>{tidymodules}</code>, we recommend reading the vignettes under “Articles”.</p>
+<div class="section level2">
+<h2 id="learning-more">Learning More<a class="anchor" aria-label="anchor" href="#learning-more"></a>
+</h2>
+<p>Please review the <a href="https://opensource.nibr.com/tidymodules/articles/tidymodules.html">Get Started</a> page for a high level introduction to <a href="https://github.com/Novartis/tidymodules" class="external-link">tidymodules</a> and its usage in developing Shiny apps.</p>
+<p>If you are interested to develop modules using <a href="https://github.com/Novartis/tidymodules" class="external-link">tidymodules</a>, we recommend reading the vignettes under “Articles”.</p>
 </div>
-<div id="code-of-conduct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
-<p>Please note that the <code>{tidymodules}</code> is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the <a href="https://github.com/Novartis/tidymodules" class="external-link">tidymodules</a> is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
-<div id="acknowledgment" class="section level2">
-<h2 class="hasAnchor">
-<a href="#acknowledgment" class="anchor"></a>Acknowledgment</h2>
+<div class="section level2">
+<h2 id="acknowledgment">Acknowledgment<a class="anchor" aria-label="anchor" href="#acknowledgment"></a>
+</h2>
 <ul>
 <li>The SCC team members @ NVS for their valuable feedbacks</li>
 <li>2019 Summer interns (Marzi, Stephen and Renan) for contributing to testing the framework and implementing the demo example 4 listed above.</li>
-<li>Eric Nantz for accepting to introduce tidymodules in his <a href="https://rpodcast.shinyapps.io/highlights-shiny">e-poster</a> @ rstudio::conf 2020</li>
+<li>Eric Nantz for accepting to introduce tidymodules in his <a href="https://rpodcast.shinyapps.io/highlights-shiny" class="external-link">e-poster</a> @ rstudio::conf 2020</li>
 </ul>
 </div>
-<div id="licence" class="section level2">
-<h2 class="hasAnchor">
-<a href="#licence" class="anchor"></a>Licence</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">Copyright <span class="dv">2020</span> Novartis AG</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">Licensed under the Apache License, Version <span class="fl">2.0</span> (the <span class="st">"License"</span>);</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">you may not use this file except <span class="cf">in</span> compliance with the License.</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">You may obtain a copy of the License at</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">  http<span class="op">:</span><span class="er">//</span>www.apache.org<span class="op">/</span>licenses<span class="op">/</span>LICENSE<span class="fl">-2.0</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">Unless required by applicable law or agreed to <span class="cf">in</span> writing, software</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">distributed under the License is distributed on an <span class="st">"AS IS"</span> BASIS,</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">See the License <span class="cf">for</span> the specific language governing permissions and</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">limitations under the License.</a></code></pre></div>
+<div class="section level2">
+<h2 id="licence">Licence<a class="anchor" aria-label="anchor" href="#licence"></a>
+</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Copyright <span class="dv">2020</span> Novartis AG</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Licensed under the Apache License, Version <span class="fl">2.0</span> (the <span class="st">"License"</span>);</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>you may not use this file except <span class="cf">in</span> compliance with the License.</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>You may obtain a copy of the License at</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  http<span class="sc">:</span><span class="er">//</span>www.apache.org<span class="sc">/</span>licenses<span class="sc">/</span>LICENSE<span class="fl">-2.0</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Unless required by applicable law or agreed to <span class="cf">in</span> writing, software</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>distributed under the License is distributed on an <span class="st">"AS IS"</span> BASIS,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>See the License <span class="cf">for</span> the specific language governing permissions and</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>limitations under the License.</span></code></pre></div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/Novartis/tidymodules/">https://​github.com/​Novartis/​tidymodules/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/Novartis/tidymodules/issues">https://​github.com/​Novartis/​tidymodules/​issues</a>
-</li>
-<li>Github at <br><a href="https://github.com/Novartis/tidymodules.git">https://​github.com/​Novartis/​tidymodules.git</a>
-</li>
-<li>Site at <br><a href="https://opensource.nibr.com/tidymodules/">https://​opensource.nibr.com/​tidymodules/​</a>
-</li>
+<li><a href="https://github.com/Novartis/tidymodules/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/Novartis/tidymodules/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/Novartis/tidymodules.git" class="external-link">Github</a></li>
+<li><a href="https://opensource.nibr.com/tidymodules/">Site</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small>Apache License (&gt;= 2.0)</small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Mustapha Larbaoui <br><small class="roles"> Maintainer, author </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing tidymodules</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/Novartis/tidymodules"><img src="https://travis-ci.org/Novartis/tidymodules.svg?branch=master" alt="Travis-CI build status"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="lifecycle"></a></li>
+<li>Mustapha Larbaoui <br><small class="roles"> Maintainer, author </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
-</div>
+
+
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Mustapha Larbaoui.</p>
+  <p></p>
+<p>Developed by Mustapha Larbaoui.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -335,6 +333,8 @@ NA
 
   
 
+
+  
 
   </body>
 </html>

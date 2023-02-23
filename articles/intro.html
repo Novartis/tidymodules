@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidymodules</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.6</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/tidymodules.html">Get started</a>
 </li>
@@ -57,7 +53,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -86,8 +82,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/Novartis/tidymodules/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/Novartis/tidymodules/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -104,234 +100,304 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Getting started with writing <code>{tidymodules}</code>
+      <h1 data-toc-skip>Getting started with writing
+<code>{tidymodules}</code>
 </h1>
-            <h3 class="subtitle"><div style="float:right;">
-<i style="color:#285fa4;" class="fas fa-laptop-code fa-4x"></i>
-</div></h3>
-                        <h4 class="author">Xiao Ni, Mustapha Larbaoui</h4>
+            <h3 data-toc-skip class="subtitle"><i style="color:#285fa4;" class="fas fa-laptop-code fa-4x"></i></h3>
+                        <h4 data-toc-skip class="author">Xiao Ni,
+Mustapha Larbaoui</h4>
             
-            <h4 class="date">2020-06-20</h4>
+            <h4 data-toc-skip class="date">2023-02-23</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/Novartis/tidymodules/blob/master/vignettes/intro.Rmd"><code>vignettes/intro.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Novartis/tidymodules/blob/HEAD/vignettes/intro.Rmd" class="external-link"><code>vignettes/intro.Rmd</code></a></small>
       <div class="hidden name"><code>intro.Rmd</code></div>
 
     </div>
 
     
     
-<div id="a-quick-introduction-to-r6-and-object-oriented-programming-oop" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-quick-introduction-to-r6-and-object-oriented-programming-oop" class="anchor"></a>A quick introduction to R6 and Object Oriented Programming (OOP)</h2>
-<p><code>{tidymodules}</code> or <code>{tm}</code> in short, is based on R6 (<a href="https://r6.r-lib.org/" class="uri">https://r6.r-lib.org/</a>), which is an implementation of encapsulated object-oriented programming for R. Therefore knowledge of R6 is a prerequisite to develop <code>{tm}</code> modules.</p>
-<p>R6 provides a framework for OOP in R. Unlike the functional programming style, R6 encapsulates methods and fields in classes that instantiate into objects. R6 classes are similar to R’s reference classes, but are more efficient and do not depend on S4 classes and the methods package.</p>
-<p>This vignette provides a brief overview of R6 for developers new to R6. For more information, developers are recommended to review the R6 packagedown site (<a href="https://r6.r-lib.org/" class="uri">https://r6.r-lib.org/</a>), as well as Chapter 14 of the Advanced R book (<a href="https://adv-r.hadley.nz/r6.html" class="uri">https://adv-r.hadley.nz/r6.html</a>)</p>
-<div id="r6-classes-and-methods" class="section level3">
-<h3 class="hasAnchor">
-<a href="#r6-classes-and-methods" class="anchor"></a>R6 classes and methods</h3>
-<p><code>{tm}</code> depends on the R6 package which you can install from CRAN and load:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">R6</span>)</pre></body></html></div>
-<p>R6 classes are created using the <a href="https://r6.r-lib.org/reference/R6Class.html"><code><a href="https://rdrr.io/pkg/R6/man/R6Class.html">R6::R6Class()</a></code> function</a>, which is the only function from the R6 package that is typically used. The following is a simple example of defining an R6 class:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">Calculator</span> <span class="kw">&lt;-</span> <span class="kw pkg">R6</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/R6/man/R6Class.html">R6Class</a></span>(
-  <span class="kw">classname</span> <span class="kw">=</span> <span class="st">"Calculator"</span>,
-  <span class="kw">public</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-    <span class="kw">value</span> <span class="kw">=</span> <span class="fl">NA</span>,
-    <span class="kw">initialize</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">value</span>) {
-      <span class="no">self</span>$<span class="no">value</span> <span class="kw">&lt;-</span> <span class="no">value</span>
-    },
-    <span class="kw">add</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span> <span class="kw">=</span> <span class="fl">1</span>) {
-      <span class="no">self</span>$<span class="no">value</span> <span class="kw">&lt;-</span> <span class="no">self</span>$<span class="no">value</span> + <span class="no">x</span>
-      <span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span>(<span class="no">self</span>)
-    })
-)</pre></body></html></div>
-<p>The first argument <code>classname</code> by convention uses <code>UpperCamelCase</code>. The second argument <code>public</code> encapsulates a list of methods (functions) and fields (objects) that make up the public interface of the object. By convention methods and fields use <code>snake_case</code>. Methods can access the methods and fields of the current object using <code>self$</code>. One should always assign the result of <code><a href="https://rdrr.io/pkg/R6/man/R6Class.html">R6Class()</a></code> into a variable with the same names as the <code>classname</code> because <code><a href="https://rdrr.io/pkg/R6/man/R6Class.html">R6Class()</a></code> returns an R6 object that defines the class.</p>
+<div class="section level2">
+<h2 id="a-quick-introduction-to-r6-and-object-oriented-programming-oop">A quick introduction to R6 and Object Oriented Programming
+(OOP)<a class="anchor" aria-label="anchor" href="#a-quick-introduction-to-r6-and-object-oriented-programming-oop"></a>
+</h2>
+<p><a href="https://github.com/Novartis/tidymodules" class="external-link">tidymodules</a> or <a href="https://tm.r-forge.r-project.org/" class="external-link">tm</a> in short, is based on
+R6 (<a href="https://r6.r-lib.org/" class="external-link">https://r6.r-lib.org/</a>), which is
+an implementation of encapsulated object-oriented programming for R.
+Therefore knowledge of R6 is a prerequisite to develop <a href="https://tm.r-forge.r-project.org/" class="external-link">tm</a>
+modules.</p>
+<p>R6 provides a framework for OOP in R. Unlike the functional
+programming style, R6 encapsulates methods and fields in classes that
+instantiate into objects. R6 classes are similar to R’s reference
+classes, but are more efficient and do not depend on S4 classes and the
+methods package.</p>
+<p>This vignette provides a brief overview of R6 for developers new to
+R6. For more information, developers are recommended to review the R6
+packagedown site (<a href="https://r6.r-lib.org/" class="external-link">https://r6.r-lib.org/</a>), as well as
+Chapter 14 of the Advanced R book (<a href="https://adv-r.hadley.nz/r6.html" class="external-link">https://adv-r.hadley.nz/r6.html</a>)</p>
+<div class="section level3">
+<h3 id="r6-classes-and-methods">R6 classes and methods<a class="anchor" aria-label="anchor" href="#r6-classes-and-methods"></a>
+</h3>
+<p><a href="https://tm.r-forge.r-project.org/" class="external-link">tm</a> depends on the R6 package which you can install
+from CRAN and load:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r6.r-lib.org" class="external-link">R6</a></span><span class="op">)</span></span></code></pre></div>
+<p>R6 classes are created using the <a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link"><code>R6::R6Class()</code>
+function</a>, which is the only function from the R6 package that is
+typically used. The following is a simple example of defining an R6
+class:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Calculator</span> <span class="op">&lt;-</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6Class</a></span><span class="op">(</span></span>
+<span>  classname <span class="op">=</span> <span class="st">"Calculator"</span>,</span>
+<span>  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    value <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">self</span><span class="op">$</span><span class="va">value</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    add <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">self</span><span class="op">$</span><span class="va">value</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">value</span> <span class="op">+</span> <span class="va">x</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="va">self</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>The first argument <code>classname</code> by convention uses
+<code>UpperCamelCase</code>. The second argument <code>public</code>
+encapsulates a list of methods (functions) and fields (objects) that
+make up the public interface of the object. By convention methods and
+fields use <code>snake_case</code>. Methods can access the methods and
+fields of the current object using <code>self$</code>. One should always
+assign the result of <code><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6Class()</a></code> into a variable with the
+same names as the <code>classname</code> because <code><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6Class()</a></code>
+returns an R6 object that defines the class.</p>
 <p>You can print the class definition:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">Calculator</span>
-<span class="co">#&gt; &lt;Calculator&gt; object generator</span>
-<span class="co">#&gt;   Public:</span>
-<span class="co">#&gt;     value: NA</span>
-<span class="co">#&gt;     initialize: function (value) </span>
-<span class="co">#&gt;     add: function (x = 1) </span>
-<span class="co">#&gt;     clone: function (deep = FALSE) </span>
-<span class="co">#&gt;   Parent env: &lt;environment: R_GlobalEnv&gt;</span>
-<span class="co">#&gt;   Locked objects: TRUE</span>
-<span class="co">#&gt;   Locked class: FALSE</span>
-<span class="co">#&gt;   Portable: TRUE</span></pre></body></html></div>
-<p>To create a new instance of <code>Calculator</code>, use the <code>$new()</code> method. The <code>$initialize()</code> is an important method, which overrides the default behavior of <code>$new()</code>. In the above example, the <code>$initialize()</code> method initializes the <code>calculator1</code> object with <code>value = 0</code>.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">calculator1</span> <span class="kw">&lt;-</span> <span class="no">Calculator</span>$<span class="fu">new</span>(<span class="fl">0</span>)
-<span class="no">calculator1</span>
-<span class="co">#&gt; &lt;Calculator&gt;</span>
-<span class="co">#&gt;   Public:</span>
-<span class="co">#&gt;     add: function (x = 1) </span>
-<span class="co">#&gt;     clone: function (deep = FALSE) </span>
-<span class="co">#&gt;     initialize: function (value) </span>
-<span class="co">#&gt;     value: 0</span></pre></body></html></div>
-<p>You can then call the methods and access fields using <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code>:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">calculator1</span>$<span class="fu">add</span>(<span class="fl">10</span>)
-<span class="no">calculator1</span>$<span class="no">value</span>
-<span class="co">#&gt; [1] 10</span></pre></body></html></div>
-<p>You can also add methods after class creation as illustrated below for the existing <code>Calculator</code> R6 class, although new methods and fields are only available to new objects.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">Calculator</span>$<span class="fu">set</span>(<span class="st">"public"</span>, <span class="st">"subtract"</span>, <span class="kw">function</span>(<span class="no">x</span><span class="kw">=</span><span class="fl">1</span>) {
-  <span class="no">self</span>$<span class="no">value</span> <span class="kw">&lt;-</span> <span class="no">self</span>$<span class="no">value</span> - <span class="no">x</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span>(<span class="no">self</span>)
-})
-<span class="no">Calculator</span>
-<span class="co">#&gt; &lt;Calculator&gt; object generator</span>
-<span class="co">#&gt;   Public:</span>
-<span class="co">#&gt;     value: NA</span>
-<span class="co">#&gt;     initialize: function (value) </span>
-<span class="co">#&gt;     add: function (x = 1) </span>
-<span class="co">#&gt;     clone: function (deep = FALSE) </span>
-<span class="co">#&gt;     subtract: function (x = 1) </span>
-<span class="co">#&gt;   Parent env: &lt;environment: R_GlobalEnv&gt;</span>
-<span class="co">#&gt;   Locked objects: TRUE</span>
-<span class="co">#&gt;   Locked class: FALSE</span>
-<span class="co">#&gt;   Portable: TRUE</span></pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Calculator</span></span>
+<span><span class="co">#&gt; &lt;Calculator&gt; object generator</span></span>
+<span><span class="co">#&gt;   Public:</span></span>
+<span><span class="co">#&gt;     value: NA</span></span>
+<span><span class="co">#&gt;     initialize: function (value) </span></span>
+<span><span class="co">#&gt;     add: function (x = 1) </span></span>
+<span><span class="co">#&gt;     clone: function (deep = FALSE) </span></span>
+<span><span class="co">#&gt;   Parent env: &lt;environment: R_GlobalEnv&gt;</span></span>
+<span><span class="co">#&gt;   Locked objects: TRUE</span></span>
+<span><span class="co">#&gt;   Locked class: FALSE</span></span>
+<span><span class="co">#&gt;   Portable: TRUE</span></span></code></pre></div>
+<p>To create a new instance of <code>Calculator</code>, use the
+<code>$new()</code> method. The <code>$initialize()</code> is an
+important method, which overrides the default behavior of
+<code>$new()</code>. In the above example, the
+<code>$initialize()</code> method initializes the
+<code>calculator1</code> object with <code>value = 0</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">calculator1</span> <span class="op">&lt;-</span> <span class="va">Calculator</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">calculator1</span></span>
+<span><span class="co">#&gt; &lt;Calculator&gt;</span></span>
+<span><span class="co">#&gt;   Public:</span></span>
+<span><span class="co">#&gt;     add: function (x = 1) </span></span>
+<span><span class="co">#&gt;     clone: function (deep = FALSE) </span></span>
+<span><span class="co">#&gt;     initialize: function (value) </span></span>
+<span><span class="co">#&gt;     value: 0</span></span></code></pre></div>
+<p>You can then call the methods and access fields using
+<code>$</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">calculator1</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">calculator1</span><span class="op">$</span><span class="va">value</span></span>
+<span><span class="co">#&gt; [1] 10</span></span></code></pre></div>
+<p>You can also add methods after class creation as illustrated below
+for the existing <code>Calculator</code> R6 class, although new methods
+and fields are only available to new objects.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Calculator</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="st">"public"</span>, <span class="st">"subtract"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">self</span><span class="op">$</span><span class="va">value</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">value</span> <span class="op">-</span> <span class="va">x</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="va">self</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="va">Calculator</span></span>
+<span><span class="co">#&gt; &lt;Calculator&gt; object generator</span></span>
+<span><span class="co">#&gt;   Public:</span></span>
+<span><span class="co">#&gt;     value: NA</span></span>
+<span><span class="co">#&gt;     initialize: function (value) </span></span>
+<span><span class="co">#&gt;     add: function (x = 1) </span></span>
+<span><span class="co">#&gt;     clone: function (deep = FALSE) </span></span>
+<span><span class="co">#&gt;     subtract: function (x = 1) </span></span>
+<span><span class="co">#&gt;   Parent env: &lt;environment: R_GlobalEnv&gt;</span></span>
+<span><span class="co">#&gt;   Locked objects: TRUE</span></span>
+<span><span class="co">#&gt;   Locked class: FALSE</span></span>
+<span><span class="co">#&gt;   Portable: TRUE</span></span></code></pre></div>
 <p>Below are some key features of R6.</p>
 <ul>
 <li>
-<strong>Reference semantics</strong>: objects are not copied when modified. R6 provides a <code>$clone()</code> method for making copy of an object. For more details, refer to <a href="https://r6.r-lib.org/reference/R6Class.html#cloning-objects" class="uri">https://r6.r-lib.org/reference/R6Class.html#cloning-objects</a>.</li>
+<strong>Reference semantics</strong>: objects are not copied when
+modified. R6 provides a <code>$clone()</code> method for making copy of
+an object. For more details, refer to <a href="https://r6.r-lib.org/reference/R6Class.html#cloning-objects" class="external-link uri">https://r6.r-lib.org/reference/R6Class.html#cloning-objects</a>.</li>
 <li>
-<strong>Public vs. private members</strong>: <code><a href="https://rdrr.io/pkg/R6/man/R6Class.html">R6Class()</a></code> has a <code>private</code> argument for you to define private methods and fileds that can only be accessed from within the class, not from the outside.</li>
+<strong>Public vs. private members</strong>: <code><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6Class()</a></code>
+has a <code>private</code> argument for you to define private methods
+and fileds that can only be accessed from within the class, not from the
+outside.</li>
 <li>
-<strong>Inheritance</strong>: as in classical OOP, one R6 class can inherit from another R6 class. Superclass methods can be accessed with <code>super$</code>.</li>
+<strong>Inheritance</strong>: as in classical OOP, one R6 class can
+inherit from another R6 class. Superclass methods can be accessed with
+<code>super$</code>.</li>
 </ul>
 </div>
 </div>
-<div id="tidymodulestidymodule-class" class="section level2">
-<h2 class="hasAnchor">
-<a href="#tidymodulestidymodule-class" class="anchor"></a><code>tidymodules::TidyModule</code> class</h2>
-<p>The <code><a href="../reference/TidyModule.html">tidymodules::TidyModule</a></code> class is a R6 class and the parent of all <code>{tm}</code> modules.</p>
-<p>Below is partial code of the <code>TidyModule</code> class for illustration purpose. The <code>TidyModule</code> class includes many public methods. There are utility functions such as <code><a href="../reference/callModules.html">callModules()</a></code>, <code>definePorts()</code>, <code>assignPort()</code> as well as functions that need to be overwritten such as <code>ui()</code>, <code>server()</code>, etc.</p>
-<p>Unlike conventional Shiny modules in funtional programming style, <code>{tm}</code> encapsulates functions such as ui() and server() as methods in a TidyModule class object. Module namespace ID is seamlessly managed within the module class for the ui and server. For complete technical documentation that includes other methods and fields, see <code><a href="../reference/TidyModule.html">?TidyModule</a></code>.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">TidyModule</span> <span class="kw">&lt;-</span> <span class="kw pkg">R6</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/R6/man/R6Class.html">R6Class</a></span>(
-  <span class="st">"TidyModule"</span>,
-  <span class="kw">public</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-    <span class="kw">id</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">module_ns</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">parent_ns</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">parent_mod</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">parent_ports</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">group</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">created</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">o</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">i</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-    <span class="kw">initialize</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">id</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="no">inherit</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="no">group</span> <span class="kw">=</span> <span class="kw">NULL</span>) {
-      <span class="co"># details omitted</span>
-    },
-    <span class="co"># Other methods such</span>
-    <span class="kw">ui</span> <span class="kw">=</span> <span class="kw">function</span>(){
-      <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="kw pkg">shiny</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tag.html">tagList</a></span>())
-    },
-    <span class="kw">server</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">input</span>,
-                      <span class="no">output</span>,
-                      <span class="no">session</span>){
-      <span class="co"># Need to isolate this block to avoid unecessary triggers</span>
-      <span class="kw pkg">shiny</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html">isolate</a></span>({
-        <span class="no">private</span>$<span class="no">shiny_session</span> <span class="kw">&lt;-</span> <span class="no">session</span>
-        <span class="no">private</span>$<span class="no">shiny_input</span> <span class="kw">&lt;-</span> <span class="no">input</span>
-        <span class="no">private</span>$<span class="no">shiny_output</span> <span class="kw">&lt;-</span> <span class="no">output</span>
-      })
-    },
-    <span class="kw">definePort</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>){
-      <span class="kw pkg">shiny</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html">isolate</a></span>(<span class="no">x</span>)
-    },
-    <span class="kw">assignPort</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">x</span>){
-      <span class="kw pkg">shiny</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observe.html">observe</a></span>({
-        <span class="kw pkg">shiny</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html">isolate</a></span>(<span class="no">x</span>)
-      })
-    },
-    <span class="co"># Other public methods omitted </span>
-  ),
-  <span class="kw">private</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-    <span class="co"># Details omitted</span>
-  )
-)</pre></body></html></div>
+<div class="section level2">
+<h2 id="tidymodulestidymodule-class">
+<code>tidymodules::TidyModule</code> class<a class="anchor" aria-label="anchor" href="#tidymodulestidymodule-class"></a>
+</h2>
+<p>The <code><a href="../reference/TidyModule.html">tidymodules::TidyModule</a></code> class is a R6 class and the
+parent of all <a href="https://tm.r-forge.r-project.org/" class="external-link">tm</a> modules.</p>
+<p>Below is partial code of the <code>TidyModule</code> class for
+illustration purpose. The <code>TidyModule</code> class includes many
+public methods. There are utility functions such as
+<code><a href="../reference/callModules.html">callModules()</a></code>, <code>definePorts()</code>,
+<code>assignPort()</code> as well as functions that need to be
+overwritten such as <code>ui()</code>, <code>server()</code>, etc.</p>
+<p>Unlike conventional Shiny modules in funtional programming style,
+<a href="https://tm.r-forge.r-project.org/" class="external-link">tm</a> encapsulates functions such as ui() and server() as
+methods in a TidyModule class object. Module namespace ID is seamlessly
+managed within the module class for the ui and server. For complete
+technical documentation that includes other methods and fields, see
+<code><a href="../reference/TidyModule.html">?TidyModule</a></code>.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">TidyModule</span> <span class="op">&lt;-</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6Class</a></span><span class="op">(</span></span>
+<span>  <span class="st">"TidyModule"</span>,</span>
+<span>  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    module_ns <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    parent_ns <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    parent_mod <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    parent_ports <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    group <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    created <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    o <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    i <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">inherit</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">group</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="co"># details omitted</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    <span class="co"># Other methods such</span></span>
+<span>    ui <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    server <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>,</span>
+<span>                      <span class="va">output</span>,</span>
+<span>                      <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="co"># Need to isolate this block to avoid unecessary triggers</span></span>
+<span>      <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>        <span class="va">private</span><span class="op">$</span><span class="va">shiny_session</span> <span class="op">&lt;-</span> <span class="va">session</span></span>
+<span>        <span class="va">private</span><span class="op">$</span><span class="va">shiny_input</span> <span class="op">&lt;-</span> <span class="va">input</span></span>
+<span>        <span class="va">private</span><span class="op">$</span><span class="va">shiny_output</span> <span class="op">&lt;-</span> <span class="va">output</span></span>
+<span>      <span class="op">}</span><span class="op">)</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    definePort <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    assignPort <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/observe.html" class="external-link">observe</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>        <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>      <span class="op">}</span><span class="op">)</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    <span class="co"># Other public methods omitted</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  private <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="co"># Details omitted</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="writing-your-first-tm-module" class="section level2">
-<h2 class="hasAnchor">
-<a href="#writing-your-first-tm-module" class="anchor"></a>Writing your first <code>{tm}</code> module</h2>
-<p>You can develop new <code>{tm}</code> modules by inheriting and extending the <code><a href="../reference/TidyModule.html">tidymodules::TidyModule</a></code> class.</p>
-<p>Below is a minimal example, <code>RandomNumberGenerator</code>, defined with one input port and one output port. The input port is a random number seed that feeds into a random number generator, whose result serves as the module output.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># Module definition</span>
-<span class="no">RandomNumMod</span> <span class="kw">&lt;-</span> <span class="kw pkg">R6</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/R6/man/R6Class.html">R6Class</a></span>(
-  <span class="st">"RandomNumGenerator"</span>,
-  <span class="kw">inherit</span> <span class="kw">=</span> <span class="kw pkg">tidymodules</span><span class="kw ns">::</span><span class="no"><a href="../reference/TidyModule.html">TidyModule</a></span>,
-  <span class="kw">public</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-    <span class="kw">initialize</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">id</span> <span class="kw">=</span> <span class="kw">NULL</span>){
-      <span class="no">super</span>$<span class="fu">initialize</span>(<span class="no">id</span>)
-
-      <span class="no">self</span>$<span class="fu">definePort</span>({
-        <span class="no">self</span>$<span class="fu">addInputPort</span>(
-          <span class="kw">name</span> <span class="kw">=</span> <span class="st">"seed"</span>,
-          <span class="kw">description</span> <span class="kw">=</span> <span class="st">"random number seed"</span>,
-          <span class="kw">sample</span> <span class="kw">=</span> <span class="fl">123</span>)
-
-        <span class="no">self</span>$<span class="fu">addOutputPort</span>(
-          <span class="kw">name</span> <span class="kw">=</span> <span class="st">"number"</span>,
-          <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Random number"</span>,
-          <span class="kw">sample</span> <span class="kw">=</span> <span class="fl">123</span>)
-      })
-    },
-    <span class="kw">ui</span> <span class="kw">=</span> <span class="kw">function</span>(){
-      <span class="fu">tagList</span>(
-        <span class="fu">verbatimTextOutput</span>(<span class="no">self</span>$<span class="fu">ns</span>(<span class="st">"text"</span>))
-      )
-    },
-    <span class="kw">server</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">input</span>, <span class="no">output</span>, <span class="no">session</span>){
-
-      <span class="no">super</span>$<span class="fu">server</span>(<span class="no">input</span>,<span class="no">output</span>,<span class="no">session</span>)
-
-      <span class="no">result</span> <span class="kw">&lt;-</span> <span class="fu">reactive</span>({
-        <span class="no">s</span> <span class="kw">&lt;-</span> <span class="no">self</span>$<span class="fu">getInput</span>(<span class="st">"seed"</span>)
-        <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fu">s</span>())
-        <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">1</span>)*<span class="fl">1e5</span>)
-      })
-
-      <span class="no">output</span>$<span class="no">text</span> <span class="kw">&lt;-</span> <span class="fu">renderPrint</span>({
-        <span class="no">s</span> <span class="kw">&lt;-</span> <span class="no">self</span>$<span class="fu">getInput</span>(<span class="st">"seed"</span>)
-        <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"seed = "</span>, <span class="fu">s</span>()))
-        <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"number = "</span>, <span class="fu">result</span>()))
-      })
-
-      <span class="no">self</span>$<span class="fu">assignPort</span>({
-        <span class="no">self</span>$<span class="fu">updateOutputPort</span>(
-          <span class="kw">id</span> <span class="kw">=</span> <span class="st">"number"</span>,
-          <span class="kw">output</span> <span class="kw">=</span> <span class="no">result</span>)
-      })
-      <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">result</span>)
-    }
-  )
-)</pre></body></html></div>
-<p>Cross-communication between two <code>{tm}</code> modules is established using several flavours of the pipe <code>%&gt;%</code> operator, as illustrated in the following code. The first module’s output is fed as the random number seed for the second module.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co">## Calling app</span>
-<span class="no">randomNumMod1</span> <span class="kw">&lt;-</span> <span class="no">RandomNumMod</span>$<span class="fu">new</span>()
-<span class="no">randomNumMod2</span> <span class="kw">&lt;-</span> <span class="no">RandomNumMod</span>$<span class="fu">new</span>()
-
-<span class="no">ui</span> <span class="kw">&lt;-</span> <span class="fu">tagList</span>(
-  <span class="fu">fluidPage</span>(
-    <span class="no">randomNumMod1</span>$<span class="fu">ui</span>(),
-    <span class="no">randomNumMod2</span>$<span class="fu">ui</span>()
-  )
-)
-<span class="no">server</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">input</span>, <span class="no">output</span>, <span class="no">session</span>) {
-
-  <span class="no">randomNumMod1</span>$<span class="fu">callModule</span>()
-  <span class="no">randomNumMod2</span>$<span class="fu">callModule</span>()
-
-  <span class="no">seed_1</span> <span class="kw">&lt;-</span> <span class="fu">reactive</span>(<span class="fl">123</span>)
-
-  <span class="fu">observe</span>({
-    <span class="no">seed_1</span> <span class="kw">%&gt;1%</span> <span class="no">randomNumMod1</span> <span class="kw">%1&gt;1%</span> <span class="no">randomNumMod2</span>
-  })
-}
-
-<span class="fu">shinyApp</span>(<span class="kw">ui</span> <span class="kw">=</span> <span class="no">ui</span>, <span class="kw">server</span> <span class="kw">=</span> <span class="no">server</span>)</pre></body></html></div>
+<div class="section level2">
+<h2 id="writing-your-first-tm-module">Writing your first <code>{tm}</code> module<a class="anchor" aria-label="anchor" href="#writing-your-first-tm-module"></a>
+</h2>
+<p>You can develop new <a href="https://tm.r-forge.r-project.org/" class="external-link">tm</a> modules by inheriting and
+extending the <code><a href="../reference/TidyModule.html">tidymodules::TidyModule</a></code> class.</p>
+<p>Below is a minimal example, <code>RandomNumberGenerator</code>,
+defined with one input port and one output port. The input port is a
+random number seed that feeds into a random number generator, whose
+result serves as the module output.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Module definition</span></span>
+<span><span class="va">RandomNumMod</span> <span class="op">&lt;-</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6Class</a></span><span class="op">(</span></span>
+<span>  <span class="st">"RandomNumGenerator"</span>,</span>
+<span>  inherit <span class="op">=</span> <span class="fu">tidymodules</span><span class="fu">::</span><span class="va"><a href="../reference/TidyModule.html">TidyModule</a></span>,</span>
+<span>  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">super</span><span class="op">$</span><span class="fu">initialize</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>      <span class="va">self</span><span class="op">$</span><span class="fu">definePort</span><span class="op">(</span><span class="op">{</span></span>
+<span>        <span class="va">self</span><span class="op">$</span><span class="fu">addInputPort</span><span class="op">(</span></span>
+<span>          name <span class="op">=</span> <span class="st">"seed"</span>,</span>
+<span>          description <span class="op">=</span> <span class="st">"random number seed"</span>,</span>
+<span>          sample <span class="op">=</span> <span class="fl">123</span></span>
+<span>        <span class="op">)</span></span>
+<span></span>
+<span>        <span class="va">self</span><span class="op">$</span><span class="fu">addOutputPort</span><span class="op">(</span></span>
+<span>          name <span class="op">=</span> <span class="st">"number"</span>,</span>
+<span>          description <span class="op">=</span> <span class="st">"Random number"</span>,</span>
+<span>          sample <span class="op">=</span> <span class="fl">123</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">}</span><span class="op">)</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    ui <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu">tagList</span><span class="op">(</span></span>
+<span>        <span class="fu">verbatimTextOutput</span><span class="op">(</span><span class="va">self</span><span class="op">$</span><span class="fu">ns</span><span class="op">(</span><span class="st">"text"</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">}</span>,</span>
+<span>    server <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">super</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span></span>
+<span></span>
+<span>      <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">reactive</span><span class="op">(</span><span class="op">{</span></span>
+<span>        <span class="va">s</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="fu">getInput</span><span class="op">(</span><span class="st">"seed"</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fu">s</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1e5</span><span class="op">)</span></span>
+<span>      <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>      <span class="va">output</span><span class="op">$</span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu">renderPrint</span><span class="op">(</span><span class="op">{</span></span>
+<span>        <span class="va">s</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="fu">getInput</span><span class="op">(</span><span class="st">"seed"</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"seed = "</span>, <span class="fu">s</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"number = "</span>, <span class="fu">result</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>      <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>      <span class="va">self</span><span class="op">$</span><span class="fu">assignPort</span><span class="op">(</span><span class="op">{</span></span>
+<span>        <span class="va">self</span><span class="op">$</span><span class="fu">updateOutputPort</span><span class="op">(</span></span>
+<span>          id <span class="op">=</span> <span class="st">"number"</span>,</span>
+<span>          output <span class="op">=</span> <span class="va">result</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">}</span><span class="op">)</span></span>
+<span>      <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Cross-communication between two <a href="https://tm.r-forge.r-project.org/" class="external-link">tm</a> modules is
+established using several flavours of the pipe <code>%&gt;%</code>
+operator, as illustrated in the following code. The first module’s
+output is fed as the random number seed for the second module.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Calling app</span></span>
+<span><span class="va">randomNumMod1</span> <span class="op">&lt;-</span> <span class="va">RandomNumMod</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">randomNumMod2</span> <span class="op">&lt;-</span> <span class="va">RandomNumMod</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">tagList</span><span class="op">(</span></span>
+<span>  <span class="fu">fluidPage</span><span class="op">(</span></span>
+<span>    <span class="va">randomNumMod1</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="va">randomNumMod2</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">randomNumMod1</span><span class="op">$</span><span class="fu">callModule</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="va">randomNumMod2</span><span class="op">$</span><span class="fu">callModule</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">seed_1</span> <span class="op">&lt;-</span> <span class="fu">reactive</span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">observe</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">seed_1</span> <span class="op"><a href="../reference/grapes-greater-than-y-grapes.html">%&gt;1%</a></span> <span class="va">randomNumMod1</span> <span class="op"><a href="../reference/grapes-x-greater-than-y-grapes.html">%1&gt;1%</a></span> <span class="va">randomNumMod2</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="next-steps" class="section level2">
-<h2 class="hasAnchor">
-<a href="#next-steps" class="anchor"></a>Next steps</h2>
-<p>To learn more about writing <code>{tm}</code> modules, read the examples.</p>
+<div class="section level2">
+<h2 id="next-steps">Next steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>
+</h2>
+<p>To learn more about writing <a href="https://tm.r-forge.r-project.org/" class="external-link">tm</a> modules, read the
+examples.</p>
 </div>
   </div>
 
@@ -346,11 +412,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Mustapha Larbaoui.</p>
+  <p></p>
+<p>Developed by Mustapha Larbaoui.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -358,6 +426,8 @@
 
   
 
+
+  
 
   </body>
 </html>

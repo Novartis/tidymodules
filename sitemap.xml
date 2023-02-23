@@ -1,144 +1,171 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//index.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/404.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/ModStore.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/Store.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/TidyModule.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/articles/communication.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/UtilityModule.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/add_module.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/articles/inheritance.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/add_tm_snippets.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/articles/intro.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/callModules.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/articles/namespace.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/check_and_load.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/articles/session.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/combine_ports.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/articles/tidymodules.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/defineEdges.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/authors.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/getCacheOption.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/index.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/getMod.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/news/index.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/getSessionId.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/ModStore.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/get_R6CG_list.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/Store.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/global_options.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/TidyModule.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/grapes-colon-greater-than-colon-grapes.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/UtilityModule.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/grapes-colon-greater-than-greater-than-colon-grapes.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/add_module.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/grapes-colon-i-colon-grapes.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/add_tm_snippets.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/grapes-greater-than-grapes.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/callModules.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/grapes-greater-than-greater-than-grapes.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/check_and_load.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/grapes-greater-than-greater-than-y-grapes.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/combine_ports.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/grapes-greater-than-y-grapes.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/defineEdges.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/grapes-x-greater-than-greater-than-y-grapes.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/getCacheOption.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/grapes-x-greater-than-y-grapes.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/getMod.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/grapes-x-less-than-less-than-y-grapes.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/getSessionId.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/grapes-x-less-than-y-grapes.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/get_R6CG_list.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/iport.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/global_options.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/listModules.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-colon-c-greater-than-colon-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/make_double_pipe.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-colon-greater-than-colon-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/make_single_pipe.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-colon-greater-than-greater-than-colon-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/map_ports.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-colon-i-colon-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/mod.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-colon-pi-colon-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/multi_port_map.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-greater-than-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/oport.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-greater-than-greater-than-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/port.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-greater-than-greater-than-y-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/port_map.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-greater-than-y-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/race_ports.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-x-greater-than-greater-than-y-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/session_type.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-x-greater-than-y-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/showExamples.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-x-less-than-less-than-y-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//reference/tidymodules-package.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/grapes-x-less-than-y-grapes.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//articles/communication.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//articles/inheritance.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/iport.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//articles/intro.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/listModules.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//articles/namespace.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/make_double_pipe.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//articles/session.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/make_single_pipe.html</loc>
   </url>
   <url>
-    <loc>https://opensource.nibr.com/tidymodules//articles/tidymodules.html</loc>
+    <loc>https://opensource.nibr.com/tidymodules/reference/map_ports.html</loc>
+  </url>
+  <url>
+    <loc>https://opensource.nibr.com/tidymodules/reference/mod.html</loc>
+  </url>
+  <url>
+    <loc>https://opensource.nibr.com/tidymodules/reference/multi_port_map.html</loc>
+  </url>
+  <url>
+    <loc>https://opensource.nibr.com/tidymodules/reference/oport.html</loc>
+  </url>
+  <url>
+    <loc>https://opensource.nibr.com/tidymodules/reference/port.html</loc>
+  </url>
+  <url>
+    <loc>https://opensource.nibr.com/tidymodules/reference/port_map.html</loc>
+  </url>
+  <url>
+    <loc>https://opensource.nibr.com/tidymodules/reference/race_ports.html</loc>
+  </url>
+  <url>
+    <loc>https://opensource.nibr.com/tidymodules/reference/session_type.html</loc>
+  </url>
+  <url>
+    <loc>https://opensource.nibr.com/tidymodules/reference/showExamples.html</loc>
+  </url>
+  <url>
+    <loc>https://opensource.nibr.com/tidymodules/reference/tidymodules-package.html</loc>
   </url>
 </urlset>
